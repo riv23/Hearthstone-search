@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+    <cron>
+        <url>/check</url>
+        <description>Repopulate indexes every weeks</description>
+        <schedule>every monday 00:00</schedule>
+        <timezone>"Europe/Paris"</timezone>
+    </cron>
+</cronentries>
