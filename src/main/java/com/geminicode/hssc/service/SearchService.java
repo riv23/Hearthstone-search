@@ -63,7 +63,9 @@ public class SearchService {
 
 		for (ScoredDocument document : results) {
 			final Iterable<Field> fields = document.getFields();
-			cards.add(generateCardFromField(fields));
+			final Card card = generateCardFromField(fields);
+			card.setId(document.getId());
+			cards.add(card);
 		}
 
 		return cards;
@@ -114,9 +116,6 @@ public class SearchService {
 		final Card card = new Card();
 
 		for (Field field : fields) {
-			if ("id".equals(field.getName())) {
-				card.setId(field.getName());
-			}
 			if ("name".equals(field.getName())) {
 				card.setName(field.getText());
 			}
