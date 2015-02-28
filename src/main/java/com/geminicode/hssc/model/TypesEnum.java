@@ -15,7 +15,7 @@ public enum TypesEnum {
 		this.type = type;
 	}
 
-	public String getType() {
+	public String getName() {
 		return this.type;
 	}
 

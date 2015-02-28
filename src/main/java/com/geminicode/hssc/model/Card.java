@@ -1,22 +1,22 @@
 package com.geminicode.hssc.model;
 
 public class Card {
-	private String id;
-	private String name;
-	private String image;
-	private String type;
-	private String text;
-	private String playerClass;
-	private String faction;
-	private String rarity;
-	private String cost;
-	private String attack;
-	private String health;
-	private String flavor;
-	private String artist;
-	private String collectible;
-	private String race;
-	private String howToGetGold;
+	private String id = "";
+	private String name = "";
+	private String image = "";
+	private String type = "";
+	private String text = "";
+	private String playerClass = "";
+	private String faction = "";
+	private String rarity = "";
+	private String cost = "";
+	private String attack = "";
+	private String health = "";
+	private String flavor = "";
+	private String artist = "";
+	private String collectible = "";
+	private String race = "";
+	private String howToGetGold = "";
 	private String[] mechanics;
 
 	public String getId() {
