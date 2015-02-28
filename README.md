@@ -1,24 +1,17 @@
-App Engine Java Guestbook
-Copyright (C) 2010-2012 Google Inc.
+Hearthstone Search Engine
+Search engine to quickly and easily seach Hearthstone game cards.
 
-## Sample guestbook for use with App Engine Java.
+Cards are automatically retrieved through the API [hearthstonejson](http://hearthstonejson.com).
 
-Requires [Apache Maven](http://maven.apache.org) 3.1 or greater, and JDK 7+ in order to run.
+All cards (text and images ) are the intellectual property of Blizzard Inc.
 
-To build, run
+## Use API
 
-    mvn package
+The API is very simple to use.
+The pattern of the url is: <base_url>/api/search?q=<your_query>, replace <your_query> by a Google search api valid request.
 
-Building will run the tests, but to explicitly run tests you can use the test target
-
-    mvn test
+## Run local
 
 To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/appengine-maven-plugin/) that is already included in this demo.  Just run the command.
 
     mvn appengine:devserver
-
-For further information, consult the [Java App Engine](https://developers.google.com/appengine/docs/java/overview) documentation.
-
-To see all the available goals for the App Engine plugin, run
-
-    mvn help:describe -Dplugin=appengine
