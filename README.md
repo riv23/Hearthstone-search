@@ -8,7 +8,7 @@ All cards (text and images ) are the intellectual property of Blizzard Inc.
 ## Use API
 
 The API is very simple to use.
-The pattern of the url is: <base_url>/api/search?q=<your_query>, replace <your_query> by a Google search api valid request.
+The pattern of the url is: /api/search?q=, q is a valid Google search api request.
 
 ## Run local
 
