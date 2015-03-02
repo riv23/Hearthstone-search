@@ -1,13 +1,13 @@
 package com.geminicode.hssc.service.impl;
 
 import com.geminicode.hssc.model.Card;
-import com.geminicode.hssc.service.CardDatastoreService;
+import com.geminicode.hssc.service.CardDataStoreService;
 import com.geminicode.hssc.service.OfyServiceImpl;
 import com.googlecode.objectify.Key;
 
 import java.util.List;
 
-public class CardDatastoreServiceImpl implements CardDatastoreService{
+public class CardDataStoreServiceImpl implements CardDataStoreService {
 
     @Override
     public void putIntoDataStore(List<Card> basics) {

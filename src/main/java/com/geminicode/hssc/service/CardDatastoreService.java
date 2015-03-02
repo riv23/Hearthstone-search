@@ -4,7 +4,7 @@ import com.geminicode.hssc.model.Card;
 
 import java.util.List;
 
-public interface CardDatastoreService {
+public interface CardDataStoreService {
     void putIntoDataStore(List<Card> basics);
     Card getCard(String idCard);
 }

@@ -1,14 +1,14 @@
 package com.geminicode.hssc.utils;
 
-import com.geminicode.hssc.service.CardDatastoreService;
+import com.geminicode.hssc.service.CardDataStoreService;
 import com.geminicode.hssc.service.SearchApiService;
-import com.geminicode.hssc.service.impl.CardDatastoreServiceImpl;
+import com.geminicode.hssc.service.impl.CardDataStoreServiceImpl;
 import com.geminicode.hssc.service.impl.SearchApiServiceImpl;
 
 public class ServiceFactory {
     private static ServiceFactory instance = null;
 
-    private CardDatastoreService cardDatastoreService;
+    private CardDataStoreService cardDataStoreService;
     private SearchApiService searchApiService;
 
     private ServiceFactory() {
@@ -26,11 +26,11 @@ public class ServiceFactory {
         return instance;
     }
 
-    public CardDatastoreService getCardDatastoreService() {
-        if (cardDatastoreService == null) {
-            cardDatastoreService = new CardDatastoreServiceImpl();
+    public CardDataStoreService getCardDataStoreService() {
+        if (cardDataStoreService == null) {
+            cardDataStoreService = new CardDataStoreServiceImpl();
         }
-        return cardDatastoreService;
+        return cardDataStoreService;
     }
 
     public SearchApiService getSearchApiService() {

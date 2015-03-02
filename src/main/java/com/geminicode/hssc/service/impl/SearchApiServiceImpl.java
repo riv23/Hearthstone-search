@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
-import com.geminicode.hssc.service.CardDatastoreService;
+import com.geminicode.hssc.service.CardDataStoreService;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.utils.ServiceFactory;
 import com.google.appengine.api.search.*;
@@ -20,7 +20,7 @@ public class SearchApiServiceImpl implements SearchApiService {
 	private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
 	public static final String CARDS = "cards";
 
-    private final CardDatastoreService cardDatastoreService = ServiceFactory.get().getCardDatastoreService();
+    private final CardDataStoreService cardDataStoreService = ServiceFactory.get().getCardDataStoreService();
 
 	public void addToSearch(CardType cardType, TypesEnum type) {
 
@@ -32,35 +32,35 @@ public class SearchApiServiceImpl implements SearchApiService {
 				LOGGER.info("There are " + basics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
                 buildUrl(basics);
 				putIntoSearch(basics);
-                cardDatastoreService.putIntoDataStore(basics);
+                cardDataStoreService.putIntoDataStore(basics);
                 break;
 			case CLASSIC:
 				final List<Card> classics = cardType.getClassic();
 				LOGGER.info("There are " + classics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
                 buildUrl(classics);
 				putIntoSearch(classics);
-                cardDatastoreService. putIntoDataStore(classics);
+                cardDataStoreService. putIntoDataStore(classics);
 				break;
 			case CURSE_OF_NAXXRAMAS:
 				final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
 				LOGGER.info("There are " + curseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName() + " cards.");
                 buildUrl(curseOfNaxxramass);
 				putIntoSearch(curseOfNaxxramass);
-                cardDatastoreService.putIntoDataStore(curseOfNaxxramass);
+                cardDataStoreService.putIntoDataStore(curseOfNaxxramass);
 				break;
 			case GOBLINS_VS_GNOMES:
 				final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
 				LOGGER.info("There are " + gobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName() + " cards.");
                 buildUrl(gobelinsVsGnomes);
 				putIntoSearch(gobelinsVsGnomes);
-                cardDatastoreService.putIntoDataStore(gobelinsVsGnomes);
+                cardDataStoreService.putIntoDataStore(gobelinsVsGnomes);
 				break;
 			case PROMOTION:
 				final List<Card> promotions = cardType.getPromotions();
 				LOGGER.info("There are " + promotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 buildUrl(promotions);
 				putIntoSearch(promotions);
-                cardDatastoreService.putIntoDataStore(promotions);
+                cardDataStoreService.putIntoDataStore(promotions);
 				break;
 			default:
 				break;
