@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/GeminiCode/Hearthstone-Search-Engine.svg?branch=master)](https://travis-ci.org/GeminiCode/Hearthstone-Search-Engine)
 Hearthstone Search Engine
 Search engine to quickly and easily seach Hearthstone game cards.
 
