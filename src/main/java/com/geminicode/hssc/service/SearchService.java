@@ -27,40 +27,48 @@ public class SearchService {
 			case BASIC:
 				final List<Card> basics = cardType.getBasic();
 				LOGGER.info("There are " + basics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
+                buildUrl(basics);
 				putIntoSearch(basics);
                 cardDataStoreService.putIntoDataStore(basics);
                 break;
 			case CLASSIC:
 				final List<Card> classics = cardType.getClassic();
 				LOGGER.info("There are " + classics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
+                buildUrl(classics);
 				putIntoSearch(classics);
                 cardDataStoreService. putIntoDataStore(classics);
 				break;
 			case CURSE_OF_NAXXRAMAS:
 				final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
 				LOGGER.info("There are " + curseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName() + " cards.");
+                buildUrl(curseOfNaxxramass);
 				putIntoSearch(curseOfNaxxramass);
                 cardDataStoreService.putIntoDataStore(curseOfNaxxramass);
 				break;
 			case GOBLINS_VS_GNOMES:
 				final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
 				LOGGER.info("There are " + gobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName() + " cards.");
+                buildUrl(gobelinsVsGnomes);
 				putIntoSearch(gobelinsVsGnomes);
                 cardDataStoreService.putIntoDataStore(gobelinsVsGnomes);
 				break;
 			case PROMOTION:
 				final List<Card> promotions = cardType.getPromotions();
 				LOGGER.info("There are " + promotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
+                buildUrl(promotions);
 				putIntoSearch(promotions);
                 cardDataStoreService.putIntoDataStore(promotions);
 				break;
 			default:
 				break;
-
 		}
-
-
 	}
+
+    private void buildUrl(List<Card> basics) {
+        for (Card basic : basics) {
+            basic.setImage(BASE_URL_IMAGE + basic.getId() + PNG);
+        }
+    }
 
     public List<Card> search(String query) throws SearchException {
 		final List<Card> cards = Lists.newArrayList();
@@ -90,24 +98,24 @@ public class SearchService {
 		cal.setTime(new Date());
 		final int week = cal.get(Calendar.WEEK_OF_YEAR);
 
-		for (Card basic : cards) {
-			final String docId = basic.getId();
+		for (Card card : cards) {
+			final String docId = card.getId();
 			final Document doc = Document.newBuilder()
 					.setId(docId)
-					.addField(Field.newBuilder().setName("name").setText(basic.getName())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("name").setText(card.getName())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("version").setNumber(week)).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("type").setText(basic.getType())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("image").setText(buildUrl(basic.getId()))).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("playerClass").setText(basic.getPlayerClass())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("faction").setText(basic.getFaction())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("rarity").setText(basic.getRarity())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("cost").setText(basic.getCost())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("attack").setText(basic.getAttack())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("health").setText(basic.getHealth())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("collectible").setText(basic.getCollectible())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("race").setText(basic.getRace())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("howToGetGold").setText(basic.getHowToGetGold())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("mechanics").setText(buildMechanics(basic))).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("type").setText(card.getType())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("image").setText(card.getImage())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("playerClass").setText(card.getPlayerClass())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("faction").setText(card.getFaction())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("rarity").setText(card.getRarity())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("cost").setText(card.getCost())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("attack").setText(card.getAttack())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("health").setText(card.getHealth())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("collectible").setText(card.getCollectible())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("race").setText(card.getRace())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("howToGetGold").setText(card.getHowToGetGold())).setLocale(Locale.FRENCH)
+					.addField(Field.newBuilder().setName("mechanics").setText(card.getMechanics())).setLocale(Locale.FRENCH)
 					.build();
 
 			IndexADocument(CARDS, doc);
@@ -157,8 +165,7 @@ public class SearchService {
 				card.setHowToGetGold(field.getText());
 			}
 			if("mechanics".equals(field.getName())) {
-				//TODO review
-				card.setMechanics(new String[]{field.getText()});
+				card.setMechanics(field.getText());
 			}
 
 		}
@@ -172,15 +179,4 @@ public class SearchService {
 		index.put(document);
 	}
 
-	private String buildUrl(String id) {
-		return BASE_URL_IMAGE + id + PNG;
-	}
-
-
-	private String buildMechanics(Card basic) {
-		if (basic.getMechanics() == null) {
-			return "";
-		}
-		return Arrays.toString(basic.getMechanics());
-	}
 }
