@@ -115,8 +115,8 @@ public class SearchService {
 					.addField(Field.newBuilder().setName("collectible").setText(card.getCollectible())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("race").setText(card.getRace())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("howToGetGold").setText(card.getHowToGetGold())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("mechanics").setText(card.getMechanics())).setLocale(Locale.FRENCH)
-					.build();
+					.addField(Field.newBuilder().setName("mechanics").setText(Arrays.toString(card.getMechanics()))).setLocale(Locale.FRENCH)
+                            .build();
 
 			IndexADocument(CARDS, doc);
 
@@ -165,7 +165,8 @@ public class SearchService {
 				card.setHowToGetGold(field.getText());
 			}
 			if("mechanics".equals(field.getName())) {
-				card.setMechanics(field.getText());
+                //TODO review
+				card.setMechanics(new String[]{field.getText()});
 			}
 
 		}

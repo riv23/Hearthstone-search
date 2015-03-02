@@ -40,7 +40,7 @@ public class Card {
 
     private String howToGetGold = "";
 
-    private String mechanics = "";
+    private String[] mechanics;
 
     public String getId() {
         return id;
@@ -170,11 +170,11 @@ public class Card {
         this.howToGetGold = howToGetGold;
     }
 
-    public String getMechanics() {
+    public String[] getMechanics() {
         return mechanics;
     }
 
-    public void setMechanics(String mechanics) {
+    public void setMechanics(String[] mechanics) {
         this.mechanics = mechanics;
     }
 }
