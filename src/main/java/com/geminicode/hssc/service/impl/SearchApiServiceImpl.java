@@ -1,23 +1,26 @@
-package com.geminicode.hssc.service;
-
-import com.geminicode.hssc.model.Card;
-import com.geminicode.hssc.model.CardType;
-import com.geminicode.hssc.model.TypesEnum;
-import com.google.appengine.api.search.*;
-import com.google.common.collect.Lists;
+package com.geminicode.hssc.service.impl;
 
 import java.util.*;
 import java.util.logging.Logger;
 
-public class SearchService {
+import com.geminicode.hssc.model.Card;
+import com.geminicode.hssc.model.CardType;
+import com.geminicode.hssc.model.TypesEnum;
+import com.geminicode.hssc.service.CardDatastoreService;
+import com.geminicode.hssc.service.SearchApiService;
+import com.geminicode.hssc.utils.ServiceFactory;
+import com.google.appengine.api.search.*;
+import com.google.common.collect.Lists;
+
+public class SearchApiServiceImpl implements SearchApiService {
 
 	public static final String BASE_URL_IMAGE = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/";
 	public static final String PNG = ".png";
 
-	private static final Logger LOGGER = Logger.getLogger(SearchService.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
 	public static final String CARDS = "cards";
 
-    public final CardDataStoreService cardDataStoreService = new CardDataStoreService();
+    private final CardDatastoreService cardDatastoreService = ServiceFactory.get().getCardDatastoreService();
 
 	public void addToSearch(CardType cardType, TypesEnum type) {
 
@@ -29,35 +32,35 @@ public class SearchService {
 				LOGGER.info("There are " + basics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
                 buildUrl(basics);
 				putIntoSearch(basics);
-                cardDataStoreService.putIntoDataStore(basics);
+                cardDatastoreService.putIntoDataStore(basics);
                 break;
 			case CLASSIC:
 				final List<Card> classics = cardType.getClassic();
 				LOGGER.info("There are " + classics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
                 buildUrl(classics);
 				putIntoSearch(classics);
-                cardDataStoreService. putIntoDataStore(classics);
+                cardDatastoreService. putIntoDataStore(classics);
 				break;
 			case CURSE_OF_NAXXRAMAS:
 				final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
 				LOGGER.info("There are " + curseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName() + " cards.");
                 buildUrl(curseOfNaxxramass);
 				putIntoSearch(curseOfNaxxramass);
-                cardDataStoreService.putIntoDataStore(curseOfNaxxramass);
+                cardDatastoreService.putIntoDataStore(curseOfNaxxramass);
 				break;
 			case GOBLINS_VS_GNOMES:
 				final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
 				LOGGER.info("There are " + gobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName() + " cards.");
                 buildUrl(gobelinsVsGnomes);
 				putIntoSearch(gobelinsVsGnomes);
-                cardDataStoreService.putIntoDataStore(gobelinsVsGnomes);
+                cardDatastoreService.putIntoDataStore(gobelinsVsGnomes);
 				break;
 			case PROMOTION:
 				final List<Card> promotions = cardType.getPromotions();
 				LOGGER.info("There are " + promotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 buildUrl(promotions);
 				putIntoSearch(promotions);
-                cardDataStoreService.putIntoDataStore(promotions);
+                cardDatastoreService.putIntoDataStore(promotions);
 				break;
 			default:
 				break;

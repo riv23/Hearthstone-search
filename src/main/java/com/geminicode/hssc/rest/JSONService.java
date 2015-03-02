@@ -1,8 +1,9 @@
 package com.geminicode.hssc.rest;
 
 import com.geminicode.hssc.model.Card;
-import com.geminicode.hssc.service.CardDataStoreService;
-import com.geminicode.hssc.service.SearchService;
+import com.geminicode.hssc.service.SearchApiService;
+import com.geminicode.hssc.service.impl.CardDatastoreServiceImpl;
+import com.geminicode.hssc.utils.ServiceFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -11,18 +12,19 @@ import java.util.List;
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class JSONService {
-	private final SearchService searchService = new SearchService();
-    private final CardDataStoreService cardDataStoreService = new CardDataStoreService();
+
+    private final SearchApiService searchApiService = ServiceFactory.get().getSearchApiService();
+    private final CardDatastoreServiceImpl cardDataStoreServiceImpl = new CardDatastoreServiceImpl();
 
 	@GET
 	@Path("/search")
 	public List<Card> doQuery(@QueryParam("q") String query) {
-		return searchService.search(query);
+		return searchApiService.search(query);
 	}
 
     @GET
     @Path("/card/{id}")
     public Card getCard(@PathParam("id") String cardId) {
-        return cardDataStoreService.getCard(cardId);
+        return cardDataStoreServiceImpl.getCard(cardId);
     }
 }

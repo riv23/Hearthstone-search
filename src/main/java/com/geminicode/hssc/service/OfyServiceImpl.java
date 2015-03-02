@@ -5,13 +5,13 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 
-public class OfyService {
+public class OfyServiceImpl {
 
     static {
         factory().register(Card.class);
     }
 
-    private OfyService() {
+    private OfyServiceImpl() {
     }
 
     public static Objectify ofy() {
