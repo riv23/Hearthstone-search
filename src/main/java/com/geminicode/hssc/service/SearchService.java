@@ -17,6 +17,8 @@ public class SearchService {
 	private static final Logger LOGGER = Logger.getLogger(SearchService.class.getName());
 	public static final String CARDS = "cards";
 
+    public final CardDataStoreService cardDataStoreService = new CardDataStoreService();
+
 	public void addToSearch(CardType cardType, TypesEnum type) {
 
 		deleteLastWeekEntries(CARDS);
@@ -26,26 +28,31 @@ public class SearchService {
 				final List<Card> basics = cardType.getBasic();
 				LOGGER.info("There are " + basics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
 				putIntoSearch(basics);
-				break;
+                cardDataStoreService.putIntoDataStore(basics);
+                break;
 			case CLASSIC:
 				final List<Card> classics = cardType.getClassic();
 				LOGGER.info("There are " + classics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
 				putIntoSearch(classics);
+                cardDataStoreService. putIntoDataStore(classics);
 				break;
 			case CURSE_OF_NAXXRAMAS:
 				final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
 				LOGGER.info("There are " + curseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName() + " cards.");
 				putIntoSearch(curseOfNaxxramass);
+                cardDataStoreService.putIntoDataStore(curseOfNaxxramass);
 				break;
 			case GOBLINS_VS_GNOMES:
 				final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
 				LOGGER.info("There are " + gobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName() + " cards.");
 				putIntoSearch(gobelinsVsGnomes);
+                cardDataStoreService.putIntoDataStore(gobelinsVsGnomes);
 				break;
 			case PROMOTION:
 				final List<Card> promotions = cardType.getPromotions();
 				LOGGER.info("There are " + promotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
 				putIntoSearch(promotions);
+                cardDataStoreService.putIntoDataStore(promotions);
 				break;
 			default:
 				break;
@@ -55,7 +62,7 @@ public class SearchService {
 
 	}
 
-	public List<Card> search(String query) throws SearchException {
+    public List<Card> search(String query) throws SearchException {
 		final List<Card> cards = Lists.newArrayList();
 		final IndexSpec indexSpec = IndexSpec.newBuilder().setName(CARDS).build();
 		final Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
@@ -90,7 +97,6 @@ public class SearchService {
 					.addField(Field.newBuilder().setName("name").setText(basic.getName())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("version").setNumber(week)).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("type").setText(basic.getType())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("text").setText(basic.getText())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("image").setText(buildUrl(basic.getId()))).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("playerClass").setText(basic.getPlayerClass())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("faction").setText(basic.getFaction())).setLocale(Locale.FRENCH)
@@ -98,8 +104,6 @@ public class SearchService {
 					.addField(Field.newBuilder().setName("cost").setText(basic.getCost())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("attack").setText(basic.getAttack())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("health").setText(basic.getHealth())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("flavor").setText(basic.getFlavor())).setLocale(Locale.FRENCH)
-					.addField(Field.newBuilder().setName("artist").setText(basic.getArtist())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("collectible").setText(basic.getCollectible())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("race").setText(basic.getRace())).setLocale(Locale.FRENCH)
 					.addField(Field.newBuilder().setName("howToGetGold").setText(basic.getHowToGetGold())).setLocale(Locale.FRENCH)
@@ -125,9 +129,6 @@ public class SearchService {
 			if ("type".equals(field.getName())) {
 				card.setType(field.getText());
 			}
-			if ("text".equals(field.getName())) {
-				card.setText(field.getText());
-			}
 			if ("playerClass".equals(field.getName())) {
 				card.setPlayerClass(field.getText());
 			}
@@ -145,12 +146,6 @@ public class SearchService {
 			}
 			if ("health".equals(field.getName())) {
 				card.setHealth(field.getText());
-			}
-			if ("flavor".equals(field.getName())) {
-				card.setFlavor(field.getText());
-			}
-			if ("artist".equals(field.getName())) {
-				card.setArtist(field.getText());
 			}
 			if ("collectible".equals(field.getName())) {
 				card.setCollectible(field.getText());

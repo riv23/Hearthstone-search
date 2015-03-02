@@ -1,157 +1,180 @@
 package com.geminicode.hssc.model;
 
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+@Cache
+@Entity
 public class Card {
-	private String id = "";
-	private String name = "";
-	private String image = "";
-	private String type = "";
-	private String text = "";
-	private String playerClass = "";
-	private String faction = "";
-	private String rarity = "";
-	private String cost = "";
-	private String attack = "";
-	private String health = "";
-	private String flavor = "";
-	private String artist = "";
-	private String collectible = "";
-	private String race = "";
-	private String howToGetGold = "";
-	private String[] mechanics;
+    @Id
+    private String id = "";
 
-	public String getId() {
-		return id;
-	}
+    private String name = "";
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String image = "";
 
-	public String getName() {
-		return name;
-	}
+    private String type = "";
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String text = "";
 
-	public String getImage() {
-		return image;
-	}
+    private String playerClass = "";
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+    private String faction = "";
 
-	public String getType() {
-		return type;
-	}
+    private String rarity = "";
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    private String cost = "";
 
-	public String getText() {
-		return text;
-	}
+    private String attack = "";
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    private String health = "";
 
-	public String getPlayerClass() {
-		return playerClass;
-	}
+    private String flavor = "";
 
-	public void setPlayerClass(String playerClass) {
-		this.playerClass = playerClass;
-	}
+    private String artist = "";
 
-	public String getFaction() {
-		return faction;
-	}
+    private String collectible = "";
 
-	public void setFaction(String faction) {
-		this.faction = faction;
-	}
+    private String race = "";
 
-	public String getRarity() {
-		return rarity;
-	}
+    private String howToGetGold = "";
 
-	public void setRarity(String rarity) {
-		this.rarity = rarity;
-	}
+    private String[] mechanics;
 
-	public String getCost() {
-		return cost;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setCost(String cost) {
-		this.cost = cost;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getAttack() {
-		return attack;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setAttack(String attack) {
-		this.attack = attack;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getHealth() {
-		return health;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public void setHealth(String health) {
-		this.health = health;
-	}
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-	public String getFlavor() {
-		return flavor;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setFlavor(String flavor) {
-		this.flavor = flavor;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getArtist() {
-		return artist;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public String getCollectible() {
-		return collectible;
-	}
+    public String getPlayerClass() {
+        return playerClass;
+    }
 
-	public void setCollectible(String collectible) {
-		this.collectible = collectible;
-	}
+    public void setPlayerClass(String playerClass) {
+        this.playerClass = playerClass;
+    }
 
-	public String getRace() {
-		return race;
-	}
+    public String getFaction() {
+        return faction;
+    }
 
-	public void setRace(String race) {
-		this.race = race;
-	}
+    public void setFaction(String faction) {
+        this.faction = faction;
+    }
 
-	public String getHowToGetGold() {
-		return howToGetGold;
-	}
+    public String getRarity() {
+        return rarity;
+    }
 
-	public void setHowToGetGold(String howToGetGold) {
-		this.howToGetGold = howToGetGold;
-	}
+    public void setRarity(String rarity) {
+        this.rarity = rarity;
+    }
 
-	public String[] getMechanics() {
-		return mechanics;
-	}
+    public String getCost() {
+        return cost;
+    }
 
-	public void setMechanics(String[] mechanics) {
-		this.mechanics = mechanics;
-	}
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getAttack() {
+        return attack;
+    }
+
+    public void setAttack(String attack) {
+        this.attack = attack;
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public void setHealth(String health) {
+        this.health = health;
+    }
+
+    public String getFlavor() {
+        return flavor;
+    }
+
+    public void setFlavor(String flavor) {
+        this.flavor = flavor;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public String getCollectible() {
+        return collectible;
+    }
+
+    public void setCollectible(String collectible) {
+        this.collectible = collectible;
+    }
+
+    public String getRace() {
+        return race;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
+    }
+
+    public String getHowToGetGold() {
+        return howToGetGold;
+    }
+
+    public void setHowToGetGold(String howToGetGold) {
+        this.howToGetGold = howToGetGold;
+    }
+
+    public String[] getMechanics() {
+        return mechanics;
+    }
+
+    public void setMechanics(String[] mechanics) {
+        this.mechanics = mechanics;
+    }
 }
