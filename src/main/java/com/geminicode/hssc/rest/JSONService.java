@@ -1,6 +1,7 @@
 package com.geminicode.hssc.rest;
 
 import com.geminicode.hssc.model.Card;
+import com.geminicode.hssc.service.CardDatastoreService;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.service.impl.CardDatastoreServiceImpl;
 import com.geminicode.hssc.utils.ServiceFactory;
@@ -14,7 +15,7 @@ import java.util.List;
 public class JSONService {
 
     private final SearchApiService searchApiService = ServiceFactory.get().getSearchApiService();
-    private final CardDatastoreServiceImpl cardDataStoreServiceImpl = new CardDatastoreServiceImpl();
+    private final CardDatastoreService cardDatastoreService = ServiceFactory.get().getCardDatastoreService();
 
 	@GET
 	@Path("/search")
@@ -25,6 +26,6 @@ public class JSONService {
     @GET
     @Path("/card/{id}")
     public Card getCard(@PathParam("id") String cardId) {
-        return cardDataStoreServiceImpl.getCard(cardId);
+        return cardDatastoreService.getCard(cardId);
     }
 }
