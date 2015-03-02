@@ -3,7 +3,7 @@
     <cron>
         <url>/check</url>
         <description>Repopulate indexes every weeks</description>
-        <schedule>every monday 00:00</schedule>
+        <schedule>every day 00:00</schedule>
         <timezone>"Europe/Paris"</timezone>
     </cron>
 </cronentries>
