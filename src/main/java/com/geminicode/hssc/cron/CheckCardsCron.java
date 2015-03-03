@@ -1,19 +1,20 @@
 package com.geminicode.hssc.cron;
 
-import com.geminicode.hssc.model.CardType;
-import com.geminicode.hssc.model.TypesEnum;
-import com.geminicode.hssc.service.SearchApiService;
-import com.geminicode.hssc.utils.ServiceFactory;
-import com.google.gson.Gson;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
+
+import com.geminicode.hssc.model.CardType;
+import com.geminicode.hssc.model.TypesEnum;
+import com.geminicode.hssc.service.SearchApiService;
+import com.geminicode.hssc.utils.ServiceFactory;
+import com.google.gson.Gson;
 
 public class CheckCardsCron extends HttpServlet {
 
