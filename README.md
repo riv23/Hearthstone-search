@@ -1,17 +1,18 @@
 [![Build Status](https://travis-ci.org/GeminiCode/Hearthstone-Search-Engine.svg?branch=master)](https://travis-ci.org/GeminiCode/Hearthstone-Search-Engine)
 
+## Hearthstone Search Engine
+Hearthstone Search is a search engine that allows to retrieve the cards from HearthStone easily and instantly.
 
-Hearthstone Search Engine
-Search engine to quickly and easily seach Hearthstone game cards.
-
-Cards are automatically retrieved through the API [hearthstonejson](http://hearthstonejson.com).
-
-All cards (text and images ) are the intellectual property of Blizzard Inc.
+Please note : 
+* Cards are automatically retrieved through the API [hearthstonejson](http://hearthstonejson.com).
+* All cards (text and images) are the property of Blizzard Inc.
 
 ## Use API
 
-The API is very simple to use.
-The pattern of the url is: /api/search?q=, q is a valid Google search api request.
+* The API is very simple to use.
+* The url pattern is: `/api/search?q=`, `q` is a valid Google Search Api request.
+* The API can be used [here](hearthstone-search-cards.appspot.com)
+
 
 ## Run local
 
