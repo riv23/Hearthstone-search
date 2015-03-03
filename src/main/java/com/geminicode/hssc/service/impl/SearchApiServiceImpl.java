@@ -161,7 +161,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 card.setName(field.getText());
             }
             if ("version".equals(field.getName())) {
-                card.setVersion(field.getText());
+                card.setVersion(field.getNumber());
             }
             if ("image".equals(field.getName())) {
                 card.setImage(field.getText());
