@@ -94,7 +94,8 @@ public class SearchApiServiceImpl implements SearchApiService {
         return card;
     }
 
-    private void deleteEntries(String indexName) {
+    @Override
+    public void deleteEntries(String indexName) {
         final IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
         final Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
         index.deleteSchema();

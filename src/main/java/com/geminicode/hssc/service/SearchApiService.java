@@ -11,4 +11,6 @@ public interface SearchApiService {
 	void addToSearch(CardType cardType, TypesEnum type);
     List<Card> search(String query) throws SearchException;
     Card searchById(String id) throws SearchException;
+
+    void deleteEntries(String indexName);
 }

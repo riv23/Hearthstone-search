@@ -22,15 +22,16 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet>
-        <servlet-name>check</servlet-name>
-        <servlet-class>com.geminicode.hssc.cron.CheckCardsCron</servlet-class>
-    </servlet>
 
     <servlet-mapping>
         <servlet-name>jersey-serlvet</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>check</servlet-name>
+        <servlet-class>com.geminicode.hssc.cron.CheckCardsCron</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>check</servlet-name>
@@ -40,6 +41,25 @@
         <web-resource-collection>
             <web-resource-name>check</web-resource-name>
             <url-pattern>/check</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <servlet>
+        <servlet-name>delete</servlet-name>
+        <servlet-class>com.geminicode.hssc.servlet.DeleteServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>delete</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>delete</web-resource-name>
+            <url-pattern>/delete</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
