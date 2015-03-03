@@ -31,6 +31,8 @@ public class Card {
 
     private String race = "";
 
+    private String version = "";
+
     private String howToGetGold = "";
 
     private String[] mechanics;
@@ -161,6 +163,14 @@ public class Card {
 
     public void setHowToGetGold(String howToGetGold) {
         this.howToGetGold = howToGetGold;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public String[] getMechanics() {
