@@ -1,13 +1,6 @@
 package com.geminicode.hssc.model;
 
-import com.googlecode.objectify.annotation.Cache;
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-
-@Cache
-@Entity
 public class Card {
-    @Id
     private String id = "";
 
     private String name = "";

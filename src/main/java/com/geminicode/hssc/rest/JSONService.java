@@ -4,6 +4,7 @@ import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.service.DataStoreService;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.utils.ServiceFactory;
+import com.geminicode.hssc.utils.TypeIndexEnum;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,17 +15,16 @@ import java.util.List;
 public class JSONService {
 
     private final SearchApiService searchApiService = ServiceFactory.get().getSearchApiService();
-    private final DataStoreService dataStoreService = ServiceFactory.get().getDataStoreService();
 
 	@GET
 	@Path("/search")
 	public List<Card> doQuery(@QueryParam("q") String query) {
-		return searchApiService.search(query);
+		return searchApiService.search(query, TypeIndexEnum.LIGHT);
 	}
 
     @GET
     @Path("/card/{id}")
-    public Card getCard(@PathParam("id") String cardId) {
-        return dataStoreService.getCard(cardId);
+    public List<Card> getCard(@PathParam("id") String cardId) {
+        return searchApiService.search("id:"+cardId, TypeIndexEnum.FULL);
     }
 }
