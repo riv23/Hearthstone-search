@@ -11,7 +11,7 @@ Please note :
 
 * The API is very simple to use.
 * The url pattern is: `/api/search?q=`, `q` is a valid Google Search Api request.
-* The API can be used [here](http://hearthstone-search-cards.appspot.com)
+* The API can be used [here](http://hearthstone-search-cards.appspot.com).
 
 
 ## Run local
