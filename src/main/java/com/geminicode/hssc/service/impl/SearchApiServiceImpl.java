@@ -138,11 +138,18 @@ public class SearchApiServiceImpl implements SearchApiService {
                                             .addField(Field.newBuilder().setName("howToGetGold")
                                                             .setText(card.getHowToGetGold()))
                                             .addField(Field.newBuilder().setName("mechanics")
-                                                            .setText(Arrays.toString(card.getMechanics()))).build();
+                                                            .setText(buildMechanicsString(card))).build();
 
             IndexADocument(CARDS, doc);
 
         }
+    }
+
+    private String buildMechanicsString(Card card) {
+        if(card.getMechanics() == null) {
+            return "";
+        }
+        return Arrays.toString(card.getMechanics());
     }
 
     private Card generateFullCardFromField(Iterable<Field> fields) {
