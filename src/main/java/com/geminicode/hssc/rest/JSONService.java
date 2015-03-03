@@ -1,7 +1,6 @@
 package com.geminicode.hssc.rest;
 
 import com.geminicode.hssc.model.Card;
-import com.geminicode.hssc.service.DataStoreService;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.utils.ServiceFactory;
 import com.geminicode.hssc.utils.TypeIndexEnum;

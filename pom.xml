@@ -20,7 +20,6 @@
         <gson.version>2.3.1</gson.version>
         <jersey.version>1.18.3</jersey.version>
         <guava.version>18.0</guava.version>
-        <objectify.version>5.1</objectify.version>
     </properties>
 
     <prerequisites>
@@ -55,12 +54,6 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.googlecode.objectify</groupId>
-            <artifactId>objectify</artifactId>
-            <version>${objectify.version}</version>
-        </dependency>
-
 
         <!-- ================ Dependencies Jersey ============================ -->
         <dependency>
