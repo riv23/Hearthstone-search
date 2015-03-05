@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="hssc">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/hssc-bootstrap.css" rel="stylesheet">
+    <link href='css/rotating-card.css' rel='stylesheet' />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -22,23 +23,58 @@
 
 <body>
 
-<div class="container">
+<div class="container" ng-controller="SearchCtrl">
 
     <div class="jumbotron centerfy">
         <img class="img-responsive" src="img/Hearthstone_Logo.png"/>
+
         <p>Search API</p>
-        <form action="search-result.html">
+
+        <form ng-submit="submit()">
             <div class="form-group">
-                <input type="text" class="form-control"/>
+                <input type="text" class="form-control" ng-model="query"/>
             </div>
         </form>
     </div>
 
+    <div class="row" ng-show="cards.length > 0">
+
+        <div class="col-md-4" ng-repeat="card in cards">
+            <div class="card-container">
+                <div class="card">
+                    <div class="front">
+                        <img class="img-responsive centerfy" ng-src="{{card.image}}" err-src="http://wow.zamimg.com/images/hearthstone/cardbacks/original/Card_Back_IceCrown.png"/>
+                    </div>
+                    <div class="back">
+                        <div class="header"></div>
+                        <div class="content">
+                            <div class="main">
+                                <h4 class="text-center"><b>Nom : </b>{{card.name}}</h4>
+                                <h5 class="text-center"><b>Jouable : </b>{{card.collectible}}</h5>
+                                <h5 class="text-center"><b>Faction : </b>{{card.faction}}</h5>
+                                <h5 class="text-center"><b>Citation : </b>{{card.flavor}}</h5>
+                                <h5 class="text-center"><b>Classe : </b>{{card.playerClass}}</h5>
+                                <h5 class="text-center"><b>Type : </b>{{card.type}}</h5>
+                                <h5 class="text-center"><b>Rareté : </b>{{card.rarity}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <footer class="footer centerfy">
-        <p>&copy; Company 2015 - <a href="#" >about</a></p>
+        <p>&copy; Company 2015 - <a href="#">about</a></p>
     </footer>
 
-</div> <!-- /container -->
+</div>
+
+<script src="js/lib/angular.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers/searchController.js"></script>
+<script src="js/directives/errorImage.js"></script>
 
 </body>
 </html>
