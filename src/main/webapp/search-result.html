@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/hssc-bootstrap.css" rel="stylesheet">
+    <link href='css/rotating-card.css' rel='stylesheet' />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,7 +27,9 @@
 
     <div class="jumbotron centerfy">
         <img class="img-responsive" src="img/Hearthstone_Logo.png"/>
+
         <p>Search API</p>
+
         <form action="search-result.html">
             <div class="form-group">
                 <input type="text" class="form-control"/>
@@ -34,38 +37,89 @@
         </form>
     </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <table class="table table-responsive">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Cost</th>
-                    <th>Attack</th>
-                    <th>Health</th>
-                    <th>Rarity</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr onclick="window.location='card.html'">
-                    <td>EX1_116</td>
-                    <td>Leeroy Jenkins</td>
-                    <td>4</td>
-                    <td>6</td>
-                    <td>2</td>
-                    <td>Legendary</td>
-                </tr>
-                </tbody>
-            </table>
+    <div class="row ">
+
+        <div class="col-md-4">
+            <div class="card-container">
+                <div class="card">
+                    <div class="front">
+                        <img class="img-responsive centerfy" src="http://wow.zamimg.com/images/hearthstone/cards/frfr/original/FP1_009.png"/>
+                    </div>
+                    <div class="back">
+                        <div class="header"></div>
+                        <div class="content">
+                            <div class="main">
+                                <h4 class="text-center">Seigneur de la mort</h4>
+                                <h4 class="text-center">...</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-md-4">
+            <div class="card-container">
+                <div class="card">
+                    <div class="front">
+                        <img class="img-responsive centerfy" src="http://wow.zamimg.com/images/hearthstone/cards/frfr/original/FP1_005.png"/>
+                    </div>
+                    <div class="back">
+                        <div class="header"></div>
+                        <div class="content">
+                            <div class="main">
+                                <h4 class="text-center">Ombre de naxxramas</h4>
+                                <h4 class="text-center">...</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-container">
+                <div class="card">
+                    <div class="front">
+                        <img class="img-responsive centerfy" src="http://wow.zamimg.com/images/hearthstone/cards/frfr/original/NAX15_05.png"/>
+                    </div>
+                    <div class="back">
+                        <div class="header"></div>
+                        <div class="content">
+                            <div class="main">
+                                <h4 class="text-center">M.Bigglesworth</h4>
+                                <h4 class="text-center">...</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-container">
+                <div class="card">
+                    <div class="front">
+                        <img class="img-responsive centerfy" src="http://wow.zamimg.com/images/hearthstone/cards/frfr/original/NEW1_024.png"/>
+                    </div>
+                    <div class="back">
+                        <div class="header"></div>
+                        <div class="content">
+                            <div class="main">
+                                <h4 class="text-center">Capitaine Vertepeau</h4>
+                                <h4 class="text-center">...</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer class="footer centerfy">
-        <p>&copy; Company 2015 - <a href="#" >about</a></p>
+        <p>&copy; Company 2015 - <a href="#">about</a></p>
     </footer>
 
-</div> <!-- /container -->
+</div>
+
 
 </body>
 </html>
