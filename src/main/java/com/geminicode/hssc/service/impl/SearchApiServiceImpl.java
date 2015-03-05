@@ -64,9 +64,15 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     @Override
-    public List<Card> search(String query) throws SearchException {
+    public List<Card> search(String queryString) throws SearchException {
         final List<Card> cards = Lists.newArrayList();
         final IndexSpec indexSpec = IndexSpec.newBuilder().setName(CARDS).build();
+
+        final QueryOptions options = QueryOptions.newBuilder()
+                .setLimit(1000)
+                .build();
+
+        final Query query = Query.newBuilder().setOptions(options).build(queryString);
 
         final Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
         final Results<ScoredDocument> results = index.search(query);
