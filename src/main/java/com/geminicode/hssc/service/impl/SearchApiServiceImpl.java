@@ -8,6 +8,7 @@ import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
 import com.geminicode.hssc.service.SearchApiService;
 import com.google.appengine.api.search.*;
+import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.google.common.collect.Lists;
 
 public class SearchApiServiceImpl implements SearchApiService {
@@ -115,7 +116,7 @@ public class SearchApiServiceImpl implements SearchApiService {
     private void removeUnWantedCards(List<Card> cards) {
         final List<Card> cardsToRemove =  Lists.newArrayList();
         for (Card card : cards) {
-            if(!"true".equals(card.getCollectible())) {
+            if(Strings.isNullOrEmpty(card.getCollectible())) {
                 cardsToRemove.add(card);
             }
         }
