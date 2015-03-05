@@ -1,8 +1,5 @@
 package com.geminicode.hssc.service.impl;
 
-import java.util.*;
-import java.util.logging.Logger;
-
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
@@ -10,6 +7,9 @@ import com.geminicode.hssc.service.SearchApiService;
 import com.google.appengine.api.search.*;
 import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.google.common.collect.Lists;
+
+import java.util.*;
+import java.util.logging.Logger;
 
 public class SearchApiServiceImpl implements SearchApiService {
 
@@ -72,6 +72,11 @@ public class SearchApiServiceImpl implements SearchApiService {
     @Override
     public List<Card> search(String queryString) throws SearchException {
         final List<Card> cards = Lists.newArrayList();
+		
+		if(Strings.isNullOrEmpty(queryString)) {
+			return cards;
+		}
+		
         final IndexSpec indexSpec = IndexSpec.newBuilder().setName(CARDS).build();
 
         final QueryOptions options = QueryOptions.newBuilder()
