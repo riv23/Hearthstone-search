@@ -28,18 +28,21 @@ public class SearchApiServiceImpl implements SearchApiService {
         switch (type) {
             case BASIC:
                 final List<Card> basics = cardType.getBasic();
+                removeUnWantedCards(basics);
                 LOGGER.info("There are " + basics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
                 buildUrl(basics);
                 putFullCardsIntoSearch(basics);
                 break;
             case CLASSIC:
                 final List<Card> classics = cardType.getClassic();
+                removeUnWantedCards(classics);
                 LOGGER.info("There are " + classics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
                 buildUrl(classics);
                 putFullCardsIntoSearch(classics);
                 break;
             case CURSE_OF_NAXXRAMAS:
                 final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
+                removeUnWantedCards(curseOfNaxxramass);
                 LOGGER.info("There are " + curseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
                                 + " cards.");
                 buildUrl(curseOfNaxxramass);
@@ -47,6 +50,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 break;
             case GOBLINS_VS_GNOMES:
                 final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
+                removeUnWantedCards(gobelinsVsGnomes);
                 LOGGER.info("There are " + gobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
                                 + " cards.");
                 buildUrl(gobelinsVsGnomes);
@@ -54,6 +58,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 break;
             case PROMOTION:
                 final List<Card> promotions = cardType.getPromotions();
+                removeUnWantedCards(promotions);
                 LOGGER.info("There are " + promotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 buildUrl(promotions);
                 putFullCardsIntoSearch(promotions);
@@ -105,6 +110,16 @@ public class SearchApiServiceImpl implements SearchApiService {
         final IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
         final Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
         index.deleteSchema();
+    }
+
+    private void removeUnWantedCards(List<Card> cards) {
+        final List<Card> cardsToRemove =  Lists.newArrayList();
+        for (Card card : cards) {
+            if("Enchantment".equals(card.getType())) {
+                cardsToRemove.add(card);
+            }
+        }
+        cards.removeAll(cardsToRemove);
     }
 
     private void buildUrl(List<Card> basics) {
