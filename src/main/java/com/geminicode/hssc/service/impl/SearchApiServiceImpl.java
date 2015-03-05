@@ -115,7 +115,7 @@ public class SearchApiServiceImpl implements SearchApiService {
     private void removeUnWantedCards(List<Card> cards) {
         final List<Card> cardsToRemove =  Lists.newArrayList();
         for (Card card : cards) {
-            if("Enchantment".equals(card.getType())) {
+            if(!"true".equals(card.getCollectible())) {
                 cardsToRemove.add(card);
             }
         }
