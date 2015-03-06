@@ -154,7 +154,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                                             .addField(Field.newBuilder().setName("text").setText(card.getText()))
                                             .addField(Field.newBuilder().setName("flavor").setText(card.getFlavor()))
                                             .addField(Field.newBuilder().setName("artist").setText(card.getArtist()))
-                                            .addField(Field.newBuilder().setName("type").setText(card.getType()))
+                                            .addField(Field.newBuilder().setName("type").setText(TranslateUtil.translateType(card.getType(), Locale.FRENCH)))
                                             .addField(Field.newBuilder().setName("image").setText(card.getImage()))
                                             .addField(Field.newBuilder().setName("playerClass")
                                                             .setText(TranslateUtil.translatePlayerClass(card.getPlayerClass(), Locale.FRENCH)))

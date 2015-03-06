@@ -43,4 +43,18 @@ public class TranslateUtil {
 
         return value;
     }
+
+    public static String translateType(String value, Locale locale) {
+        if(Locale.FRENCH.equals(locale)) {
+            switch (value) {
+                case "Minion" :
+                    return "Serviteur";
+                case "Spell" :
+                    return "Enchantement";
+
+            }
+        }
+
+        return value;
+    }
 }
