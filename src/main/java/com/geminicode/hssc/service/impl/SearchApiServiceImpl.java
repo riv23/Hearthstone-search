@@ -87,7 +87,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 .setLimit(1000)
                 .build();
 
-        final Query query = Query.newBuilder().setOptions(options).build(queryString);
+        final Query query = Query.newBuilder().setOptions(options).build(queryString + " NOT flavor:" + queryString);
 
         final Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
         final Results<ScoredDocument> results = index.search(query);
