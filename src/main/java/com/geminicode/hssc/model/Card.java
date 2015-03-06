@@ -33,10 +33,6 @@ public class Card {
 
     private String version = "";
 
-    private String howToGetGold = "";
-
-    private String[] mechanics;
-
     public String getId() {
         return id;
     }
@@ -157,14 +153,6 @@ public class Card {
         this.race = race;
     }
 
-    public String getHowToGetGold() {
-        return howToGetGold;
-    }
-
-    public void setHowToGetGold(String howToGetGold) {
-        this.howToGetGold = howToGetGold;
-    }
-
     public String getVersion() {
         return version;
     }
@@ -173,11 +161,4 @@ public class Card {
         this.version = version;
     }
 
-    public String[] getMechanics() {
-        return mechanics;
-    }
-
-    public void setMechanics(String[] mechanics) {
-        this.mechanics = mechanics;
-    }
 }

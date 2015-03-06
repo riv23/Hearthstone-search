@@ -1,15 +1,19 @@
 package com.geminicode.hssc.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.logging.Logger;
+
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
 import com.geminicode.hssc.service.SearchApiService;
+import com.geminicode.hssc.utils.TranslateUtil;
 import com.google.appengine.api.search.*;
 import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.google.common.collect.Lists;
-
-import java.util.*;
-import java.util.logging.Logger;
 
 public class SearchApiServiceImpl implements SearchApiService {
 
@@ -153,30 +157,20 @@ public class SearchApiServiceImpl implements SearchApiService {
                                             .addField(Field.newBuilder().setName("type").setText(card.getType()))
                                             .addField(Field.newBuilder().setName("image").setText(card.getImage()))
                                             .addField(Field.newBuilder().setName("playerClass")
-                                                            .setText(card.getPlayerClass()))
+                                                            .setText(TranslateUtil.translatePlayerClass(card.getPlayerClass(), Locale.FRENCH)))
                                             .addField(Field.newBuilder().setName("faction").setText(card.getFaction()))
-                                            .addField(Field.newBuilder().setName("rarity").setText(card.getRarity()))
+                                            .addField(Field.newBuilder().setName("rarity").setText(TranslateUtil.translateRarity(card.getRarity(), Locale.FRENCH)))
                                             .addField(Field.newBuilder().setName("cost").setText(card.getCost()))
                                             .addField(Field.newBuilder().setName("attack").setText(card.getAttack()))
                                             .addField(Field.newBuilder().setName("health").setText(card.getHealth()))
                                             .addField(Field.newBuilder().setName("collectible")
                                                             .setText(card.getCollectible()))
                                             .addField(Field.newBuilder().setName("race").setText(card.getRace()))
-                                            .addField(Field.newBuilder().setName("howToGetGold")
-                                                            .setText(card.getHowToGetGold()))
-                                            .addField(Field.newBuilder().setName("mechanics")
-                                                            .setText(buildMechanicsString(card))).build();
+                                    .build();
 
             IndexADocument(CARDS, doc);
 
         }
-    }
-
-    private String buildMechanicsString(Card card) {
-        if(card.getMechanics() == null) {
-            return "";
-        }
-        return Arrays.toString(card.getMechanics());
     }
 
     private Card generateFullCardFromField(Iterable<Field> fields) {
@@ -228,13 +222,6 @@ public class SearchApiServiceImpl implements SearchApiService {
             }
             if ("race".equals(field.getName())) {
                 card.setRace(field.getText());
-            }
-            if ("howToGetGold".equals(field.getName())) {
-                card.setHowToGetGold(field.getText());
-            }
-            if ("mechanics".equals(field.getName())) {
-                // TODO review
-                card.setMechanics(new String[]{field.getText() });
             }
 
         }

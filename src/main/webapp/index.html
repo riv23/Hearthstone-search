@@ -39,7 +39,7 @@
 
     <div class="row" ng-show="cards.length > 0">
 
-        <div class="col-md-4" ng-repeat="card in cards">
+        <div class="col-md-4" ng-repeat="card in cards | filter:playable=true | orderBy:'cost'">
             <div class="card-container">
                 <div class="card">
                     <div class="front">
