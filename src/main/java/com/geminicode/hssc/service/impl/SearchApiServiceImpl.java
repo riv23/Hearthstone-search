@@ -22,6 +22,7 @@ public class SearchApiServiceImpl implements SearchApiService {
     public static final String PNG = ".png";
 
     private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
+	
 
     public static final String CARDS = "cards";
 
@@ -75,6 +76,9 @@ public class SearchApiServiceImpl implements SearchApiService {
 
     @Override
     public List<Card> search(String queryString) throws SearchException {
+		
+		LOGGER.info("Query : "+queryString);
+		
         final List<Card> cards = Lists.newArrayList();
 		
 		if(Strings.isNullOrEmpty(queryString)) {
