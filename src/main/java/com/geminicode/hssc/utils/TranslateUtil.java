@@ -4,53 +4,53 @@ import java.util.Locale;
 
 public class TranslateUtil {
 
-    public static String translateRarity(String value, Locale locale) {
+    public static String translateRarityToFrench(String value, Locale locale) {
         if(Locale.FRENCH.equals(locale)) {
             switch (value) {
-                case "Epic" :
-                    return "Épique";
-                case "Legendary" :
-                    return "Légendaire";
-                case "Common" :
-                    return "Commune";
-                case "Free" :
-                    return "Gratuite";
+                case HSSCStrings.EPIC_EN:
+                    return HSSCStrings.EPIC_FR;
+                case HSSCStrings.LEGENDARY_EN:
+                    return HSSCStrings.LEGENDARY_FR;
+                case HSSCStrings.COMMON_EN:
+                    return HSSCStrings.COMMON_FR;
+                case HSSCStrings.FREE_EN:
+                    return HSSCStrings.FREE_FR;
             }
         }
 
             return value;
     }
 
-    public static String translatePlayerClass(String value, Locale locale) {
+    public static String translatePlayerClassToFrench(String value, Locale locale) {
         if(Locale.FRENCH.equals(locale)) {
             switch (value) {
-                case "Warrior" :
-                    return "Guerrier";
-                case "Rogue" :
-                    return "Voleur";
-                case "Hunter" :
-                    return "Chasseur";
-                case "Druid" :
-                    return "Druide";
-                case "Shaman" :
-                    return "Chaman";
-                case "Warlock" :
-                    return "Démoniste";
-                case "Priest" :
-                    return "Prêtre";
+                case HSSCStrings.WARRIOR_EN:
+                    return HSSCStrings.WARRIOR_FR;
+                case HSSCStrings.ROGUE_EN:
+                    return HSSCStrings.ROGUE_FR;
+                case HSSCStrings.HUNTER_EN:
+                    return HSSCStrings.HUNTER_FR;
+                case HSSCStrings.DRUID_EN:
+                    return HSSCStrings.DRUID_FR;
+                case HSSCStrings.SHAMAN_EN:
+                    return HSSCStrings.SHAMAN_FR;
+                case HSSCStrings.WARLOCK_EN:
+                    return HSSCStrings.WARLOCK_FR;
+                case HSSCStrings.PRIEST_EN:
+                    return HSSCStrings.PRIEST_FR;
             }
         }
 
         return value;
     }
 
-    public static String translateType(String value, Locale locale) {
+    public static String translateTypeToFrench(String value, Locale locale) {
         if(Locale.FRENCH.equals(locale)) {
             switch (value) {
-                case "Minion" :
-                    return "Serviteur";
-                case "Spell" :
-                    return "Enchantement";
+                case HSSCStrings.MINION_EN:
+                    return HSSCStrings.MINION_FR;
+                case HSSCStrings.SPELL_EN:
+                    return HSSCStrings.SPELL_FR;
 
             }
         }
