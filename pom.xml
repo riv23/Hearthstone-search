@@ -10,7 +10,7 @@
     <artifactId>search-cards</artifactId>
 
     <properties>
-        <appengine.app.version>2</appengine.app.version>
+        <appengine.app.version>test-tasks</appengine.app.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <appengine-version>1.9.18</appengine-version>
         <servlet-api.version>2.5</servlet-api.version>

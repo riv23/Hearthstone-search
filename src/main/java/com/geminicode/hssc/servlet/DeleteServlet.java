@@ -1,6 +1,8 @@
 package com.geminicode.hssc.servlet;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +20,7 @@ public class DeleteServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String name = req.getParameter("name");
-        if(Strings.isNullOrEmpty(name)){
-            return;
-        }
-
-        searchApiService.deleteEntries(name);
+        searchApiService.deleteEntries();
 
     }
 }

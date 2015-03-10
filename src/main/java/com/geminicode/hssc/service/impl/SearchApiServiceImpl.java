@@ -13,21 +13,25 @@ import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.utils.HSSCStrings;
 import com.geminicode.hssc.utils.TranslateUtil;
 import com.google.appengine.api.search.*;
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.google.common.collect.Lists;
+
+import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
 
 public class SearchApiServiceImpl implements SearchApiService {
 
     private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
 
     public static final String BASE_URL_IMAGE = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/";
+
     public static final String PNG = ".png";
+
     public static final String CARDS = "cards";
 
     @Override
     public void addToSearch(CardType cardType, TypesEnum type) {
-
-        deleteEntries(CARDS);
 
         switch (type) {
             case BASIC:
@@ -87,14 +91,14 @@ public class SearchApiServiceImpl implements SearchApiService {
         final Query query =
                         Query.newBuilder()
                                         .setOptions(options)
-                                        .build("id:" + queryString
-                                                + " OR " + HSSCStrings.NAME_FIELD + ":" + queryString
-                                                + " OR " + HSSCStrings.ATTACK_FIELD + ":" + queryString
-                                                + " OR " + HSSCStrings.HEALTH_FIELD + ":" + queryString
-                                                + " OR " + HSSCStrings.COST_FIELD + ":" + queryString
-                                                + " OR " + HSSCStrings.RACE_FIELD + ":" + queryString
-                                                + " OR " + HSSCStrings.RARITY_FIELD + ":" + queryString
-                                                + " OR " + HSSCStrings.TYPE_FIELD + ":" + queryString);
+                                        .build("id:" + queryString + " OR " + HSSCStrings.NAME_FIELD + ":"
+                                                        + queryString + " OR " + HSSCStrings.ATTACK_FIELD + ":"
+                                                        + queryString + " OR " + HSSCStrings.HEALTH_FIELD + ":"
+                                                        + queryString + " OR " + HSSCStrings.COST_FIELD + ":"
+                                                        + queryString + " OR " + HSSCStrings.RACE_FIELD + ":"
+                                                        + queryString + " OR " + HSSCStrings.RARITY_FIELD + ":"
+                                                        + queryString + " OR " + HSSCStrings.TYPE_FIELD + ":"
+                                                        + queryString);
 
         final Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
         final Results<ScoredDocument> results = index.search(query);
@@ -121,9 +125,27 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     @Override
-    public void deleteEntries(String indexName) {
-        final Index index = getIndex(indexName);
-        index.deleteSchema();
+    public void deleteEntries() {
+        try {
+            final Index index = getIndex(CARDS);
+            while (true) {
+                final List<String> docIds = Lists.newArrayList();
+                final GetRequest request = GetRequest.newBuilder().setReturningIdsOnly(true).build();
+
+                final GetResponse<Document> response = index.getRange(request);
+                if (response.getResults().isEmpty()) {
+                    break;
+                }
+                for (Document doc : response) {
+                    docIds.add(doc.getId());
+                }
+                index.delete(docIds);
+            }
+        } catch (RuntimeException e) {
+            Queue queue = QueueFactory.getDefaultQueue();
+            queue.add(withUrl("/delete"));
+            LOGGER.info("A new delete task was launch due to :" + e.getLocalizedMessage());
+        }
     }
 
     private void removeUnWantedCards(List<Card> cards) {
@@ -153,31 +175,42 @@ public class SearchApiServiceImpl implements SearchApiService {
                             Document.newBuilder()
                                             .setLocale(Locale.FRENCH)
                                             .setId(docId)
-                                            .addField(Field.newBuilder().setName(HSSCStrings.NAME_FIELD).setText(card.getName()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.VERSION_FIELD).setNumber(week))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.TEXT_FIELD).setText(card.getText()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.FLAVOR_FIELD).setText(card.getFlavor()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.ARTIST_FIELD).setText(card.getArtist()))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.NAME_FIELD)
+                                                            .setText(card.getName()))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.VERSION_FIELD)
+                                                            .setNumber(week))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.TEXT_FIELD)
+                                                            .setText(card.getText()))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.FLAVOR_FIELD)
+                                                            .setText(card.getFlavor()))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.ARTIST_FIELD)
+                                                            .setText(card.getArtist()))
                                             .addField(Field.newBuilder()
                                                             .setName(HSSCStrings.TYPE_FIELD)
                                                             .setText(TranslateUtil.translateTypeToFrench(
                                                                             card.getType(), Locale.FRENCH)))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.IMAGE_FIELD).setText(card.getImage()))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.IMAGE_FIELD)
+                                                            .setText(card.getImage()))
                                             .addField(Field.newBuilder()
                                                             .setName(HSSCStrings.PLAYER_CLASS_FIELD)
                                                             .setText(TranslateUtil.translatePlayerClassToFrench(
                                                                             card.getPlayerClass(), Locale.FRENCH)))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.FACTION_FIELD).setText(card.getFaction()))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.FACTION_FIELD)
+                                                            .setText(card.getFaction()))
                                             .addField(Field.newBuilder()
                                                             .setName(HSSCStrings.RARITY_FIELD)
                                                             .setText(TranslateUtil.translateRarityToFrench(
                                                                             card.getRarity(), Locale.FRENCH)))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.COST_FIELD).setText(card.getCost()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.ATTACK_FIELD).setText(card.getAttack()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.HEALTH_FIELD).setText(card.getHealth()))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.COST_FIELD)
+                                                            .setText(card.getCost()))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.ATTACK_FIELD)
+                                                            .setText(card.getAttack()))
+                                            .addField(Field.newBuilder().setName(HSSCStrings.HEALTH_FIELD)
+                                                            .setText(card.getHealth()))
                                             .addField(Field.newBuilder().setName(HSSCStrings.COLLECTIBLE_FIELD)
                                                             .setText(card.getCollectible()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD).setText(card.getRace())).build();
+                                            .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD)
+                                                            .setText(card.getRace())).build();
 
             IndexADocument(CARDS, doc);
 

@@ -3,6 +3,12 @@
     <cron>
         <url>/check</url>
         <description>Repopulate indexes every weeks</description>
+        <schedule>every day 00:30</schedule>
+        <timezone>"Europe/Paris"</timezone>
+    </cron>
+    <cron>
+        <url>/delete</url>
+        <description>delete old entries every weeks</description>
         <schedule>every day 00:00</schedule>
         <timezone>"Europe/Paris"</timezone>
     </cron>
