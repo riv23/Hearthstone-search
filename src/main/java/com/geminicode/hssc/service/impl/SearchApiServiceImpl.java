@@ -138,6 +138,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                     break;
                 }
                 for (Document doc : response) {
+                    LOGGER.info("Doc with id :" + doc.getId() + " will be deleted.");
                     docIds.add(doc.getId());
                 }
                 index.delete(docIds);
