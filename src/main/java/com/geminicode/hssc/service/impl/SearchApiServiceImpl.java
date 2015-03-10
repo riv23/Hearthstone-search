@@ -134,6 +134,7 @@ public class SearchApiServiceImpl implements SearchApiService {
 
                 final GetResponse<Document> response = index.getRange(request);
                 if (response.getResults().isEmpty()) {
+                    LOGGER.info("There are no results");
                     break;
                 }
                 for (Document doc : response) {
