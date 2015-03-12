@@ -1,5 +1,7 @@
 package com.geminicode.hssc.service.impl;
 
+import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -11,14 +13,13 @@ import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.utils.HSSCStrings;
+import com.geminicode.hssc.utils.SearchUtil;
 import com.geminicode.hssc.utils.TranslateUtil;
 import com.google.appengine.api.search.*;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.google.common.collect.Lists;
-
-import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
 
 public class SearchApiServiceImpl implements SearchApiService {
 
@@ -88,24 +89,14 @@ public class SearchApiServiceImpl implements SearchApiService {
         final IndexSpec indexSpec = IndexSpec.newBuilder().setName(CARDS).build();
         final QueryOptions options = QueryOptions.newBuilder().setLimit(1000).build();
 
-        final Query query =
-                        Query.newBuilder()
-                                        .setOptions(options)
-                                        .build("id:" + queryString + " OR " + HSSCStrings.NAME_FIELD + ":"
-                                                        + queryString + " OR " + HSSCStrings.ATTACK_FIELD + ":"
-                                                        + queryString + " OR " + HSSCStrings.HEALTH_FIELD + ":"
-                                                        + queryString + " OR " + HSSCStrings.COST_FIELD + ":"
-                                                        + queryString + " OR " + HSSCStrings.RACE_FIELD + ":"
-                                                        + queryString + " OR " + HSSCStrings.RARITY_FIELD + ":"
-                                                        + queryString + " OR " + HSSCStrings.TYPE_FIELD + ":"
-                                                        + queryString);
+        final Query query = SearchUtil.buildQuery(queryString, options);
 
         final Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
         final Results<ScoredDocument> results = index.search(query);
 
         for (ScoredDocument document : results) {
             final Iterable<Field> fields = document.getFields();
-            final Card card = getCardFromField(fields);
+            final Card card = SearchUtil.getCardFromField(fields);
             card.setId(document.getId());
             cards.add(card);
         }
@@ -118,7 +109,7 @@ public class SearchApiServiceImpl implements SearchApiService {
         final Index index = getIndex(CARDS);
         final Document document = index.get(id);
         final Iterable<Field> fields = document.getFields();
-        final Card card = getCardFromField(fields);
+        final Card card = SearchUtil.getCardFromField(fields);
         card.setId(document.getId());
 
         return card;
@@ -217,62 +208,6 @@ public class SearchApiServiceImpl implements SearchApiService {
             IndexADocument(CARDS, doc);
 
         }
-    }
-
-    private Card getCardFromField(Iterable<Field> fields) {
-
-        final Card card = new Card();
-
-        for (Field field : fields) {
-            if (HSSCStrings.NAME_FIELD.equals(field.getName())) {
-                card.setName(field.getText());
-            }
-            if (HSSCStrings.VERSION_FIELD.equals(field.getName())) {
-                card.setVersion(field.getNumber().toString());
-            }
-            if (HSSCStrings.IMAGE_FIELD.equals(field.getName())) {
-                card.setImage(field.getText());
-            }
-            if (HSSCStrings.TYPE_FIELD.equals(field.getName())) {
-                card.setType(field.getText());
-            }
-            if (HSSCStrings.TEXT_FIELD.equals(field.getName())) {
-                card.setText(field.getText());
-            }
-            if (HSSCStrings.FLAVOR_FIELD.equals(field.getName())) {
-                card.setFlavor(field.getText());
-            }
-            if (HSSCStrings.ARTIST_FIELD.equals(field.getName())) {
-                card.setArtist(field.getText());
-            }
-            if (HSSCStrings.PLAYER_CLASS_FIELD.equals(field.getName())) {
-                card.setPlayerClass(field.getText());
-            }
-            if (HSSCStrings.FACTION_FIELD.equals(field.getName())) {
-                card.setFaction(field.getText());
-            }
-            if (HSSCStrings.RARITY_FIELD.equals(field.getName())) {
-                card.setRarity(field.getText());
-            }
-            if (HSSCStrings.COST_FIELD.equals(field.getName())) {
-                card.setCost(field.getText());
-            }
-            if (HSSCStrings.ATTACK_FIELD.equals(field.getName())) {
-                card.setAttack(field.getText());
-            }
-            if (HSSCStrings.HEALTH_FIELD.equals(field.getName())) {
-                card.setHealth(field.getText());
-            }
-            if (HSSCStrings.COLLECTIBLE_FIELD.equals(field.getName())) {
-                card.setCollectible(field.getText());
-            }
-            if (HSSCStrings.RACE_FIELD.equals(field.getName())) {
-                card.setRace(field.getText());
-            }
-
-        }
-
-        return card;
     }
 
     private void IndexADocument(String indexName, Document document) throws PutException {
