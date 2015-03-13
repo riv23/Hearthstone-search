@@ -1,0 +1,20 @@
+<div class="card-container">
+    <div class="card">
+        <div class="front">
+            <img class="img-responsive centerfy" ng-src="{{card.image}}" err-src="http://wow.zamimg.com/images/hearthstone/cardbacks/original/Card_Back_IceCrown.png"/>
+        </div>
+        <div class="back">
+            <div class="header"></div>
+            <div class="content">
+                <div class="main">
+                    <h4 class="text-center"><b>{{card.name}}</b></h4>
+                    <h5 class="text-center"><b>Classe : </b>{{card.playerClass}}</h5>
+                    <h5 class="text-center"><b>Type : </b>{{card.type}}</h5>
+                    <h5 class="text-center"><b>Faction : </b>{{card.faction}}</h5>
+                    <h5 class="text-center"><b>Citation : </b><span ng-bind-html="card.flavor | trusted"></span></h5>
+                    <h5 class="text-center"><b>Rareté : </b>{{card.rarity}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
