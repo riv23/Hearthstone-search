@@ -2,6 +2,10 @@ package com.geminicode.hssc.service.impl;
 
 import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,64 +22,20 @@ import com.geminicode.hssc.utils.TranslateUtil;
 import com.google.appengine.api.search.*;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.utils.SystemProperty;
 import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 
 public class SearchApiServiceImpl implements SearchApiService {
 
     private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
 
     public static final String BASE_URL_IMAGE = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/";
-
+    public static final String URL_API = "http://hearthstonejson.com/json/AllSets.frFR.json";
+    public static final String URL_LOCAL_API = "http://localhost:8080/AllSets.frFR.json";
     public static final String PNG = ".png";
-
     public static final String CARDS = "cards";
-
-    @Override
-    public void addToSearch(CardType cardType, TypesEnum type) {
-
-        switch (type) {
-            case BASIC:
-                final List<Card> basics = cardType.getBasic();
-                removeUnWantedCards(basics);
-                LOGGER.info("There are " + basics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
-                buildUrl(basics);
-                putFullCardsIntoSearch(basics);
-                break;
-            case CLASSIC:
-                final List<Card> classics = cardType.getClassic();
-                removeUnWantedCards(classics);
-                LOGGER.info("There are " + classics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
-                buildUrl(classics);
-                putFullCardsIntoSearch(classics);
-                break;
-            case CURSE_OF_NAXXRAMAS:
-                final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
-                removeUnWantedCards(curseOfNaxxramass);
-                LOGGER.info("There are " + curseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
-                                + " cards.");
-                buildUrl(curseOfNaxxramass);
-                putFullCardsIntoSearch(curseOfNaxxramass);
-                break;
-            case GOBLINS_VS_GNOMES:
-                final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
-                removeUnWantedCards(gobelinsVsGnomes);
-                LOGGER.info("There are " + gobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
-                                + " cards.");
-                buildUrl(gobelinsVsGnomes);
-                putFullCardsIntoSearch(gobelinsVsGnomes);
-                break;
-            case PROMOTION:
-                final List<Card> promotions = cardType.getPromotions();
-                removeUnWantedCards(promotions);
-                LOGGER.info("There are " + promotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
-                buildUrl(promotions);
-                putFullCardsIntoSearch(promotions);
-                break;
-            default:
-                break;
-        }
-    }
 
     @Override
     public List<Card> search(String queryString) throws SearchException {
@@ -116,7 +76,8 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     @Override
-    public void deleteEntries() {
+    public void checkNewCards() throws IOException {
+        final Queue queue = QueueFactory.getDefaultQueue();
         try {
             final Index index = getIndex(CARDS);
             while (true) {
@@ -125,7 +86,13 @@ public class SearchApiServiceImpl implements SearchApiService {
 
                 final GetResponse<Document> response = index.getRange(request);
                 if (response.getResults().isEmpty()) {
-                    LOGGER.info("There are no results");
+                    LOGGER.info("Loading cards");
+                    final CardType cardType = readyCardFromJson();
+                    addToSearch(cardType, TypesEnum.BASIC);
+                    addToSearch(cardType, TypesEnum.CLASSIC);
+                    addToSearch(cardType, TypesEnum.CURSE_OF_NAXXRAMAS);
+                    addToSearch(cardType, TypesEnum.GOBLINS_VS_GNOMES);
+                    addToSearch(cardType, TypesEnum.PROMOTION);
                     break;
                 }
                 for (Document doc : response) {
@@ -135,9 +102,53 @@ public class SearchApiServiceImpl implements SearchApiService {
                 index.delete(docIds);
             }
         } catch (RuntimeException e) {
-            Queue queue = QueueFactory.getDefaultQueue();
             queue.add(withUrl("/delete"));
             LOGGER.info("A new delete task was launch due to :" + e.getLocalizedMessage());
+        }
+    }
+
+    private void addToSearch(CardType cardType, TypesEnum type) {
+
+        switch (type) {
+            case BASIC:
+                final List<Card> basics = cardType.getBasic();
+                removeUnWantedCards(basics);
+                LOGGER.info("There are " + basics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
+                buildUrl(basics);
+                putFullCardsIntoSearch(basics);
+                break;
+            case CLASSIC:
+                final List<Card> classics = cardType.getClassic();
+                removeUnWantedCards(classics);
+                LOGGER.info("There are " + classics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
+                buildUrl(classics);
+                putFullCardsIntoSearch(classics);
+                break;
+            case CURSE_OF_NAXXRAMAS:
+                final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
+                removeUnWantedCards(curseOfNaxxramass);
+                LOGGER.info("There are " + curseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
+                        + " cards.");
+                buildUrl(curseOfNaxxramass);
+                putFullCardsIntoSearch(curseOfNaxxramass);
+                break;
+            case GOBLINS_VS_GNOMES:
+                final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
+                removeUnWantedCards(gobelinsVsGnomes);
+                LOGGER.info("There are " + gobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
+                        + " cards.");
+                buildUrl(gobelinsVsGnomes);
+                putFullCardsIntoSearch(gobelinsVsGnomes);
+                break;
+            case PROMOTION:
+                final List<Card> promotions = cardType.getPromotions();
+                removeUnWantedCards(promotions);
+                LOGGER.info("There are " + promotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
+                buildUrl(promotions);
+                putFullCardsIntoSearch(promotions);
+                break;
+            default:
+                break;
         }
     }
 
@@ -218,6 +229,20 @@ public class SearchApiServiceImpl implements SearchApiService {
     private Index getIndex(String indexName) {
         final IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
         return SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    }
+
+    private CardType readyCardFromJson() throws IOException {
+        URL url;
+        if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Development) {
+            url = new URL(URL_LOCAL_API);
+        }else {
+            url = new URL(URL_API);
+        }
+
+        final BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+        final Gson gson = new Gson();
+
+        return gson.fromJson(br, CardType.class);
     }
 
 }
