@@ -1,12 +1,10 @@
 package com.geminicode.hssc.service;
 
+import com.geminicode.hssc.model.Card;
+import com.google.appengine.api.search.SearchException;
+
 import java.io.IOException;
 import java.util.List;
-
-import com.geminicode.hssc.model.Card;
-import com.geminicode.hssc.model.CardType;
-import com.geminicode.hssc.model.TypesEnum;
-import com.google.appengine.api.search.SearchException;
 
 public interface SearchApiService {
     List<Card> search(String query) throws SearchException;

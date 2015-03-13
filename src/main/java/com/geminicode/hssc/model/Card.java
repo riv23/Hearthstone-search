@@ -31,8 +31,6 @@ public class Card {
 
     private String race = "";
 
-    private String version = "";
-
     public String getId() {
         return id;
     }
@@ -151,14 +149,6 @@ public class Card {
 
     public void setRace(String race) {
         this.race = race;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
     }
 
 }

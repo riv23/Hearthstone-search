@@ -1,13 +1,12 @@
 package com.geminicode.hssc.rest;
 
-import java.util.List;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.utils.ServiceFactory;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")

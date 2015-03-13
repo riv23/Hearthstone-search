@@ -1,17 +1,5 @@
 package com.geminicode.hssc.service.impl;
 
-import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.logging.Logger;
-
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
@@ -26,6 +14,18 @@ import com.google.appengine.api.utils.SystemProperty;
 import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.logging.Logger;
+
+import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
 
 public class SearchApiServiceImpl implements SearchApiService {
 
@@ -181,10 +181,8 @@ public class SearchApiServiceImpl implements SearchApiService {
                                             .setId(docId)
                                             .addField(Field.newBuilder().setName(HSSCStrings.NAME_FIELD)
                                                             .setText(card.getName()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.VERSION_FIELD)
-                                                            .setNumber(week))
                                             .addField(Field.newBuilder().setName(HSSCStrings.TEXT_FIELD)
-                                                            .setText(card.getText()))
+                                                    .setText(card.getText()))
                                             .addField(Field.newBuilder().setName(HSSCStrings.FLAVOR_FIELD)
                                                             .setText(card.getFlavor()))
                                             .addField(Field.newBuilder().setName(HSSCStrings.ARTIST_FIELD)

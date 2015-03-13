@@ -25,9 +25,6 @@ public class SearchUtil {
             if (HSSCStrings.NAME_FIELD.equals(field.getName())) {
                 card.setName(field.getText());
             }
-            if (HSSCStrings.VERSION_FIELD.equals(field.getName())) {
-                card.setVersion(field.getNumber().toString());
-            }
             if (HSSCStrings.IMAGE_FIELD.equals(field.getName())) {
                 card.setImage(field.getText());
             }

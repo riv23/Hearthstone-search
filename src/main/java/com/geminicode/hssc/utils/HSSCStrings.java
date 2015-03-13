@@ -30,7 +30,6 @@ public class HSSCStrings {
     public static final String SPELL_FR = "Enchantement";
 
     public static final String NAME_FIELD = "name";
-    public static final String VERSION_FIELD = "version";
     public static final String TEXT_FIELD = "text";
     public static final String FLAVOR_FIELD = "flavor";
     public static final String ARTIST_FIELD = "artist";
@@ -44,7 +43,5 @@ public class HSSCStrings {
     public static final String HEALTH_FIELD = "health";
     public static final String COLLECTIBLE_FIELD = "collectible";
     public static final String RACE_FIELD = "race";
-
-
 
 }
