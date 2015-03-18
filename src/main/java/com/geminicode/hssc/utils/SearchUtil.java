@@ -9,12 +9,7 @@ public class SearchUtil {
     public static Query buildQuery(String queryString, QueryOptions options) {
         return Query.newBuilder()
                 .setOptions(options)
-                .build("id:" + queryString + " OR " + HSSCStrings.NAME_FIELD + ":" + queryString + " OR "
-                        + HSSCStrings.ATTACK_FIELD + ":" + queryString + " OR "
-                        + HSSCStrings.HEALTH_FIELD + ":" + queryString + " OR "
-                        + HSSCStrings.COST_FIELD + ":" + queryString + " OR " + HSSCStrings.RACE_FIELD
-                        + ":" + queryString + " OR " + HSSCStrings.RARITY_FIELD + ":" + queryString
-                        + " OR " + HSSCStrings.TYPE_FIELD + ":" + queryString);
+                .build(queryString);
     }
 
     public static  Card getCardFromField(Iterable<Field> fields) {
@@ -26,19 +21,19 @@ public class SearchUtil {
                 card.setName(field.getText());
             }
             if (HSSCStrings.IMAGE_FIELD.equals(field.getName())) {
-                card.setImage(field.getText());
+                card.setImage(field.getAtom());
             }
             if (HSSCStrings.TYPE_FIELD.equals(field.getName())) {
                 card.setType(field.getText());
             }
             if (HSSCStrings.TEXT_FIELD.equals(field.getName())) {
-                card.setText(field.getText());
+                card.setText(field.getAtom());
             }
             if (HSSCStrings.FLAVOR_FIELD.equals(field.getName())) {
-                card.setFlavor(field.getText());
+                card.setFlavor(field.getAtom());
             }
             if (HSSCStrings.ARTIST_FIELD.equals(field.getName())) {
-                card.setArtist(field.getText());
+                card.setArtist(field.getAtom());
             }
             if (HSSCStrings.PLAYER_CLASS_FIELD.equals(field.getName())) {
                 card.setPlayerClass(field.getText());

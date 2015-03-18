@@ -171,7 +171,6 @@ public class SearchApiServiceImpl implements SearchApiService {
     private void putFullCardsIntoSearch(List<Card> cards) {
         final Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        final int week = cal.get(Calendar.WEEK_OF_YEAR);
 
         for (Card card : cards) {
             final String docId = card.getId();
@@ -182,17 +181,17 @@ public class SearchApiServiceImpl implements SearchApiService {
                                             .addField(Field.newBuilder().setName(HSSCStrings.NAME_FIELD)
                                                             .setText(card.getName()))
                                             .addField(Field.newBuilder().setName(HSSCStrings.TEXT_FIELD)
-                                                    .setText(card.getText()))
+                                                    .setAtom(card.getText()))
                                             .addField(Field.newBuilder().setName(HSSCStrings.FLAVOR_FIELD)
-                                                            .setText(card.getFlavor()))
+                                                            .setAtom(card.getFlavor()))
                                             .addField(Field.newBuilder().setName(HSSCStrings.ARTIST_FIELD)
-                                                            .setText(card.getArtist()))
+                                                            .setAtom(card.getArtist()))
                                             .addField(Field.newBuilder()
                                                             .setName(HSSCStrings.TYPE_FIELD)
                                                             .setText(TranslateUtil.translateTypeToFrench(
                                                                             card.getType(), Locale.FRENCH)))
                                             .addField(Field.newBuilder().setName(HSSCStrings.IMAGE_FIELD)
-                                                            .setText(card.getImage()))
+                                                            .setAtom(card.getImage()))
                                             .addField(Field.newBuilder()
                                                             .setName(HSSCStrings.PLAYER_CLASS_FIELD)
                                                             .setText(TranslateUtil.translatePlayerClassToFrench(

@@ -18,7 +18,7 @@ public class SearchUtilTest {
         final Query query = SearchUtil.buildQuery(queryString, any(QueryOptions.class));
 
         //THEN
-        final String oracle = "id:" + queryString + " OR name:" + queryString + " OR attack:" + queryString + " OR health:" + queryString + " OR cost:" + queryString + " OR race:" + queryString + " OR rarity:" + queryString + " OR type:" + queryString;
+        final String oracle = queryString;
         assertThat(query.getQueryString()).isNotNull();
         assertThat(query.getQueryString()).isEqualTo(oracle);
     }
