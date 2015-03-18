@@ -20,6 +20,6 @@ To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/app
 
     mvn appengine:devserver
     
-## Whant to collaborate ? 
+## Want to collaborate ? 
 
 Pull request are welcome :)
