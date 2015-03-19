@@ -4,23 +4,19 @@ import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
 import com.geminicode.hssc.service.SearchApiService;
+import com.geminicode.hssc.utils.CardReader;
 import com.geminicode.hssc.utils.HSSCStrings;
 import com.geminicode.hssc.utils.SearchUtil;
 import com.geminicode.hssc.utils.TranslateUtil;
 import com.google.appengine.api.search.*;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
-import com.google.appengine.api.utils.SystemProperty;
-import com.google.appengine.repackaged.com.google.api.client.util.Strings;
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -32,10 +28,11 @@ public class SearchApiServiceImpl implements SearchApiService {
     private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
 
     public static final String BASE_URL_IMAGE = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/";
-    public static final String URL_API = "http://hearthstonejson.com/json/AllSets.frFR.json";
-    public static final String URL_LOCAL_API = "http://localhost:8080/AllSets.frFR.json";
+
     public static final String PNG = ".png";
     public static final String CARDS = "cards";
+
+    private static final Index index = getIndex(CARDS);
 
     @Override
     public List<Card> search(String queryString) throws SearchException {
@@ -46,12 +43,9 @@ public class SearchApiServiceImpl implements SearchApiService {
             return cards;
         }
 
-        final IndexSpec indexSpec = IndexSpec.newBuilder().setName(CARDS).build();
         final QueryOptions options = QueryOptions.newBuilder().setLimit(1000).build();
-
         final Query query = SearchUtil.buildQuery(queryString, options);
 
-        final Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
         final Results<ScoredDocument> results = index.search(query);
 
         for (ScoredDocument document : results) {
@@ -66,10 +60,8 @@ public class SearchApiServiceImpl implements SearchApiService {
 
     @Override
     public Card searchById(String id) throws SearchException {
-        final Index index = getIndex(CARDS);
         final Document document = index.get(id);
-        final Iterable<Field> fields = document.getFields();
-        final Card card = SearchUtil.getCardFromField(fields);
+        final Card card = SearchUtil.getCardFromField(document.getFields());
         card.setId(document.getId());
 
         return card;
@@ -79,7 +71,7 @@ public class SearchApiServiceImpl implements SearchApiService {
     public void checkNewCards() throws IOException {
         final Queue queue = QueueFactory.getDefaultQueue();
         try {
-            final Index index = getIndex(CARDS);
+
             while (true) {
                 final List<String> docIds = Lists.newArrayList();
                 final GetRequest request = GetRequest.newBuilder().setReturningIdsOnly(true).build();
@@ -87,7 +79,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 final GetResponse<Document> response = index.getRange(request);
                 if (response.getResults().isEmpty()) {
                     LOGGER.info("Loading cards : START");
-                    final CardType cardType = readyCardFromJson();
+                    final CardType cardType = CardReader.read();
                     addToSearch(cardType, TypesEnum.BASIC);
                     addToSearch(cardType, TypesEnum.CLASSIC);
                     addToSearch(cardType, TypesEnum.CURSE_OF_NAXXRAMAS);
@@ -153,14 +145,18 @@ public class SearchApiServiceImpl implements SearchApiService {
         }
     }
 
-    private void removeUnWantedCards(List<Card> cards) {
-        final List<Card> cardsToRemove = Lists.newArrayList();
-        for (Card card : cards) {
-            if (Strings.isNullOrEmpty(card.getCollectible())) {
-                cardsToRemove.add(card);
+    private List<Card> removeUnWantedCards(List<Card> cards) {
+
+        final List<Card> wantedCards = Lists.newArrayList();
+
+        wantedCards.addAll(Collections2.filter(cards, new Predicate<Card>() {
+            @Override
+            public boolean apply(Card input) {
+                return !Strings.isNullOrEmpty(input.getCollectible());
             }
-        }
-        cards.removeAll(cardsToRemove);
+        }));
+
+        return wantedCards;
     }
 
     private void buildUrl(List<Card> basics) {
@@ -170,9 +166,6 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     private void putFullCardsIntoSearch(List<Card> cards) {
-        final Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-
         for (Card card : cards) {
             final String docId = card.getId();
             final Document doc =
@@ -214,33 +207,14 @@ public class SearchApiServiceImpl implements SearchApiService {
                                             .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD)
                                                             .setText(card.getRace())).build();
 
-            IndexADocument(CARDS, doc);
+            index.put(doc);
 
         }
     }
 
-    private void IndexADocument(String indexName, Document document) throws PutException {
-        final Index index = getIndex(indexName);
-        index.put(document);
-    }
-
-    private Index getIndex(String indexName) {
+    private static Index getIndex(String indexName) {
         final IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
         return SearchServiceFactory.getSearchService().getIndex(indexSpec);
-    }
-
-    private CardType readyCardFromJson() throws IOException {
-        URL url;
-        if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Development) {
-            url = new URL(URL_LOCAL_API);
-        }else {
-            url = new URL(URL_API);
-        }
-
-        final BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-        final Gson gson = new Gson();
-
-        return gson.fromJson(br, CardType.class);
     }
 
 }
