@@ -1,12 +1,15 @@
 package com.geminicode.hssc.utils;
 
+import com.geminicode.hssc.service.DatastoreService;
 import com.geminicode.hssc.service.SearchApiService;
+import com.geminicode.hssc.service.impl.DatastoreServiceImpl;
 import com.geminicode.hssc.service.impl.SearchApiServiceImpl;
 
 public class ServiceFactory {
     private static ServiceFactory instance = null;
 
     private SearchApiService searchApiService;
+    private DatastoreService datastoreService;
 
     private ServiceFactory() {
 
@@ -28,6 +31,13 @@ public class ServiceFactory {
             searchApiService = new SearchApiServiceImpl();
         }
         return searchApiService;
+    }
+
+    public DatastoreService getDatastoreService() {
+        if(datastoreService == null) {
+            datastoreService = new DatastoreServiceImpl();
+        }
+        return datastoreService;
     }
 
 }

@@ -3,11 +3,9 @@ package com.geminicode.hssc.service.impl;
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
+import com.geminicode.hssc.service.DatastoreService;
 import com.geminicode.hssc.service.SearchApiService;
-import com.geminicode.hssc.utils.CardReader;
-import com.geminicode.hssc.utils.HSSCStrings;
-import com.geminicode.hssc.utils.SearchUtil;
-import com.geminicode.hssc.utils.TranslateUtil;
+import com.geminicode.hssc.utils.*;
 import com.google.appengine.api.search.*;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
@@ -33,6 +31,8 @@ public class SearchApiServiceImpl implements SearchApiService {
     public static final String CARDS = "cards";
 
     private static final Index index = getIndex(CARDS);
+
+    private final DatastoreService datastoreService = ServiceFactory.get().getDatastoreService();
 
     @Override
     public List<Card> search(String queryString) throws SearchException {
@@ -80,11 +80,14 @@ public class SearchApiServiceImpl implements SearchApiService {
                 if (response.getResults().isEmpty()) {
                     LOGGER.info("Loading cards : START");
                     final CardType cardType = CardReader.read();
-                    addToSearch(cardType, TypesEnum.BASIC);
-                    addToSearch(cardType, TypesEnum.CLASSIC);
-                    addToSearch(cardType, TypesEnum.CURSE_OF_NAXXRAMAS);
-                    addToSearch(cardType, TypesEnum.GOBLINS_VS_GNOMES);
-                    addToSearch(cardType, TypesEnum.PROMOTION);
+
+                    datastoreService.removeAllCards();
+                    persisteCards(cardType, TypesEnum.BASIC);
+                    persisteCards(cardType, TypesEnum.CLASSIC);
+                    persisteCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS);
+                    persisteCards(cardType, TypesEnum.GOBLINS_VS_GNOMES);
+                    persisteCards(cardType, TypesEnum.PROMOTION);
+
                     LOGGER.info("Loading cards : DONE");
                     break;
                 }
@@ -100,45 +103,50 @@ public class SearchApiServiceImpl implements SearchApiService {
         }
     }
 
-    private void addToSearch(CardType cardType, TypesEnum type) {
+    private void persisteCards(CardType cardType, TypesEnum type) {
 
         switch (type) {
             case BASIC:
                 final List<Card> basics = cardType.getBasic();
-                removeUnWantedCards(basics);
-                LOGGER.info("There are " + basics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
-                buildUrl(basics);
-                putFullCardsIntoSearch(basics);
+                final List<Card> wantedBasics = removeUnWantedCards(basics);
+                LOGGER.info("There are " + wantedBasics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
+                buildUrl(wantedBasics);
+                putFullCardsIntoSearch(wantedBasics);
+                datastoreService.putCards(wantedBasics);
                 break;
             case CLASSIC:
                 final List<Card> classics = cardType.getClassic();
-                removeUnWantedCards(classics);
-                LOGGER.info("There are " + classics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
-                buildUrl(classics);
-                putFullCardsIntoSearch(classics);
+                final List<Card> wantedClassics = removeUnWantedCards(classics);
+                LOGGER.info("There are " + wantedClassics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
+                buildUrl(wantedClassics);
+                putFullCardsIntoSearch(wantedClassics);
+                datastoreService.putCards(wantedClassics);
                 break;
             case CURSE_OF_NAXXRAMAS:
                 final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
-                removeUnWantedCards(curseOfNaxxramass);
-                LOGGER.info("There are " + curseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
+                final List<Card> wantedCurseOfNaxxramass = removeUnWantedCards(curseOfNaxxramass);
+                LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
                         + " cards.");
-                buildUrl(curseOfNaxxramass);
-                putFullCardsIntoSearch(curseOfNaxxramass);
+                buildUrl(wantedCurseOfNaxxramass);
+                putFullCardsIntoSearch(wantedCurseOfNaxxramass);
+                datastoreService.putCards(wantedCurseOfNaxxramass);
                 break;
             case GOBLINS_VS_GNOMES:
                 final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
-                removeUnWantedCards(gobelinsVsGnomes);
-                LOGGER.info("There are " + gobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
+                final List<Card> wantedGobelinsVsGnomes = removeUnWantedCards(gobelinsVsGnomes);
+                LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
                         + " cards.");
-                buildUrl(gobelinsVsGnomes);
-                putFullCardsIntoSearch(gobelinsVsGnomes);
+                buildUrl(wantedGobelinsVsGnomes);
+                putFullCardsIntoSearch(wantedGobelinsVsGnomes);
+                datastoreService.putCards(wantedGobelinsVsGnomes);
                 break;
             case PROMOTION:
                 final List<Card> promotions = cardType.getPromotions();
-                removeUnWantedCards(promotions);
-                LOGGER.info("There are " + promotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
-                buildUrl(promotions);
-                putFullCardsIntoSearch(promotions);
+                final List<Card> wantedPromotions = removeUnWantedCards(promotions);
+                LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
+                buildUrl(wantedPromotions);
+                putFullCardsIntoSearch(wantedPromotions);
+                datastoreService.putCards(wantedPromotions);
                 break;
             default:
                 break;
@@ -169,43 +177,43 @@ public class SearchApiServiceImpl implements SearchApiService {
         for (Card card : cards) {
             final String docId = card.getId();
             final Document doc =
-                            Document.newBuilder()
-                                            .setLocale(Locale.FRENCH)
-                                            .setId(docId)
-                                            .addField(Field.newBuilder().setName(HSSCStrings.NAME_FIELD)
-                                                            .setText(card.getName()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.TEXT_FIELD)
-                                                    .setAtom(card.getText()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.FLAVOR_FIELD)
-                                                            .setAtom(card.getFlavor()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.ARTIST_FIELD)
-                                                            .setAtom(card.getArtist()))
-                                            .addField(Field.newBuilder()
-                                                            .setName(HSSCStrings.TYPE_FIELD)
-                                                            .setText(TranslateUtil.translateTypeToFrench(
-                                                                            card.getType(), Locale.FRENCH)))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.IMAGE_FIELD)
-                                                    .setAtom(card.getImage()))
-                                            .addField(Field.newBuilder()
-                                                            .setName(HSSCStrings.PLAYER_CLASS_FIELD)
-                                                            .setText(TranslateUtil.translatePlayerClassToFrench(
-                                                                            card.getPlayerClass(), Locale.FRENCH)))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.FACTION_FIELD)
-                                                            .setText(card.getFaction()))
-                                            .addField(Field.newBuilder()
-                                                            .setName(HSSCStrings.RARITY_FIELD)
-                                                            .setText(TranslateUtil.translateRarityToFrench(
-                                                                            card.getRarity(), Locale.FRENCH)))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.COST_FIELD)
-                                                            .setText(card.getCost()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.ATTACK_FIELD)
-                                                            .setText(card.getAttack()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.HEALTH_FIELD)
-                                                            .setText(card.getHealth()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.COLLECTIBLE_FIELD)
-                                                            .setText(card.getCollectible()))
-                                            .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD)
-                                                            .setText(card.getRace())).build();
+                    Document.newBuilder()
+                            .setLocale(Locale.FRENCH)
+                            .setId(docId)
+                            .addField(Field.newBuilder().setName(HSSCStrings.NAME_FIELD)
+                                    .setText(card.getName()))
+                            .addField(Field.newBuilder().setName(HSSCStrings.TEXT_FIELD)
+                                    .setAtom(card.getText()))
+                            .addField(Field.newBuilder().setName(HSSCStrings.FLAVOR_FIELD)
+                                    .setAtom(card.getFlavor()))
+                            .addField(Field.newBuilder().setName(HSSCStrings.ARTIST_FIELD)
+                                    .setAtom(card.getArtist()))
+                            .addField(Field.newBuilder()
+                                    .setName(HSSCStrings.TYPE_FIELD)
+                                    .setText(TranslateUtil.translateTypeToFrench(
+                                            card.getType(), Locale.FRENCH)))
+                            .addField(Field.newBuilder().setName(HSSCStrings.IMAGE_FIELD)
+                                    .setAtom(card.getImage()))
+                            .addField(Field.newBuilder()
+                                    .setName(HSSCStrings.PLAYER_CLASS_FIELD)
+                                    .setText(TranslateUtil.translatePlayerClassToFrench(
+                                            card.getPlayerClass(), Locale.FRENCH)))
+                            .addField(Field.newBuilder().setName(HSSCStrings.FACTION_FIELD)
+                                    .setText(card.getFaction()))
+                            .addField(Field.newBuilder()
+                                    .setName(HSSCStrings.RARITY_FIELD)
+                                    .setText(TranslateUtil.translateRarityToFrench(
+                                            card.getRarity(), Locale.FRENCH)))
+                            .addField(Field.newBuilder().setName(HSSCStrings.COST_FIELD)
+                                    .setText(card.getCost()))
+                            .addField(Field.newBuilder().setName(HSSCStrings.ATTACK_FIELD)
+                                    .setText(card.getAttack()))
+                            .addField(Field.newBuilder().setName(HSSCStrings.HEALTH_FIELD)
+                                    .setText(card.getHealth()))
+                            .addField(Field.newBuilder().setName(HSSCStrings.COLLECTIBLE_FIELD)
+                                    .setText(card.getCollectible()))
+                            .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD)
+                                    .setText(card.getRace())).build();
 
             index.put(doc);
 

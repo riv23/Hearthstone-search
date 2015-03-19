@@ -21,6 +21,7 @@
         <jersey.version>1.19</jersey.version>
         <guava.version>18.0</guava.version>
         <fest-assert.version>1.4</fest-assert.version>
+        <objectify.version>5.1</objectify.version>
     </properties>
 
     <prerequisites>
@@ -54,6 +55,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.objectify</groupId>
+            <artifactId>objectify</artifactId>
+            <version>${objectify.version}</version>
         </dependency>
 
         <!-- ================ Dependencies Jersey ============================ -->
