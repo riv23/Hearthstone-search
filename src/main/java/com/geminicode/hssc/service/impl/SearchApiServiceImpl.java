@@ -86,13 +86,14 @@ public class SearchApiServiceImpl implements SearchApiService {
 
                 final GetResponse<Document> response = index.getRange(request);
                 if (response.getResults().isEmpty()) {
-                    LOGGER.info("Loading cards");
+                    LOGGER.info("Loading cards : START");
                     final CardType cardType = readyCardFromJson();
                     addToSearch(cardType, TypesEnum.BASIC);
                     addToSearch(cardType, TypesEnum.CLASSIC);
                     addToSearch(cardType, TypesEnum.CURSE_OF_NAXXRAMAS);
                     addToSearch(cardType, TypesEnum.GOBLINS_VS_GNOMES);
                     addToSearch(cardType, TypesEnum.PROMOTION);
+                    LOGGER.info("Loading cards : DONE");
                     break;
                 }
                 for (Document doc : response) {
@@ -102,8 +103,8 @@ public class SearchApiServiceImpl implements SearchApiService {
                 index.delete(docIds);
             }
         } catch (RuntimeException e) {
-            queue.add(withUrl("/delete"));
             LOGGER.info("A new delete task was launch due to :" + e.getLocalizedMessage());
+            queue.add(withUrl("/check"));
         }
     }
 
@@ -191,7 +192,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                                                             .setText(TranslateUtil.translateTypeToFrench(
                                                                             card.getType(), Locale.FRENCH)))
                                             .addField(Field.newBuilder().setName(HSSCStrings.IMAGE_FIELD)
-                                                            .setAtom(card.getImage()))
+                                                    .setAtom(card.getImage()))
                                             .addField(Field.newBuilder()
                                                             .setName(HSSCStrings.PLAYER_CLASS_FIELD)
                                                             .setText(TranslateUtil.translatePlayerClassToFrench(
