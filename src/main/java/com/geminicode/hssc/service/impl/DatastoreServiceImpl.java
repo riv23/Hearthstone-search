@@ -16,7 +16,7 @@ public class DatastoreServiceImpl implements DatastoreService {
 
     @Override
     public List<NameCard> searchNameCards(String query) {
-        return OfyService.ofy().load().type(NameCard.class).filter("compute >=", query.toLowerCase()).filter("compute <", query.toLowerCase() + "\uFFFD").list();
+        return OfyService.ofy().load().type(NameCard.class).order("compute").filter("compute >=", query.toLowerCase()).filter("compute <", query.toLowerCase() + "\uFFFD").limit(5).list();
     }
 
     @Override
