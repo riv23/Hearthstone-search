@@ -7,8 +7,7 @@ app.controller('SearchCtrl', function ($scope, $http) {
     $scope.tapedQuery = function(typed){
         $http.get("/api/names?q=" + withoutAccents(typed))
             .success(function(data) {
-                var suggestions = _.map(data, _.iteratee('name'));
-                $scope.suggestions = suggestions;
+                $scope.suggestions = _.map(data, _.iteratee('name'));
             });
     };
     $scope.$watch(function () { return $scope.query; }, function () {
