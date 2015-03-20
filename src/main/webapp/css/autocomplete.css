@@ -27,7 +27,11 @@
 
 .autocomplete li{
     text-align: left;
+    height: 34px;
+    vertical-align: middle;
     list-style:none;
+    padding: 6px 12px;
+    line-height: 1.428571429;
     width: 100%;
     background-color: #fff;
     color : black;
