@@ -5,6 +5,7 @@ import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.NameCard;
 import com.geminicode.hssc.service.DatastoreService;
 import com.geminicode.hssc.service.OfyService;
+import com.geminicode.hssc.utils.HSSCStrings;
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
@@ -46,6 +47,64 @@ public class DatastoreServiceImpl implements DatastoreService {
     public void removeAllCards() {
         final List<NameCard> list = OfyService.ofy().load().type(NameCard.class).list();
         OfyService.ofy().delete().entities(list).now();
+    }
+
+    /**
+     * Only french strings for the moment
+     */
+    @Override
+    public void putOtherString() {
+
+        final List<String> otherStyrings = Lists.newArrayList();
+
+        otherStyrings.add(HSSCStrings.EPIC_FR);
+        otherStyrings.add(HSSCStrings.LEGENDARY_FR);
+        otherStyrings.add(HSSCStrings.COMMON_FR);
+        otherStyrings.add(HSSCStrings.FREE_FR);
+        otherStyrings.add(HSSCStrings.WARRIOR_FR);
+        otherStyrings.add(HSSCStrings.ROGUE_FR);
+        otherStyrings.add(HSSCStrings.HUNTER_FR);
+        otherStyrings.add(HSSCStrings.DRUID_FR);
+        otherStyrings.add(HSSCStrings.SHAMAN_FR);
+        otherStyrings.add(HSSCStrings.WARLOCK_FR);
+        otherStyrings.add(HSSCStrings.PRIEST_FR);
+        otherStyrings.add(HSSCStrings.MINION_FR);
+        otherStyrings.add(HSSCStrings.SPELL_FR);
+        otherStyrings.add(HSSCStrings.EPIC_FR);
+        otherStyrings.add(HSSCStrings.LEGENDARY_FR);
+        otherStyrings.add(HSSCStrings.COMMON_FR);
+        otherStyrings.add(HSSCStrings.FREE_FR);
+        otherStyrings.add(HSSCStrings.WARRIOR_FR);
+        otherStyrings.add(HSSCStrings.ROGUE_FR);
+        otherStyrings.add(HSSCStrings.HUNTER_FR);
+        otherStyrings.add(HSSCStrings.DRUID_FR);
+        otherStyrings.add(HSSCStrings.SHAMAN_FR);
+        otherStyrings.add(HSSCStrings.WARLOCK_FR);
+        otherStyrings.add(HSSCStrings.PRIEST_FR);
+        otherStyrings.add(HSSCStrings.MINION_FR);
+        otherStyrings.add(HSSCStrings.SPELL_FR);
+        otherStyrings.add(HSSCStrings.BATTLECRY_FR);
+        otherStyrings.add(HSSCStrings.FREEZE_FR);
+        otherStyrings.add(HSSCStrings.DEATHRATTLE_FR);
+        otherStyrings.add(HSSCStrings.STEALTH_FR);
+        otherStyrings.add(HSSCStrings.WINDFURY_FR);
+        otherStyrings.add(HSSCStrings.TAUNT_FR);
+        otherStyrings.add(HSSCStrings.ENRAGE_FR);
+        otherStyrings.add(HSSCStrings.DIVINESHIELD_FR);
+
+        final List<NameCard> nameCards = Lists.newArrayList();
+
+        nameCards.addAll(Collections2.transform(otherStyrings, new Function<String, NameCard>() {
+            @Override
+            public NameCard apply(String string) {
+                final NameCard nameCard = new NameCard();
+                nameCard.setId(string);
+                nameCard.setName(string);
+                nameCard.setCompute(getComputeName(string));
+                return nameCard;
+            }
+        }));
+        OfyService.ofy().save().entities(nameCards).now();
     }
 
     private String getComputeName(String name) {

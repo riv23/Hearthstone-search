@@ -31,6 +31,8 @@ public class Card {
 
     private String race = "";
 
+    private String[] mechanics = null;
+
     public String getId() {
         return id;
     }
@@ -151,4 +153,11 @@ public class Card {
         this.race = race;
     }
 
+    public String[] getMechanics() {
+        return mechanics;
+    }
+
+    public void setMechanics(String[] mechanics) {
+        this.mechanics = mechanics;
+    }
 }

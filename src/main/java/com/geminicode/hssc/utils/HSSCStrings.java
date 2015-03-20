@@ -43,5 +43,21 @@ public class HSSCStrings {
     public static final String HEALTH_FIELD = "health";
     public static final String COLLECTIBLE_FIELD = "collectible";
     public static final String RACE_FIELD = "race";
-
+    public static final String MECHANICS_FIELD = "mechanics";
+    public static final String BATTLECRY_EN = "Battlecry";
+    public static final String BATTLECRY_FR = "Cri de guerre";
+    public static final String FREEZE_EN = "Freeze";
+    public static final String FREEZE_FR = "Gèle";
+    public static final String DEATHRATTLE_EN = "Deathrattle";
+    public static final String DEATHRATTLE_FR = "Râle d'agonie";
+    public static final String STEALTH_EN = "Stealth";
+    public static final String STEALTH_FR = "Camouflage";
+    public static final String WINDFURY_EN = "Windfury";
+    public static final String WINDFURY_FR = "Furie des vents";
+    public static final String TAUNT_EN = "Taunt";
+    public static final String TAUNT_FR = "Provocation";
+    public static final String ENRAGE_EN = "Enrage";
+    public static final String ENRAGE_FR = "Accès de rage";
+    public static final String DIVINESHIELD_EN = "Divine Shield";
+    public static final String DIVINESHIELD_FR = "Bouclier divin";
 }

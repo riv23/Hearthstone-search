@@ -57,4 +57,30 @@ public class TranslateUtil {
 
         return value;
     }
+
+    public static  String translateMechanic(String mechanic, Locale locale) {
+        if (Locale.FRENCH.equals(locale)) {
+            switch (mechanic) {
+                case HSSCStrings.BATTLECRY_EN:
+                    return HSSCStrings.BATTLECRY_FR;
+                case HSSCStrings.FREEZE_EN:
+                    return HSSCStrings.FREEZE_FR;
+                case HSSCStrings.DEATHRATTLE_EN:
+                    return HSSCStrings.DEATHRATTLE_FR;
+                case HSSCStrings.STEALTH_EN:
+                    return HSSCStrings.STEALTH_FR;
+                case HSSCStrings.WINDFURY_EN:
+                    return HSSCStrings.WINDFURY_FR;
+                case HSSCStrings.TAUNT_EN:
+                    return HSSCStrings.TAUNT_FR;
+                case HSSCStrings.ENRAGE_EN:
+                    return HSSCStrings.ENRAGE_FR;
+                case HSSCStrings.DIVINESHIELD_EN:
+                    return HSSCStrings.DIVINESHIELD_FR;
+                default:
+                    return mechanic;
+            }
+        }
+        return mechanic;
+    }
 }

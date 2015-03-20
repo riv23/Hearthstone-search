@@ -14,6 +14,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -151,6 +152,8 @@ public class SearchApiServiceImpl implements SearchApiService {
             default:
                 break;
         }
+
+        datastoreService.putOtherString();
     }
 
     private List<Card> removeUnWantedCards(List<Card> cards) {
@@ -213,11 +216,31 @@ public class SearchApiServiceImpl implements SearchApiService {
                             .addField(Field.newBuilder().setName(HSSCStrings.COLLECTIBLE_FIELD)
                                     .setText(card.getCollectible()))
                             .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD)
-                                    .setText(card.getRace())).build();
+                                    .setText(card.getRace()))
+                            .addField(Field.newBuilder().setName(HSSCStrings.MECHANICS_FIELD)
+                                    .setText(buildMechanicsValues(card.getMechanics()))).build();
 
             index.put(doc);
 
         }
+    }
+
+    private String buildMechanicsValues(String[] mechanics) {
+        final StringBuilder stringBuilder = new StringBuilder();
+
+        if (mechanics == null || mechanics.length == 0) {
+            return "";
+        }
+
+        for (int i = 0; i < mechanics.length; i++) {
+            final String mechanic = mechanics[i];
+            stringBuilder.append(TranslateUtil.translateMechanic(mechanic, Locale.FRENCH));
+            if (i != mechanics.length - 1) {
+                stringBuilder.append("|");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 
     private static Index getIndex(String indexName) {

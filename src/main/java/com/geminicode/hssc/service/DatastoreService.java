@@ -13,4 +13,5 @@ public interface DatastoreService {
 
     void removeAllCards();
 
+    void putOtherString();
 }
