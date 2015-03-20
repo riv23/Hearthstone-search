@@ -5,11 +5,9 @@ app.controller('SearchCtrl', function ($scope, $http) {
     };
 
     $scope.tapedQuery = function(typed){
-        $http.get("/api/names?q=" + sansAccents(typed))
+        $http.get("/api/names?q=" + withoutAccents(typed))
             .success(function(data) {
                 var suggestions = _.map(data, _.iteratee('name'));
-                console.log("Taped : " + sansAccents(typed));
-                console.log("Suggestions : " + suggestions);
                 $scope.suggestions = suggestions;
             });
     };
@@ -27,7 +25,7 @@ app.controller('SearchCtrl', function ($scope, $http) {
             });
     };
 
-    var sansAccents = function(str){
+    var withoutAccents = function(str){
         var accent = [
             /[\300-\306]/g, /[\340-\346]/g, // A, a
             /[\310-\313]/g, /[\350-\353]/g, // E, e
