@@ -14,7 +14,6 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -110,44 +109,44 @@ public class SearchApiServiceImpl implements SearchApiService {
             case BASIC:
                 final List<Card> basics = cardType.getBasic();
                 final List<Card> wantedBasics = removeUnWantedCards(basics);
-                LOGGER.info("There are " + wantedBasics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
                 buildUrl(wantedBasics);
                 putFullCardsIntoSearch(wantedBasics);
                 datastoreService.putCards(wantedBasics);
+                LOGGER.info("There are " + wantedBasics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
                 break;
             case CLASSIC:
                 final List<Card> classics = cardType.getClassic();
                 final List<Card> wantedClassics = removeUnWantedCards(classics);
-                LOGGER.info("There are " + wantedClassics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
                 buildUrl(wantedClassics);
                 putFullCardsIntoSearch(wantedClassics);
                 datastoreService.putCards(wantedClassics);
+                LOGGER.info("There are " + wantedClassics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
                 break;
             case CURSE_OF_NAXXRAMAS:
                 final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
                 final List<Card> wantedCurseOfNaxxramass = removeUnWantedCards(curseOfNaxxramass);
-                LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
-                        + " cards.");
                 buildUrl(wantedCurseOfNaxxramass);
                 putFullCardsIntoSearch(wantedCurseOfNaxxramass);
                 datastoreService.putCards(wantedCurseOfNaxxramass);
+                LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
+                        + " cards.");
                 break;
             case GOBLINS_VS_GNOMES:
                 final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
                 final List<Card> wantedGobelinsVsGnomes = removeUnWantedCards(gobelinsVsGnomes);
-                LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
-                        + " cards.");
                 buildUrl(wantedGobelinsVsGnomes);
                 putFullCardsIntoSearch(wantedGobelinsVsGnomes);
                 datastoreService.putCards(wantedGobelinsVsGnomes);
+                LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
+                        + " cards.");
                 break;
             case PROMOTION:
                 final List<Card> promotions = cardType.getPromotions();
                 final List<Card> wantedPromotions = removeUnWantedCards(promotions);
-                LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 buildUrl(wantedPromotions);
                 putFullCardsIntoSearch(wantedPromotions);
                 datastoreService.putCards(wantedPromotions);
+                LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 break;
             default:
                 break;

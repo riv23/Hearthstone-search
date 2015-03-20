@@ -12,8 +12,9 @@ import java.io.IOException;
 public class CheckCardsCron extends HttpServlet {
 
     private final SearchApiService searchApiService = ServiceFactory.get().getSearchApiService();
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         searchApiService.checkNewCards();
-	}
+    }
 }

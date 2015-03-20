@@ -5,6 +5,7 @@ import com.google.appengine.api.search.SearchException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public interface SearchApiService {
     List<Card> search(String query) throws SearchException;
