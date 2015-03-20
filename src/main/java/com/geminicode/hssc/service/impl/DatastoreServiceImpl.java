@@ -5,6 +5,7 @@ import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.NameCard;
 import com.geminicode.hssc.service.DatastoreService;
 import com.geminicode.hssc.service.OfyService;
+import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
@@ -16,6 +17,9 @@ public class DatastoreServiceImpl implements DatastoreService {
 
     @Override
     public List<NameCard> searchNameCards(String query) {
+        if(Strings.isNullOrEmpty(query)) {
+            return Lists.newArrayList();
+        }
         return OfyService.ofy().load().type(NameCard.class).order("compute").filter("compute >=", query.toLowerCase()).filter("compute <", query.toLowerCase() + "\uFFFD").limit(5).list();
     }
 

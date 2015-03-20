@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="css/hssc-bootstrap.css" rel="stylesheet">
     <link href='css/rotating-card.css' rel='stylesheet' />
+    <link href='css/autocomplete.css' rel='stylesheet' />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -32,7 +33,11 @@
 
         <form ng-submit="submit()">
             <div class="form-group">
-                <input type="text" class="form-control" ng-model="query"/>
+                <!--<input type="text" class="form-control" ng-model="query"/>-->
+                <autocomplete ng-model="query" data="suggestions" on-type="tapedQuery"></autocomplete>
+                <datalist id="cards">
+                    <option ng-repeat="item in cardslist" value="{{item.name}}" />
+                </datalist>
             </div>
         </form>
     </div>
@@ -53,6 +58,8 @@
 
 <script src="js/analytics.js"></script>
 <script src="js/lib/angular.min.js"></script>
+<script src="js/lib/autocomplete.js"></script>
+<script src="js/lib/underscore-min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/filters/htmlFilter.js"></script>
 <script src="js/controllers/searchController.js"></script>

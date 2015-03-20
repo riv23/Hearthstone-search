@@ -8,5 +8,15 @@ app.controller('SearchCtrl', function ($scope, $http) {
             .error(function (error) {
                 console.log("Error while accessing to API " + error);
             });
-    }
+    };
+
+    $scope.tapedQuery = function(typed){
+        // MovieRetriever could be some service returning a promise
+        $http.get("/api/names?q=" + typed)
+            .success(function(data) {
+                $scope.suggestions = _.map(data, _.iteratee('name'));
+            });
+    };
+
+
 });

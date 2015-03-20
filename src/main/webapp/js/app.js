@@ -1,1 +1,1 @@
-var app = angular.module('hssc', []);
+var app = angular.module('hssc', ['autocomplete']);
