@@ -44,6 +44,8 @@ public class HSSCStrings {
     public static final String COLLECTIBLE_FIELD = "collectible";
     public static final String RACE_FIELD = "race";
     public static final String MECHANICS_FIELD = "mechanics";
+    public static final String LANG_FIELD = "lang";
+
     public static final String BATTLECRY_EN = "Battlecry";
     public static final String BATTLECRY_FR = "Cri de guerre";
     public static final String FREEZE_EN = "Freeze";
@@ -60,4 +62,6 @@ public class HSSCStrings {
     public static final String ENRAGE_FR = "Accès de rage";
     public static final String DIVINESHIELD_EN = "Divine Shield";
     public static final String DIVINESHIELD_FR = "Bouclier divin";
+    public static final String MECH_EN = "Mech";
+    public static final String MECH_FR = "Méca";
 }

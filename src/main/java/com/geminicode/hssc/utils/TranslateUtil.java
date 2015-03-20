@@ -4,7 +4,7 @@ import java.util.Locale;
 
 public class TranslateUtil {
 
-    public static String translateRarityToFrench(String value, Locale locale) {
+    public static String translateRarity(String value, Locale locale) {
         if(Locale.FRENCH.equals(locale)) {
             switch (value) {
                 case HSSCStrings.EPIC_EN:
@@ -21,7 +21,7 @@ public class TranslateUtil {
             return value;
     }
 
-    public static String translatePlayerClassToFrench(String value, Locale locale) {
+    public static String translatePlayerClass(String value, Locale locale) {
         if(Locale.FRENCH.equals(locale)) {
             switch (value) {
                 case HSSCStrings.WARRIOR_EN:
@@ -44,7 +44,7 @@ public class TranslateUtil {
         return value;
     }
 
-    public static String translateTypeToFrench(String value, Locale locale) {
+    public static String translateType(String value, Locale locale) {
         if(Locale.FRENCH.equals(locale)) {
             switch (value) {
                 case HSSCStrings.MINION_EN:
@@ -82,5 +82,17 @@ public class TranslateUtil {
             }
         }
         return mechanic;
+    }
+
+    public static String translateRace(String race, Locale locale) {
+        if (Locale.FRENCH.equals(locale)) {
+            switch (race) {
+                case HSSCStrings.MECH_EN:
+                    return HSSCStrings.MECH_FR;
+                default:
+                    return race;
+            }
+        }
+        return race;
     }
 }

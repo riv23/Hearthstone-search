@@ -25,7 +25,7 @@ public class SearchApiServiceImpl implements SearchApiService {
 
     private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
 
-    public static final String BASE_URL_IMAGE = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/";
+    public static final String BASE_URL_IMAGE_FR = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/";
 
     public static final String PNG = ".png";
     public static final String CARDS = "cards";
@@ -82,11 +82,12 @@ public class SearchApiServiceImpl implements SearchApiService {
                     final CardType cardType = CardReader.read();
 
                     datastoreService.removeAllCards();
-                    persisteCards(cardType, TypesEnum.BASIC);
-                    persisteCards(cardType, TypesEnum.CLASSIC);
-                    persisteCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS);
-                    persisteCards(cardType, TypesEnum.GOBLINS_VS_GNOMES);
-                    persisteCards(cardType, TypesEnum.PROMOTION);
+                    persisteCards(cardType, TypesEnum.BASIC, Locale.FRENCH);
+                    persisteCards(cardType, TypesEnum.CLASSIC, Locale.FRENCH);
+                    persisteCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS, Locale.FRENCH);
+                    persisteCards(cardType, TypesEnum.GOBLINS_VS_GNOMES, Locale.FRENCH);
+                    persisteCards(cardType, TypesEnum.PROMOTION, Locale.FRENCH);
+                    datastoreService.putOtherString();
 
                     LOGGER.info("Loading cards : DONE");
                     break;
@@ -103,30 +104,30 @@ public class SearchApiServiceImpl implements SearchApiService {
         }
     }
 
-    private void persisteCards(CardType cardType, TypesEnum type) {
+    private void persisteCards(CardType cardType, TypesEnum type, Locale locale) {
 
         switch (type) {
             case BASIC:
                 final List<Card> basics = cardType.getBasic();
                 final List<Card> wantedBasics = removeUnWantedCards(basics);
-                buildUrl(wantedBasics);
-                putFullCardsIntoSearch(wantedBasics);
+                buildUrl(wantedBasics, locale);
+                putFullCardsIntoSearch(wantedBasics, locale);
                 datastoreService.putCards(wantedBasics);
                 LOGGER.info("There are " + wantedBasics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
                 break;
             case CLASSIC:
                 final List<Card> classics = cardType.getClassic();
                 final List<Card> wantedClassics = removeUnWantedCards(classics);
-                buildUrl(wantedClassics);
-                putFullCardsIntoSearch(wantedClassics);
+                buildUrl(wantedClassics, locale);
+                putFullCardsIntoSearch(wantedClassics, locale);
                 datastoreService.putCards(wantedClassics);
                 LOGGER.info("There are " + wantedClassics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
                 break;
             case CURSE_OF_NAXXRAMAS:
                 final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
                 final List<Card> wantedCurseOfNaxxramass = removeUnWantedCards(curseOfNaxxramass);
-                buildUrl(wantedCurseOfNaxxramass);
-                putFullCardsIntoSearch(wantedCurseOfNaxxramass);
+                buildUrl(wantedCurseOfNaxxramass, locale);
+                putFullCardsIntoSearch(wantedCurseOfNaxxramass, locale);
                 datastoreService.putCards(wantedCurseOfNaxxramass);
                 LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
                         + " cards.");
@@ -134,8 +135,8 @@ public class SearchApiServiceImpl implements SearchApiService {
             case GOBLINS_VS_GNOMES:
                 final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
                 final List<Card> wantedGobelinsVsGnomes = removeUnWantedCards(gobelinsVsGnomes);
-                buildUrl(wantedGobelinsVsGnomes);
-                putFullCardsIntoSearch(wantedGobelinsVsGnomes);
+                buildUrl(wantedGobelinsVsGnomes, locale);
+                putFullCardsIntoSearch(wantedGobelinsVsGnomes, locale);
                 datastoreService.putCards(wantedGobelinsVsGnomes);
                 LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
                         + " cards.");
@@ -143,16 +144,14 @@ public class SearchApiServiceImpl implements SearchApiService {
             case PROMOTION:
                 final List<Card> promotions = cardType.getPromotions();
                 final List<Card> wantedPromotions = removeUnWantedCards(promotions);
-                buildUrl(wantedPromotions);
-                putFullCardsIntoSearch(wantedPromotions);
+                buildUrl(wantedPromotions, locale);
+                putFullCardsIntoSearch(wantedPromotions, locale);
                 datastoreService.putCards(wantedPromotions);
                 LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 break;
             default:
                 break;
         }
-
-        datastoreService.putOtherString();
     }
 
     private List<Card> removeUnWantedCards(List<Card> cards) {
@@ -169,18 +168,22 @@ public class SearchApiServiceImpl implements SearchApiService {
         return wantedCards;
     }
 
-    private void buildUrl(List<Card> basics) {
+    private void buildUrl(List<Card> basics, Locale locale) {
+        String baseUrl = BASE_URL_IMAGE_FR;
+        if(Locale.FRENCH.equals(locale)) {
+            baseUrl = BASE_URL_IMAGE_FR;
+        }
         for (Card basic : basics) {
-            basic.setImage(BASE_URL_IMAGE + basic.getId() + PNG);
+            basic.setImage(baseUrl + basic.getId() + PNG);
         }
     }
 
-    private void putFullCardsIntoSearch(List<Card> cards) {
+    private void putFullCardsIntoSearch(List<Card> cards, Locale locale) {
         for (Card card : cards) {
             final String docId = card.getId();
             final Document doc =
                     Document.newBuilder()
-                            .setLocale(Locale.FRENCH)
+                            .setLocale(locale)
                             .setId(docId)
                             .addField(Field.newBuilder().setName(HSSCStrings.NAME_FIELD)
                                     .setText(card.getName()))
@@ -192,20 +195,20 @@ public class SearchApiServiceImpl implements SearchApiService {
                                     .setAtom(card.getArtist()))
                             .addField(Field.newBuilder()
                                     .setName(HSSCStrings.TYPE_FIELD)
-                                    .setText(TranslateUtil.translateTypeToFrench(
-                                            card.getType(), Locale.FRENCH)))
+                                    .setText(TranslateUtil.translateType(
+                                            card.getType(), locale)))
                             .addField(Field.newBuilder().setName(HSSCStrings.IMAGE_FIELD)
                                     .setAtom(card.getImage()))
                             .addField(Field.newBuilder()
                                     .setName(HSSCStrings.PLAYER_CLASS_FIELD)
-                                    .setText(TranslateUtil.translatePlayerClassToFrench(
-                                            card.getPlayerClass(), Locale.FRENCH)))
+                                    .setText(TranslateUtil.translatePlayerClass(
+                                            card.getPlayerClass(), locale)))
                             .addField(Field.newBuilder().setName(HSSCStrings.FACTION_FIELD)
                                     .setText(card.getFaction()))
                             .addField(Field.newBuilder()
                                     .setName(HSSCStrings.RARITY_FIELD)
-                                    .setText(TranslateUtil.translateRarityToFrench(
-                                            card.getRarity(), Locale.FRENCH)))
+                                    .setText(TranslateUtil.translateRarity(
+                                            card.getRarity(), locale)))
                             .addField(Field.newBuilder().setName(HSSCStrings.COST_FIELD)
                                     .setText(card.getCost()))
                             .addField(Field.newBuilder().setName(HSSCStrings.ATTACK_FIELD)
@@ -217,14 +220,27 @@ public class SearchApiServiceImpl implements SearchApiService {
                             .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD)
                                     .setText(card.getRace()))
                             .addField(Field.newBuilder().setName(HSSCStrings.MECHANICS_FIELD)
-                                    .setText(buildMechanicsValues(card.getMechanics()))).build();
+                                    .setText(buildMechanicsValues(card.getMechanics(), locale)))
+                            .addField(Field.newBuilder().setName(HSSCStrings.LANG_FIELD)
+                                    .setAtom(buildLangField(locale))).build();
 
             index.put(doc);
 
         }
     }
 
-    private String buildMechanicsValues(String[] mechanics) {
+    private String buildLangField(Locale locale) {
+        String lang = "";
+        if(Locale.FRENCH.equals(locale)) {
+            lang = "fr";
+        }
+        if(Locale.ENGLISH.equals(locale)) {
+            lang = "en";
+        }
+        return lang;
+    }
+
+    private String buildMechanicsValues(String[] mechanics, Locale locale) {
         final StringBuilder stringBuilder = new StringBuilder();
 
         if (mechanics == null || mechanics.length == 0) {
@@ -233,7 +249,7 @@ public class SearchApiServiceImpl implements SearchApiService {
 
         for (int i = 0; i < mechanics.length; i++) {
             final String mechanic = mechanics[i];
-            stringBuilder.append(TranslateUtil.translateMechanic(mechanic, Locale.FRENCH));
+            stringBuilder.append(TranslateUtil.translateMechanic(mechanic, locale));
             if (i != mechanics.length - 1) {
                 stringBuilder.append("|");
             }

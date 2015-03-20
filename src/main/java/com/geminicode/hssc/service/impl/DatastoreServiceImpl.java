@@ -91,6 +91,7 @@ public class DatastoreServiceImpl implements DatastoreService {
         otherStyrings.add(HSSCStrings.TAUNT_FR);
         otherStyrings.add(HSSCStrings.ENRAGE_FR);
         otherStyrings.add(HSSCStrings.DIVINESHIELD_FR);
+        otherStyrings.add(HSSCStrings.MECH_FR);
 
         final List<NameCard> nameCards = Lists.newArrayList();
 
