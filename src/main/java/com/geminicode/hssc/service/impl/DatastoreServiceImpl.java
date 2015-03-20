@@ -5,8 +5,8 @@ import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.NameCard;
 import com.geminicode.hssc.service.DatastoreService;
 import com.geminicode.hssc.service.OfyService;
-import com.google.appengine.repackaged.com.google.api.client.util.Strings;
 import com.google.common.base.Function;
+import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
