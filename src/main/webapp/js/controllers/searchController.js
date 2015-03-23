@@ -49,8 +49,11 @@ app.controller('SearchCtrl', function ($scope, $http) {
     };
 
     var getLanguage = function() {
-        return navigator.language;
-        //return "en";
+        var language = navigator.language;
+        if(language !== "fr") {
+            return "";
+        }
+        return language;
     }
 
 });
