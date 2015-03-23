@@ -26,6 +26,7 @@ public class SearchApiServiceImpl implements SearchApiService {
     private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
 
     public static final String BASE_URL_IMAGE_FR = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/";
+    public static final String BASE_URL_IMAGE_EN = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/";
 
     public static final String PNG = ".png";
     public static final String CARDS = "cards";
@@ -96,8 +97,8 @@ public class SearchApiServiceImpl implements SearchApiService {
     @Override
     public void checkNewCards(Locale locale) throws IOException {
 
-        LOGGER.info("Loading cards : START");
-        final CardType cardType = CardReader.read();
+        LOGGER.info("Loading cards for " + locale + " : START");
+        final CardType cardType = CardReader.read(locale);
 
         persisteCards(cardType, TypesEnum.BASIC, locale);
         persisteCards(cardType, TypesEnum.CLASSIC, locale);
@@ -106,7 +107,7 @@ public class SearchApiServiceImpl implements SearchApiService {
         persisteCards(cardType, TypesEnum.PROMOTION, locale);
         datastoreService.putOtherString(locale);
 
-        LOGGER.info("Loading cards : START");
+        LOGGER.info("Loading cards " + locale + ": END");
 
     }
 
@@ -179,6 +180,9 @@ public class SearchApiServiceImpl implements SearchApiService {
         if (Locale.FRENCH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_FR;
         }
+        if(Locale.ENGLISH.equals(locale)) {
+            baseUrl = BASE_URL_IMAGE_EN;
+        }
         for (Card basic : basics) {
             basic.setImage(baseUrl + basic.getId() + PNG);
         }
@@ -186,7 +190,7 @@ public class SearchApiServiceImpl implements SearchApiService {
 
     private void putFullCardsIntoSearch(List<Card> cards, Locale locale) {
         for (Card card : cards) {
-            final String docId = card.getId();
+            final String docId = card.getId() + "_" + TranslateUtil.buildLanguageField(locale);
             final Document doc =
                     Document.newBuilder()
                             .setLocale(locale)

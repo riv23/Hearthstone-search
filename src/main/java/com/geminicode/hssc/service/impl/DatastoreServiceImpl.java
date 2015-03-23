@@ -34,7 +34,7 @@ public class DatastoreServiceImpl implements DatastoreService {
             @Override
             public NameCard apply(Card card) {
                 final NameCard nameCard = new NameCard();
-                nameCard.setId(card.getId());
+                nameCard.setId(card.getId() + "_" + TranslateUtil.buildLanguageField(locale));
                 nameCard.setName(card.getName());
                 nameCard.setCompute(getComputeName(card.getName()));
                 nameCard.setLanguage(TranslateUtil.buildLanguageField(locale));
@@ -117,7 +117,7 @@ public class DatastoreServiceImpl implements DatastoreService {
             @Override
             public NameCard apply(String string) {
                 final NameCard nameCard = new NameCard();
-                nameCard.setId(string);
+                nameCard.setId(string + "_" + TranslateUtil.buildLanguageField(locale));
                 nameCard.setName(string);
                 nameCard.setCompute(getComputeName(string));
                 nameCard.setLanguage(TranslateUtil.buildLanguageField(locale));
