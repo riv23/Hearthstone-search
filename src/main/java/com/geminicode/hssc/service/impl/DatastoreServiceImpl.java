@@ -18,12 +18,17 @@ import java.util.Locale;
 
 public class DatastoreServiceImpl implements DatastoreService {
 
+    public static final String EN = "en";
+
     @Override
-    public List<NameCard> searchNameCards(String query) {
-        if(Strings.isNullOrEmpty(query)) {
+    public List<NameCard> searchNameCards(String query, String lang) {
+        if (Strings.isNullOrEmpty(query)) {
             return Lists.newArrayList();
         }
-        return OfyService.ofy().load().type(NameCard.class).order("compute").filter("compute >=", query.toLowerCase()).filter("compute <", query.toLowerCase() + "\uFFFD").limit(5).list();
+        if (Strings.isNullOrEmpty(lang)) {
+            lang = EN;
+        }
+        return OfyService.ofy().load().type(NameCard.class).order("compute").filter("language", lang).filter("compute >=", query.toLowerCase()).filter("compute <", query.toLowerCase() + "\uFFFD").limit(5).list();
     }
 
     @Override
@@ -52,15 +57,12 @@ public class DatastoreServiceImpl implements DatastoreService {
         OfyService.ofy().delete().entities(list).now();
     }
 
-    /**
-     * Only french strings for the moment
-     */
     @Override
     public void putOtherString(final Locale locale) {
 
         final List<String> otherStyrings = Lists.newArrayList();
 
-        if(Locale.FRENCH.equals(locale)) {
+        if (Locale.FRENCH.equals(locale)) {
             otherStyrings.add(HSSCStrings.EPIC_FR);
             otherStyrings.add(HSSCStrings.LEGENDARY_FR);
             otherStyrings.add(HSSCStrings.COMMON_FR);
@@ -85,7 +87,7 @@ public class DatastoreServiceImpl implements DatastoreService {
             otherStyrings.add(HSSCStrings.MECH_FR);
         }
 
-        if(Locale.ENGLISH.equals(locale)) {
+        if (Locale.ENGLISH.equals(locale)) {
             otherStyrings.add(HSSCStrings.EPIC_EN);
             otherStyrings.add(HSSCStrings.LEGENDARY_EN);
             otherStyrings.add(HSSCStrings.COMMON_EN);

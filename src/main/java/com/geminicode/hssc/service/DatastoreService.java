@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 public interface DatastoreService {
-    List<NameCard> searchNameCards(String query);
+    List<NameCard> searchNameCards(String query, String lang);
 
     void putCards(List<Card> basics, Locale locale);
 

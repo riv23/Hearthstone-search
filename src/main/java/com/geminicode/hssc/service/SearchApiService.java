@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Locale;
 
 public interface SearchApiService {
-    List<Card> search(String query) throws SearchException;
-    Card searchById(String id) throws SearchException;
+    List<Card> search(String query, String lang) throws SearchException;
+    Card searchById(String cardId) throws SearchException;
 
     void deleteAllCards() throws IOException;
 

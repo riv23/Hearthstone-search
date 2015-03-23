@@ -12,21 +12,21 @@ import java.util.List;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public class JSONService {
+public class RESTService {
 
     private final SearchApiService searchApiService = ServiceFactory.get().getSearchApiService();
     private final DatastoreService datastoreService = ServiceFactory.get().getDatastoreService();
 
 	@GET
 	@Path("/names")
-	public List<NameCard> getNames(@QueryParam("q") String query) {
-		return datastoreService.searchNameCards(query);
+	public List<NameCard> getNames(@QueryParam("q") String query, @QueryParam("lang") String lang) {
+		return datastoreService.searchNameCards(query, lang);
 	}
 
     @GET
     @Path("/search")
-    public List<Card> doQuery(@QueryParam("q") String query) {
-        return searchApiService.search(query);
+    public List<Card> doQuery(@QueryParam("q") String query, @QueryParam("lang") String lang) {
+        return searchApiService.search(query, lang);
     }
 
     @GET
