@@ -40,12 +40,13 @@ public class SearchApiServiceImpl implements SearchApiService {
 
         final List<Card> cards = Lists.newArrayList();
 
-        if (Strings.isNullOrEmpty(queryString)) {
+        //Issue #4 replace coma by empty char to prevent syntax erros
+        queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò]", " ");
+
+        if (Strings.isNullOrEmpty(queryString.trim())) {
             return cards;
         }
 
-        //Issue #4 replace coma by empty char to prevent syntax erros
-        queryString = queryString.replace("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò]", " ");
 
         if(!Strings.isNullOrEmpty(lang)) {
             queryString += " lang=" + lang;
