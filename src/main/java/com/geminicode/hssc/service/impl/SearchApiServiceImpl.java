@@ -50,6 +50,8 @@ public class SearchApiServiceImpl implements SearchApiService {
             queryString += " lang=en";
         }
 
+        //Issue #4 replace coma by empty char to prevent syntax erros
+        queryString = queryString.replace(",","");
 
         final QueryOptions options = QueryOptions.newBuilder().setLimit(1000).build();
         final Query query = SearchUtil.buildQuery(queryString, options);
