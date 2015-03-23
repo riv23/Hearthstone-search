@@ -5,7 +5,7 @@ app.controller('SearchCtrl', function ($scope, $http) {
     };
 
     $scope.tapedQuery = function(typed){
-        $http.get("/api/names?q=" + withoutAccents(typed))
+        $http.get("/api/names?q=" + withoutAccents(typed) + "&lang=" + getLanguage())
             .success(function(data) {
                 $scope.suggestions = _.map(data, _.iteratee('name'));
             });
@@ -15,7 +15,7 @@ app.controller('SearchCtrl', function ($scope, $http) {
     });
 
     var doSearch = function(query) {
-        $http.get("/api/search?q=" + query)
+        $http.get("/api/search?q=" + query + "&lang=" + getLanguage())
             .success(function (data) {
                 $scope.cards = data;
             })
@@ -46,6 +46,11 @@ app.controller('SearchCtrl', function ($scope, $http) {
         }
 
         return str.toLowerCase();
+    };
+
+    var getLanguage = function() {
+        return navigator.language;
+        //return "en";
     }
 
 });
