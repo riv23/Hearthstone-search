@@ -1,0 +1,4 @@
+<datastore-index kind="NameCard" ancestor="false" source="manual">
+    <property name="language" direction="asc"/>
+    <property name="compute" direction="asc"/>
+</datastore-index>
