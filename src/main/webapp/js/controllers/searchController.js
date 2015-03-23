@@ -25,6 +25,11 @@ app.controller('SearchCtrl', function ($scope, $http) {
     };
 
     var withoutAccents = function(str){
+
+        if(_.isEmpty(str)) {
+            return "";
+        }
+
         var accent = [
             /[\300-\306]/g, /[\340-\346]/g, // A, a
             /[\310-\313]/g, /[\350-\353]/g, // E, e
@@ -40,7 +45,7 @@ app.controller('SearchCtrl', function ($scope, $http) {
             str = str.replace(accent[i], noaccent[i]);
         }
 
-        return str;
+        return str.toLowerCase();
     }
 
 });
