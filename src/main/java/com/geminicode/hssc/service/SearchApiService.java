@@ -10,5 +10,8 @@ import java.util.Locale;
 public interface SearchApiService {
     List<Card> search(String query) throws SearchException;
     Card searchById(String id) throws SearchException;
-    void checkNewCards() throws IOException;
+
+    void deleteAllCards() throws IOException;
+
+    void checkNewCards(Locale locale) throws IOException;
 }

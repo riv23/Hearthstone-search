@@ -95,4 +95,15 @@ public class TranslateUtil {
         }
         return race;
     }
+
+    public static  String buildLanguageField(Locale locale) {
+        String language = "";
+        if (Locale.FRENCH.equals(locale)) {
+            language = "fr";
+        }
+        if (Locale.ENGLISH.equals(locale)) {
+            language = "en";
+        }
+        return language;
+    }
 }

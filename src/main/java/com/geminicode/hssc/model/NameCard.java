@@ -18,6 +18,9 @@ public class NameCard {
     @Index
     private String compute;
 
+    @Index
+    private String language;
+
     public String getId() {
         return id;
     }
@@ -40,5 +43,13 @@ public class NameCard {
 
     public void setCompute(String compute) {
         this.compute = compute;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

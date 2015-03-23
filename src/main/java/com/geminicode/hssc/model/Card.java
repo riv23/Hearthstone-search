@@ -33,7 +33,7 @@ public class Card {
 
     private String[] mechanics = null;
 
-    private String lang = "";
+    private String language = "";
 
     public String getId() {
         return id;
@@ -163,11 +163,11 @@ public class Card {
         this.mechanics = mechanics;
     }
 
-    public String getLang() {
-        return lang;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setLang(String lang) {
-        this.lang = lang;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

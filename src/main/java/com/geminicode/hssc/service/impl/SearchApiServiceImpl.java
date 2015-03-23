@@ -68,7 +68,7 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     @Override
-    public void checkNewCards() throws IOException {
+    public void deleteAllCards() throws IOException {
         final Queue queue = QueueFactory.getDefaultQueue();
         try {
 
@@ -78,18 +78,7 @@ public class SearchApiServiceImpl implements SearchApiService {
 
                 final GetResponse<Document> response = index.getRange(request);
                 if (response.getResults().isEmpty()) {
-                    LOGGER.info("Loading cards : START");
-                    final CardType cardType = CardReader.read();
-
-                    datastoreService.removeAllCards();
-                    persisteCards(cardType, TypesEnum.BASIC, Locale.FRENCH);
-                    persisteCards(cardType, TypesEnum.CLASSIC, Locale.FRENCH);
-                    persisteCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS, Locale.FRENCH);
-                    persisteCards(cardType, TypesEnum.GOBLINS_VS_GNOMES, Locale.FRENCH);
-                    persisteCards(cardType, TypesEnum.PROMOTION, Locale.FRENCH);
-                    datastoreService.putOtherString();
-
-                    LOGGER.info("Loading cards : DONE");
+                    LOGGER.info("No more indexed cards");
                     break;
                 }
                 for (Document doc : response) {
@@ -100,8 +89,25 @@ public class SearchApiServiceImpl implements SearchApiService {
             }
         } catch (RuntimeException e) {
             LOGGER.info("A new delete task was launch due to :" + e.getLocalizedMessage());
-            queue.add(withUrl("/check"));
+            queue.add(withUrl("/delete"));
         }
+    }
+
+    @Override
+    public void checkNewCards(Locale locale) throws IOException {
+
+        LOGGER.info("Loading cards : START");
+        final CardType cardType = CardReader.read();
+
+        persisteCards(cardType, TypesEnum.BASIC, locale);
+        persisteCards(cardType, TypesEnum.CLASSIC, locale);
+        persisteCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS, locale);
+        persisteCards(cardType, TypesEnum.GOBLINS_VS_GNOMES, locale);
+        persisteCards(cardType, TypesEnum.PROMOTION, locale);
+        datastoreService.putOtherString(locale);
+
+        LOGGER.info("Loading cards : START");
+
     }
 
     private void persisteCards(CardType cardType, TypesEnum type, Locale locale) {
@@ -112,7 +118,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 final List<Card> wantedBasics = removeUnWantedCards(basics);
                 buildUrl(wantedBasics, locale);
                 putFullCardsIntoSearch(wantedBasics, locale);
-                datastoreService.putCards(wantedBasics);
+                datastoreService.putCards(wantedBasics, locale);
                 LOGGER.info("There are " + wantedBasics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
                 break;
             case CLASSIC:
@@ -120,7 +126,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 final List<Card> wantedClassics = removeUnWantedCards(classics);
                 buildUrl(wantedClassics, locale);
                 putFullCardsIntoSearch(wantedClassics, locale);
-                datastoreService.putCards(wantedClassics);
+                datastoreService.putCards(wantedClassics, locale);
                 LOGGER.info("There are " + wantedClassics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
                 break;
             case CURSE_OF_NAXXRAMAS:
@@ -128,7 +134,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 final List<Card> wantedCurseOfNaxxramass = removeUnWantedCards(curseOfNaxxramass);
                 buildUrl(wantedCurseOfNaxxramass, locale);
                 putFullCardsIntoSearch(wantedCurseOfNaxxramass, locale);
-                datastoreService.putCards(wantedCurseOfNaxxramass);
+                datastoreService.putCards(wantedCurseOfNaxxramass, locale);
                 LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
                         + " cards.");
                 break;
@@ -137,7 +143,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 final List<Card> wantedGobelinsVsGnomes = removeUnWantedCards(gobelinsVsGnomes);
                 buildUrl(wantedGobelinsVsGnomes, locale);
                 putFullCardsIntoSearch(wantedGobelinsVsGnomes, locale);
-                datastoreService.putCards(wantedGobelinsVsGnomes);
+                datastoreService.putCards(wantedGobelinsVsGnomes, locale);
                 LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
                         + " cards.");
                 break;
@@ -146,7 +152,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 final List<Card> wantedPromotions = removeUnWantedCards(promotions);
                 buildUrl(wantedPromotions, locale);
                 putFullCardsIntoSearch(wantedPromotions, locale);
-                datastoreService.putCards(wantedPromotions);
+                datastoreService.putCards(wantedPromotions, locale);
                 LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 break;
             default:
@@ -170,7 +176,7 @@ public class SearchApiServiceImpl implements SearchApiService {
 
     private void buildUrl(List<Card> basics, Locale locale) {
         String baseUrl = BASE_URL_IMAGE_FR;
-        if(Locale.FRENCH.equals(locale)) {
+        if (Locale.FRENCH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_FR;
         }
         for (Card basic : basics) {
@@ -218,26 +224,15 @@ public class SearchApiServiceImpl implements SearchApiService {
                             .addField(Field.newBuilder().setName(HSSCStrings.COLLECTIBLE_FIELD)
                                     .setText(card.getCollectible()))
                             .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD)
-                                    .setText(card.getRace()))
+                                    .setText(TranslateUtil.translateRace(card.getRace(), locale)))
                             .addField(Field.newBuilder().setName(HSSCStrings.MECHANICS_FIELD)
                                     .setText(buildMechanicsValues(card.getMechanics(), locale)))
                             .addField(Field.newBuilder().setName(HSSCStrings.LANG_FIELD)
-                                    .setAtom(buildLangField(locale))).build();
+                                    .setAtom(TranslateUtil.buildLanguageField(locale))).build();
 
             index.put(doc);
 
         }
-    }
-
-    private String buildLangField(Locale locale) {
-        String lang = "";
-        if(Locale.FRENCH.equals(locale)) {
-            lang = "fr";
-        }
-        if(Locale.ENGLISH.equals(locale)) {
-            lang = "en";
-        }
-        return lang;
     }
 
     private String buildMechanicsValues(String[] mechanics, Locale locale) {
