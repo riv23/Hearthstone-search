@@ -44,14 +44,16 @@ public class SearchApiServiceImpl implements SearchApiService {
             return cards;
         }
 
+        //Issue #4 replace coma by empty char to prevent syntax erros
+        queryString = queryString.replace("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò]", " ");
+
         if(!Strings.isNullOrEmpty(lang)) {
             queryString += " lang=" + lang;
         }else {
             queryString += " lang=en";
         }
 
-        //Issue #4 replace coma by empty char to prevent syntax erros
-        queryString = queryString.replace(",", " ");
+        LOGGER.info(queryString);
 
 
         final QueryOptions options = QueryOptions.newBuilder().setLimit(1000).build();
