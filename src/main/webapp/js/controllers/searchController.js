@@ -45,7 +45,11 @@ app.controller('SearchCtrl', function ($scope, $http) {
             str = str.replace(accent[i], noaccent[i]);
         }
 
-        return str.toLowerCase();
+        var toLowerCase = str.toLowerCase();
+        if(_.isEmpty(toLowerCase)) { //check undefined value
+            return "";
+        }
+        return toLowerCase;
     };
 
     var getLanguage = function() {
