@@ -40,7 +40,7 @@
 
     <div class="row">
 
-        <div class="col-md-4" ng-repeat="card in cards | orderBy:'cost' | filter:playable=true">
+        <div class="col-md-4" ng-repeat="card in cards | orderBy:'cost*1' | filter:playable=true">
             <card></card>
         </div>
 
