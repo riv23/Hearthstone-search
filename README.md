@@ -10,14 +10,15 @@ Please note :
 
 ## Use API
 
-* The API is very simple to use.
+* The API is very simple to use !
 * The url pattern is: `/api/search?q=`, `q` is a valid Google Search Api request.
+* `lang` param allows to select the language. The Default Language is English (Only French and English are supported for the moment).
 * The API can be used [here](http://hearthstone-search-cards.appspot.com).
 
 
 ## Run local
 
-To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/appengine-maven-plugin/) that is already included in this demo.  Just run the command.
+To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/appengine-maven-plugin/) that is already included in this demo. Just run the command.
 
     mvn appengine:devserver
     
