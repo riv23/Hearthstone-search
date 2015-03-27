@@ -25,7 +25,7 @@ public class DatastoreServiceImpl implements DatastoreService {
         if (Strings.isNullOrEmpty(query)) {
             return Lists.newArrayList();
         }
-        if (Strings.isNullOrEmpty(lang)) {
+        if (Strings.isNullOrEmpty(lang) || !"fr".equals(lang)) {
             lang = EN;
         }
         return OfyService.ofy().load().type(NameCard.class).order("compute").filter("language", lang).filter("compute >=", query.toLowerCase()).filter("compute <", query.toLowerCase() + "\uFFFD").limit(5).list();
