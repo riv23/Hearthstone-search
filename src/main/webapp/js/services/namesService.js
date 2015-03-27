@@ -1,10 +1,14 @@
-app.service("NamesSrvc", function ($http, AccentSrvc) {
+app.service("NamesSrvc", function ($http, $location,  AccentSrvc) {
     var API_URI = '/api/names';
 
     return {
 
         fetch: function (query) {
-            return $http.get(API_URI + "?q=" + AccentSrvc.withoutAccents(query) + "&lang=" + navigator.language);
+            var lang = $location.search("lang");
+            if(_.isEmpty(lang)){
+                lang = navigator.language;
+            }
+            return $http.get(API_URI + "?q=" + AccentSrvc.withoutAccents(query) + "&lang=" + lang);
         }
 
     };

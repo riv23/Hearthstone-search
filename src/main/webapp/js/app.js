@@ -1,1 +1,1 @@
-var app = angular.module('hssc', ['autocomplete']);
+var app = angular.module('hssc', ['autocomplete', 'pascalprecht.translate']);

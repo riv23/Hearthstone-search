@@ -1,4 +1,9 @@
-app.controller('SearchCtrl', function ($scope, $http, NamesSrvc, SearchSrvc) {
+app.controller('SearchCtrl', function ($scope, $http, $location, $translate, NamesSrvc, SearchSrvc) {
+
+    var languageProvided = $location.search()['lang'];
+    if(!_.isEmpty(languageProvided)) {
+        $translate.use(languageProvided);
+    }
 
     $scope.tapedQuery = function (typed) {
         NamesSrvc.fetch(typed)
@@ -26,5 +31,4 @@ app.controller('SearchCtrl', function ($scope, $http, NamesSrvc, SearchSrvc) {
                 console.log("Error while accessing to API " + error);
             });
     });
-
 });

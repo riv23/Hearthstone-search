@@ -8,11 +8,11 @@
             <div class="content">
                 <div class="main">
                     <h4 class="text-center"><b>{{card.name}}</b></h4>
-                    <h5 class="text-center"><b>Class : </b>{{card.playerClass}}</h5>
-                    <h5 class="text-center"><b>Type : </b>{{card.type}}</h5>
-                    <h5 class="text-center"><b>Faction : </b>{{card.faction}}</h5>
-                    <h5 class="text-center"><b>Citation : </b><span ng-bind-html="card.flavor | trusted"></span></h5>
-                    <h5 class="text-center"><b>Rarity : </b>{{card.rarity}}</h5>
+                    <h5 class="text-center"><b translate="CLASS"></b> :{{card.playerClass}}</h5>
+                    <h5 class="text-center"><b translate="TYPE"></b> : {{card.type}}</h5>
+                    <h5 class="text-center"><b translate="FACTION"></b> : {{card.faction}}</h5>
+                    <h5 class="text-center"><b translate="CITATION"></b> : <span ng-bind-html="card.flavor | trusted"></span></h5>
+                    <h5 class="text-center"><b translate="RARITY"></b> : {{card.rarity}}</h5>
                 </div>
             </div>
         </div>
