@@ -1,9 +1,4 @@
-app.controller('SearchCtrl', function ($scope, $http, $location, $translate, NamesSrvc, SearchSrvc) {
-
-    var languageProvided = $location.search()['lang'];
-    if(!_.isEmpty(languageProvided)) {
-        $translate.use(languageProvided);
-    }
+app.controller('SearchCtrl', function ($scope, $http, NamesSrvc, SearchSrvc) {
 
     $scope.tapedQuery = function (typed) {
         NamesSrvc.fetch(typed)
