@@ -47,10 +47,10 @@ public class SearchApiServiceImpl implements SearchApiService {
             return cards;
         }
 
-        if(!Strings.isNullOrEmpty(lang)) {
-            queryString += " lang=" + lang;
-        }else {
+        if(Strings.isNullOrEmpty(lang) || !"fr".equals(lang)) {
             queryString += " lang=en";
+        }else {
+            queryString += " lang=" + lang;
         }
 
 
