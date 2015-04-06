@@ -115,6 +115,7 @@ public class SearchApiServiceImpl implements SearchApiService {
         persisteCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS, locale);
         persisteCards(cardType, TypesEnum.GOBLINS_VS_GNOMES, locale);
         persisteCards(cardType, TypesEnum.PROMOTION, locale);
+        persisteCards(cardType, TypesEnum.BLACKROCK_MOUNTAIN, locale);
         datastoreService.putOtherString(locale);
 
         LOGGER.info("Loading cards " + locale + ": END");
@@ -165,6 +166,14 @@ public class SearchApiServiceImpl implements SearchApiService {
                 putFullCardsIntoSearch(wantedPromotions, locale);
                 datastoreService.putCards(wantedPromotions, locale);
                 LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
+                break;
+            case BLACKROCK_MOUNTAIN:
+                final List<Card> blackrockMountain = cardType.getPromotions();
+                final List<Card> wantedBlackrockMountain = removeUnWantedCards(blackrockMountain);
+                buildUrl(wantedBlackrockMountain, locale);
+                putFullCardsIntoSearch(wantedBlackrockMountain, locale);
+                datastoreService.putCards(wantedBlackrockMountain, locale);
+                LOGGER.info("There are " + wantedBlackrockMountain.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 break;
             default:
                 break;

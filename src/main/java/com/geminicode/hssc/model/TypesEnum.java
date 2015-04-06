@@ -7,7 +7,8 @@ public enum TypesEnum {
 	BASIC("Bassic"),
 	CURSE_OF_NAXXRAMAS("Curse of Naxxramas"),
 	GOBLINS_VS_GNOMES("Goblins vs Gnomes"),
-	PROMOTION("Promotion");
+	PROMOTION("Promotion"),
+	BLACKROCK_MOUNTAIN("Blackrock Mountain");
 
 	private String type;
 
