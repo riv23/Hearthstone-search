@@ -16,6 +16,8 @@ public class CardType {
 	private List<Card> GobelinsVsGnomes;
 	@SerializedName("Promotion")
 	private List<Card> promotions;
+	@SerializedName("Blackrock Mountain")
+	private List<Card> blackrockMountain;
 
 	public List<Card> getBasic() {
 		return Basic;
@@ -55,5 +57,13 @@ public class CardType {
 
 	public void setPromotions(List<Card> promotions) {
 		this.promotions = promotions;
+	}
+
+	public List<Card> getBlackrockMountain() {
+		return blackrockMountain;
+	}
+
+	public void setBlackrockMountain(List<Card> blackrockMountain) {
+		this.blackrockMountain = blackrockMountain;
 	}
 }

@@ -168,12 +168,12 @@ public class SearchApiServiceImpl implements SearchApiService {
                 LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 break;
             case BLACKROCK_MOUNTAIN:
-                final List<Card> blackrockMountain = cardType.getPromotions();
+                final List<Card> blackrockMountain = cardType.getBlackrockMountain();
                 final List<Card> wantedBlackrockMountain = removeUnWantedCards(blackrockMountain);
                 buildUrl(wantedBlackrockMountain, locale);
                 putFullCardsIntoSearch(wantedBlackrockMountain, locale);
                 datastoreService.putCards(wantedBlackrockMountain, locale);
-                LOGGER.info("There are " + wantedBlackrockMountain.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
+                LOGGER.info("There are " + wantedBlackrockMountain.size() + " " + TypesEnum.BLACKROCK_MOUNTAIN.getName() + " cards.");
                 break;
             default:
                 break;
