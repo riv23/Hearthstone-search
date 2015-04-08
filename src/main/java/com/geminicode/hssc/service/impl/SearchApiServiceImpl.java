@@ -93,13 +93,13 @@ public class SearchApiServiceImpl implements SearchApiService {
                     break;
                 }
                 for (Document doc : response) {
-                    LOGGER.info("Doc with id :" + doc.getId() + " will be deleted.");
+                    LOGGER.info("Doc with id : " + doc.getId() + " will be deleted.");
                     docIds.add(doc.getId());
                 }
                 index.delete(docIds);
             }
         } catch (RuntimeException e) {
-            LOGGER.info("A new delete task was launch due to :" + e.getLocalizedMessage());
+            LOGGER.info("A new delete task was launch due to : " + e.getLocalizedMessage());
             queue.add(withUrl("/delete"));
         }
     }
@@ -118,7 +118,7 @@ public class SearchApiServiceImpl implements SearchApiService {
         persisteCards(cardType, TypesEnum.BLACKROCK_MOUNTAIN, locale);
         datastoreService.putOtherString(locale);
 
-        LOGGER.info("Loading cards " + locale + ": END");
+        LOGGER.info("Loading cards " + locale + " : END");
 
     }
 
@@ -128,7 +128,7 @@ public class SearchApiServiceImpl implements SearchApiService {
             case BASIC:
                 final List<Card> basics = cardType.getBasic();
                 final List<Card> wantedBasics = removeUnWantedCards(basics);
-                buildUrl(wantedBasics, locale);
+                addSpecifiedFields(wantedBasics, type, locale);
                 putFullCardsIntoSearch(wantedBasics, locale);
                 datastoreService.putCards(wantedBasics, locale);
                 LOGGER.info("There are " + wantedBasics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
@@ -136,7 +136,7 @@ public class SearchApiServiceImpl implements SearchApiService {
             case CLASSIC:
                 final List<Card> classics = cardType.getClassic();
                 final List<Card> wantedClassics = removeUnWantedCards(classics);
-                buildUrl(wantedClassics, locale);
+                addSpecifiedFields(wantedClassics, type, locale);
                 putFullCardsIntoSearch(wantedClassics, locale);
                 datastoreService.putCards(wantedClassics, locale);
                 LOGGER.info("There are " + wantedClassics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
@@ -144,7 +144,7 @@ public class SearchApiServiceImpl implements SearchApiService {
             case CURSE_OF_NAXXRAMAS:
                 final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
                 final List<Card> wantedCurseOfNaxxramass = removeUnWantedCards(curseOfNaxxramass);
-                buildUrl(wantedCurseOfNaxxramass, locale);
+                addSpecifiedFields(wantedCurseOfNaxxramass, type, locale);
                 putFullCardsIntoSearch(wantedCurseOfNaxxramass, locale);
                 datastoreService.putCards(wantedCurseOfNaxxramass, locale);
                 LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
@@ -153,7 +153,7 @@ public class SearchApiServiceImpl implements SearchApiService {
             case GOBLINS_VS_GNOMES:
                 final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
                 final List<Card> wantedGobelinsVsGnomes = removeUnWantedCards(gobelinsVsGnomes);
-                buildUrl(wantedGobelinsVsGnomes, locale);
+                addSpecifiedFields(wantedGobelinsVsGnomes, type, locale);
                 putFullCardsIntoSearch(wantedGobelinsVsGnomes, locale);
                 datastoreService.putCards(wantedGobelinsVsGnomes, locale);
                 LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
@@ -162,7 +162,7 @@ public class SearchApiServiceImpl implements SearchApiService {
             case PROMOTION:
                 final List<Card> promotions = cardType.getPromotions();
                 final List<Card> wantedPromotions = removeUnWantedCards(promotions);
-                buildUrl(wantedPromotions, locale);
+                addSpecifiedFields(wantedPromotions, type, locale);
                 putFullCardsIntoSearch(wantedPromotions, locale);
                 datastoreService.putCards(wantedPromotions, locale);
                 LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
@@ -170,7 +170,7 @@ public class SearchApiServiceImpl implements SearchApiService {
             case BLACKROCK_MOUNTAIN:
                 final List<Card> blackrockMountain = cardType.getBlackrockMountain();
                 final List<Card> wantedBlackrockMountain = removeUnWantedCards(blackrockMountain);
-                buildUrl(wantedBlackrockMountain, locale);
+                addSpecifiedFields(wantedBlackrockMountain, type, locale);
                 putFullCardsIntoSearch(wantedBlackrockMountain, locale);
                 datastoreService.putCards(wantedBlackrockMountain, locale);
                 LOGGER.info("There are " + wantedBlackrockMountain.size() + " " + TypesEnum.BLACKROCK_MOUNTAIN.getName() + " cards.");
@@ -194,7 +194,7 @@ public class SearchApiServiceImpl implements SearchApiService {
         return wantedCards;
     }
 
-    private void buildUrl(List<Card> basics, Locale locale) {
+    private void addSpecifiedFields(List<Card> cards, TypesEnum type, Locale locale) {
         String baseUrl = BASE_URL_IMAGE_FR;
         if (Locale.FRENCH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_FR;
@@ -202,8 +202,9 @@ public class SearchApiServiceImpl implements SearchApiService {
         if(Locale.ENGLISH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_EN;
         }
-        for (Card basic : basics) {
-            basic.setImage(baseUrl + basic.getId() + PNG);
+        for (Card card : cards) {
+            card.setImage(baseUrl + card.getId() + PNG);
+            card.setExpansionPack(type.getName());
         }
     }
 
@@ -248,6 +249,8 @@ public class SearchApiServiceImpl implements SearchApiService {
                                     .setText(card.getCollectible()))
                             .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD)
                                     .setText(TranslateUtil.translateRace(card.getRace(), locale)))
+                            .addField(Field.newBuilder().setName(HSSCStrings.EXPANSION_FIELD)
+                                    .setText(card.getExpansionPack()))
                             .addField(Field.newBuilder().setName(HSSCStrings.MECHANICS_FIELD)
                                     .setText(buildMechanicsValues(card.getMechanics(), locale)))
                             .addField(Field.newBuilder().setName(HSSCStrings.LANG_FIELD)

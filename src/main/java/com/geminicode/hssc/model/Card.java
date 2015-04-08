@@ -35,6 +35,8 @@ public class Card {
 
     private String language = "";
 
+    private String expansionPack = "";
+
     public String getId() {
         return id;
     }
@@ -169,5 +171,13 @@ public class Card {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getExpansionPack() {
+        return expansionPack;
+    }
+
+    public void setExpansionPack(String expansionPack) {
+        this.expansionPack = expansionPack;
     }
 }

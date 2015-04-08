@@ -45,6 +45,7 @@ public class HSSCStrings {
     public static final String RACE_FIELD = "race";
     public static final String MECHANICS_FIELD = "mechanics";
     public static final String LANG_FIELD = "lang";
+    public static final String EXPANSION_FIELD = "expansionField";
 
     public static final String BATTLECRY_EN = "Battlecry";
     public static final String BATTLECRY_FR = "Cri de guerre";
@@ -64,4 +65,5 @@ public class HSSCStrings {
     public static final String DIVINESHIELD_FR = "Bouclier divin";
     public static final String MECH_EN = "Mech";
     public static final String MECH_FR = "Méca";
+
 }

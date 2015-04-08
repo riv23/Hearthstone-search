@@ -5,7 +5,8 @@ app.config(function ($translateProvider) {
         FACTION: 'Faction',
         CITATION: 'Citation',
         RARITY : "Rarity",
-        LEGAL : "Card names and text are all copyright Blizzard Entertainment. This website is not affiliated with Blizzard Entertainment in any way."
+        LEGAL : "Card names and text are all copyright Blizzard Entertainment. This website is not affiliated with Blizzard Entertainment in any way.",
+        EXPANSION : "Expansion"
     });
     $translateProvider.translations('fr', {
         CLASS: 'Classe',
@@ -13,7 +14,8 @@ app.config(function ($translateProvider) {
         FACTION: 'Faction',
         CITATION: 'Citation',
         RARITY : "Rareté",
-        LEGAL : "Les noms et les textes des cartes sont la propriété de Blizzard Entertainment. Ce site n'est pas affilié à Blizzard Enternainment en aucun cas."
+        LEGAL : "Les noms et les textes des cartes sont la propriété de Blizzard Entertainment. Ce site n'est pas affilié à Blizzard Enternainment en aucun cas.",
+        EXPANSION : "Extension"
     });
 
     var defaultLanguage = function () {

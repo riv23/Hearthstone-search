@@ -59,6 +59,9 @@ public class SearchUtil {
             if (HSSCStrings.RACE_FIELD.equals(field.getName())) {
                 card.setRace(field.getText());
             }
+            if (HSSCStrings.EXPANSION_FIELD.equals(field.getName())) {
+                card.setExpansionPack(field.getText());
+            }
             if (HSSCStrings.MECHANICS_FIELD.equals(field.getName())) {
                 card.setMechanics(field.getText().split("\\|"));
             }
