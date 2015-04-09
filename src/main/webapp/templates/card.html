@@ -7,9 +7,9 @@
             <div class="header"></div>
             <div class="content">
                 <div class="main">
-                    <h4 class="text-center"><b>{{card.name}}</b></h4>
+                    <h4 class="text-center"><b class="text-muted">{{card.name}}</b></h4>
                     <h5 class="text-center"><b translate="CLASS"></b> :{{card.playerClass}}</h5>
-                    <h5 class="text-center"><b translate="CITATION"></b> : <span ng-bind-html="card.flavor | trusted"></span></h5>
+                    <h5 class="text-center"><b translate="CITATION"></b> : <i><span ng-bind-html="card.flavor | trusted"></span></i></h5>
                     <h5 class="text-center"><b translate="RARITY"></b> : {{card.rarity}}</h5>
                     <h5 class="text-center"><b translate="EXPANSION"></b> : {{card.expansionPack}}</h5>
                 </div>
