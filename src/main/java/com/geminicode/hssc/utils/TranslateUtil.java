@@ -1,5 +1,7 @@
 package com.geminicode.hssc.utils;
 
+import com.google.common.base.Strings;
+
 import java.util.Locale;
 
 public class TranslateUtil {
@@ -38,7 +40,13 @@ public class TranslateUtil {
                     return HSSCStrings.WARLOCK_FR;
                 case HSSCStrings.PRIEST_EN:
                     return HSSCStrings.PRIEST_FR;
+                case "" :
+                    return HSSCStrings.ALL_FR;
             }
+        }
+
+        if(Strings.isNullOrEmpty(value)) {
+            return HSSCStrings.ALL_EN;
         }
 
         return value;

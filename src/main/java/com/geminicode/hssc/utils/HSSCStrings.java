@@ -28,6 +28,8 @@ public class HSSCStrings {
     public static final String MINION_FR = "Serviteur";
     public static final String SPELL_EN = "Spell";
     public static final String SPELL_FR = "Enchantement";
+    public static final String ALL_FR = "Toutes";
+    public static final String ALL_EN = "All";
 
     public static final String NAME_FIELD = "name";
     public static final String TEXT_FIELD = "text";
