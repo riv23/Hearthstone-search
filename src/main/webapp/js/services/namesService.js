@@ -3,8 +3,8 @@ app.service("NamesSrvc", function ($http,  AccentSrvc) {
 
     return {
 
-        fetch: function (query) {
-            return $http.get(API_URI + "?q=" + AccentSrvc.withoutAccents(query) + "&lang=" + navigator.language);
+        fetch: function (query, lang) {
+            return $http.get(API_URI + "?q=" + AccentSrvc.withoutAccents(query) + "&lang=" + lang);
         }
 
     };
