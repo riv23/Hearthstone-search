@@ -36,7 +36,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
         if (_.isEmpty($scope.query)) {
             return;
         } else {
-            $location.url("?q=" + $scope.query + "&lang=" + navigator.language);
+            $location.url("?q=" + $scope.query + "&lang=" + $scope.lang);
         }
         SearchSrvc.fetch($scope.query, $scope.lang)
             .success(function (data) {
