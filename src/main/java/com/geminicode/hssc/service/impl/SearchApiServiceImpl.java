@@ -254,7 +254,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                             .addField(Field.newBuilder().setName(HSSCStrings.MECHANICS_FIELD)
                                     .setText(buildMechanicsValues(card.getMechanics(), locale)))
                             .addField(Field.newBuilder().setName(HSSCStrings.LANG_FIELD)
-                                    .setAtom(TranslateUtil.buildLanguageField(locale))).build();
+                                    .setText(TranslateUtil.buildLanguageField(locale))).build();
 
             index.put(doc);
 
