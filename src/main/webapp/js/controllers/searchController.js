@@ -11,12 +11,13 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
     $scope.query = $location.search().q;
     $scope.lang = initLanguage();
 
-
-
     $scope.tapedQuery = function (typed) {
         NamesSrvc.fetch(typed, $scope.lang)
             .success(function (data) {
                 $scope.suggestions = _.map(data, _.iteratee('name'));
+            })
+            .error(function (error) {
+                console.log("Error while accessing to API " + error);
             });
     };
 
@@ -30,14 +31,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
             });
     };
 
-    $scope.$watch(function () {
-        return $scope.query;
-    }, function () {
-        if (_.isEmpty($scope.query)) {
-            return;
-        } else {
-            $location.url("?q=" + $scope.query + "&lang=" + $scope.lang);
-        }
+    $scope.$watch(function () { return $scope.query; }, function () {
         SearchSrvc.fetch($scope.query, $scope.lang)
             .success(function (data) {
                 $scope.cards = data;
@@ -46,4 +40,5 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
                 console.log("Error while accessing to API " + error);
             });
     });
+
 });

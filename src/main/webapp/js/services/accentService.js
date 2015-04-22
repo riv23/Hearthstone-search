@@ -1,9 +1,6 @@
 app.service("AccentSrvc", function () {
-
     return {
-
         withoutAccents: function (str) {
-
             if (_.isEmpty(str)) {
                 return "";
             }
