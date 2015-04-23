@@ -66,7 +66,7 @@ public class SearchUtil {
                 card.setMechanics(field.getText().split("\\|"));
             }
             if(HSSCStrings.LANG_FIELD.equals(field.getName())) {
-                card.setLanguage(field.getText());
+                card.setLanguage(field.getAtom());
             }
 
         }

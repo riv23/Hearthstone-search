@@ -23,7 +23,7 @@ app.config(function ($translateProvider) {
     });
 
     var defaultLanguage = function () {
-        switch (navigator.language) {
+        switch (navigator.language.split("-")[0]) {
             case "fr" :
                 return "fr";
             case "en" :

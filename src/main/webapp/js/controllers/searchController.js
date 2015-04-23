@@ -2,9 +2,9 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
 
     var initLanguage = function () {
         if (_.isEmpty($location.search().lang)) {
-            return navigator.language;
+            return navigator.language.split("-")[0];
         } else {
-            return $location.search().lang;
+            return $location.search().lang.split("-")[0];
         }
     };
 
