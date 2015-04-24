@@ -14,6 +14,7 @@
     <link href="css/hssc-bootstrap.css" rel="stylesheet">
     <link href='css/rotating-card.css' rel='stylesheet'/>
     <link href='css/autocomplete.css' rel='stylesheet'/>
+    <link href='css/toggle-switch.css' rel='stylesheet'/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,6 +35,40 @@
         <form ng-submit="submit()">
             <div class="form-group">
                 <autocomplete ng-model="query" data="suggestions" on-type="tapedQuery" attr-placeholder="{{'PLACEHOLDER' | translate}}"></autocomplete>
+                <br />
+                <div class="switch-toggle switch-10 switch-hearthstone yellow">
+                    <input id="mana1" name="mana" type="radio" checked>
+                    <label for="mana1" ng-click="">1</label>
+
+                    <input id="mana2" name="mana" type="radio">
+                    <label for="mana2" ng-click="">2</label>
+
+                    <input id="mana3" name="mana" type="radio">
+                    <label for="mana3" ng-click="">3</label>
+
+                    <input id="mana4" name="mana" type="radio">
+                    <label for="mana4" ng-click="">4</label>
+
+                    <input id="mana5" name="mana" type="radio">
+                    <label for="mana5" ng-click="">5</label>
+
+                    <input id="mana6" name="mana" type="radio">
+                    <label for="mana6" ng-click="">6</label>
+
+                    <input id="mana7" name="mana" type="radio">
+                    <label for="mana7" ng-click="">7</label>
+
+                    <input id="mana8" name="mana" type="radio">
+                    <label for="mana8" ng-click="">8</label>
+
+                    <input id="mana9" name="mana" type="radio">
+                    <label for="mana9" ng-click="">9</label>
+
+                    <input id="mana10" name="mana" type="radio">
+                    <label for="mana10" ng-click="">10+</label>
+
+                    <a></a>
+                </div>
             </div>
         </form>
     </div>
