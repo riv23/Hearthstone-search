@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/GeminiCode/Hearthstone-Search-Engine.svg?branch=master)](https://travis-ci.org/GeminiCode/Hearthstone-Search-Engine)
+[![Build Status](https://travis-ci.org/GeminiCode/Hearthstone-search-api.svg?branch=master)](https://travis-ci.org/GeminiCode/Hearthstone-search-api)
 
-## Hearthstone Search Engine
+## Hearthstone search api
 Hearthstone Search is a search engine that allows to retrieve the cards from HearthStone easily and instantly, [Demo !](http://hearthstone-search-cards.appspot.com/)
 
 Please note : 
