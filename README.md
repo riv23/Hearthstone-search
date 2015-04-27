@@ -27,6 +27,9 @@ Pull request are welcome :)
 
 ## Change log
 
+### v1.2.0
+* Added optional fiter on mana value.
+
 ### v1.1.0
 * URL can be shared now. `/q=stormwind&lang=en` diplays automatically "stormwind" cards in English. 
 * Added link to the GitHub page.
@@ -36,4 +39,4 @@ Pull request are welcome :)
 * Added i18n support (French and English).
 
 ### v1.0.0
-* Inital release
+* Inital release.
