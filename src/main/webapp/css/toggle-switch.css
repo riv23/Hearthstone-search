@@ -1,116 +1,15 @@
-.switch-toggle a, .switch-light span span {
+.switch-toggle a {
     display: none;
 }
 
-/* We can't test for a specific feature,
-* so we only target browsers with support for media queries.
-*/
 @media only screen {
-    /* Checkbox switch
-    */
-    .switch-light {
-        display: block;
-        min-height: 1.875em;
-        /* Outline the toggles when the inputs are focused
-      */
-        position: relative;
-        overflow: visible;
-        padding: 0;
-        margin-left: 6.25em;
-        /* Position the label over all the elements, except the slide-button (<a>)
-      * Clicking anywhere on the label will change the switch-state
-      */
-        /* Don't hide the input from screen-readers and keyboard access
-      */
-    }
 
-    .switch-light * {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    .switch-light a {
-        display: block;
-        -webkit-transition: all 0.5s ease-out;
-        -moz-transition: all 0.5s ease-out;
-        transition: all 0.5s ease-out;
-    }
-
-    .switch-light label, .switch-light > span {
-        line-height: 1.875em;
-        vertical-align: middle;
-    }
-
-    .switch-light input:focus ~ a, .switch-light input:focus + label {
-        outline: 1px dotted #888;
-    }
-
-    .switch-light label {
-        position: relative;
-        z-index: 3;
-        display: block;
-        width: 100%;
-    }
-
-    .switch-light input {
-        position: absolute;
-        opacity: 0;
-        z-index: 5;
-    }
-
-    .switch-light input:checked ~ a {
-        right: 0;
-    }
-
-    .switch-light > span {
-        position: absolute;
-        left: -6.25em;
-        width: 100%;
-        margin: 0;
-        padding-right: 6.25em;
-        text-align: left;
-    }
-
-    .switch-light > span span {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 5;
-        display: block;
-        width: 50%;
-        margin-left: 6.25em;
-        text-align: center;
-    }
-
-    .switch-light > span span:last-child {
-        left: 50%;
-    }
-
-    .switch-light a {
-        position: absolute;
-        right: 50%;
-        top: 0;
-        z-index: 4;
-        display: block;
-        width: 50%;
-        height: 100%;
-        padding: 0;
-    }
-
-    /* Radio switch
-    */
     .switch-toggle {
         min-height: 1.875em;
-        /* Outline the toggles when the inputs are focused
-      */
         position: relative;
         display: table;
         table-layout: fixed;
-        /* For callout panels in foundation
-      */
         padding: 0 !important;
-        /* Generate styles for the multiple states */
     }
 
     .switch-toggle * {
@@ -165,102 +64,61 @@
         height: 100%;
     }
 
-    .switch-toggle input:last-of-type:checked ~ a {
-        left: 50%;
-    }
-
-    .switch-toggle.switch-3 label, .switch-toggle.switch-3 a {
-        width: 33.3333333333%;
-    }
-
-    .switch-toggle.switch-3 input:checked:nth-of-type(2) ~ a {
-        left: 33.3333333333%;
-    }
-
-    .switch-toggle.switch-3 input:checked:last-of-type ~ a {
-        left: 66.6666666667%;
-    }
-
-    .switch-toggle.switch-4 label, .switch-toggle.switch-4 a {
-        width: 25%;
-    }
-
-    .switch-toggle.switch-4 input:checked:nth-of-type(2) ~ a {
-        left: 25%;
-    }
-
-    .switch-toggle.switch-4 input:checked:nth-of-type(3) ~ a {
-        left: 50%;
-    }
-
-    .switch-toggle.switch-4 input:checked:last-of-type ~ a {
-        left: 75%;
-    }
-
-    .switch-toggle.switch-5 label, .switch-toggle.switch-5 a {
-        width: 20%;
-    }
-
-    .switch-toggle.switch-5 input:checked:nth-of-type(2) ~ a {
-        left: 20%;
-    }
-
-    .switch-toggle.switch-5 input:checked:nth-of-type(3) ~ a {
-        left: 40%;
-    }
-
-    .switch-toggle.switch-5 input:checked:nth-of-type(4) ~ a {
-        left: 60%;
-    }
-
-    .switch-toggle.switch-5 input:checked:last-of-type ~ a {
-        left: 80%;
-    }
-
     .switch-toggle.switch-10 label, .switch-toggle.switch-10 a {
         width: 10%;
     }
 
+    .switch-toggle.switch-10 input:checked:nth-of-type(1) ~ a {
+        left: 0;
+        opacity: 1.0;
+    }
+
     .switch-toggle.switch-10 input:checked:nth-of-type(2) ~ a {
         left: 10%;
+        opacity: 1.0;
     }
 
     .switch-toggle.switch-10 input:checked:nth-of-type(3) ~ a {
         left: 20%;
+        opacity: 1.0;
     }
 
     .switch-toggle.switch-10 input:checked:nth-of-type(4) ~ a {
         left: 30%;
+        opacity: 1.0;
     }
 
     .switch-toggle.switch-10 input:checked:nth-of-type(5) ~ a {
         left: 40%;
+        opacity: 1.0;
     }
 
     .switch-toggle.switch-10 input:checked:nth-of-type(6) ~ a {
         left: 50%;
+        opacity: 1.0;
     }
 
     .switch-toggle.switch-10 input:checked:nth-of-type(7) ~ a {
         left: 60%;
+        opacity: 1.0;
     }
 
     .switch-toggle.switch-10 input:checked:nth-of-type(8) ~ a {
         left: 70%;
+        opacity: 1.0;
     }
 
     .switch-toggle.switch-10 input:checked:nth-of-type(9) ~ a {
         left: 80%;
+        opacity: 1.0;
     }
 
     .switch-toggle.switch-10 input:checked:last-of-type ~ a {
         left: 90%;
+        opacity: 1.0;
     }
 }
 
-/* Standalone Themes */
-/* hearthstone Theme
-*/
 .switch-hearthstone {
     border-radius: 3px;
     color: #fff;
@@ -283,18 +141,11 @@
 
 .switch-hearthstone a {
     background: url("../img/mana.png") no-repeat center;
+    opacity: 0.4;
 }
 
-.switch-hearthstone > span {
-    color: #333;
-    text-shadow: none;
-}
-
-.switch-hearthstone span {
-    color: #fff;
-}
-
-/* Bugfix for older Webkit, including mobile Webkit. Adapted from
+/*
+* Bugfix for older Webkit, including mobile Webkit. Adapted from
 * http://css-tricks.com/webkit-sibling-bug/
 */
 @media only screen and (-webkit-max-device-pixel-ratio: 2) and (max-device-width: 80em) {
