@@ -4,9 +4,7 @@ app.service("SearchSrvc", function ($http, $location, AccentSrvc) {
     return {
         fetch: function (query, lang) {
 
-            if (_.isEmpty(query)) {
-                return;
-            } else {
+            if (!_.isEmpty(query)) {
                 $location.url("?q=" + query + "&lang=" + lang);
             }
 
