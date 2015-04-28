@@ -40,6 +40,10 @@ public class SearchApiServiceImpl implements SearchApiService {
 
         final List<Card> cards = Lists.newArrayList();
 
+        if(Strings.isNullOrEmpty(queryString) && Strings.isNullOrEmpty(cost)) {
+            return cards;
+        }
+
         //Issue #4 replace coma by empty char to prevent syntax erros
         queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò]", " ");
 
@@ -50,13 +54,14 @@ public class SearchApiServiceImpl implements SearchApiService {
         }
 
         if(!Strings.isNullOrEmpty(cost)) {
-            if(Integer.valueOf(cost)>= 10) {
+            if(Integer.valueOf(cost)>= 7) {
                 queryString += " cost>=" + cost;
             } else {
                 queryString += " cost=" + cost;
             }
         }
 
+        LOGGER.info("Query="+queryString);
 
         final QueryOptions options = QueryOptions.newBuilder().setLimit(1000).build();
         final Query query = SearchUtil.buildQuery(queryString, options);

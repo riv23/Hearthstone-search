@@ -7,10 +7,7 @@ app.service("SearchSrvc", function ($http, $location, AccentSrvc) {
             if (!_.isEmpty(query)) {
                 $location.url("?q=" + query + "&lang=" + lang);
             }
-            if(!_.isEmpty(cost)) {
-                return $http.get(API_URI + "?q=" + AccentSrvc.withoutAccents(query) + "&lang=" + lang + "&cost=" + cost);
-            }
-            return $http.get(API_URI + "?q=" + AccentSrvc.withoutAccents(query) + "&lang=" + lang);
+            return $http.get(API_URI + "?q=" + AccentSrvc.withoutAccents(query) + "&lang=" + lang + "&cost=" + cost);
         }
     };
 

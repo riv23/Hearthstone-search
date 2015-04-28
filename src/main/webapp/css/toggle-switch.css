@@ -57,65 +57,47 @@
     .switch-toggle a {
         position: absolute;
         top: 0;
-        left: 0;
+        left: 4%;
         padding: 0;
         z-index: 1;
         width: 5%;
         height: 100%;
     }
 
-    .switch-toggle.switch-10 label, .switch-toggle.switch-10 a {
-        width: 10%;
+    .switch-toggle.switch-8 label, .switch-toggle.switch-10 a {
+        width: 16.5%;
     }
 
-    .switch-toggle.switch-10 input:checked:nth-of-type(1) ~ a {
-        left: 0;
-        opacity: 1.0;
+    .switch-toggle.switch-8 input:checked:nth-of-type(1) ~ a {
+        left: 4%;
     }
 
-    .switch-toggle.switch-10 input:checked:nth-of-type(2) ~ a {
-        left: 10%;
-        opacity: 1.0;
+    .switch-toggle.switch-8 input:checked:nth-of-type(2) ~ a {
+        left: 16.5%;
     }
 
-    .switch-toggle.switch-10 input:checked:nth-of-type(3) ~ a {
-        left: 20%;
-        opacity: 1.0;
+    .switch-toggle.switch-8 input:checked:nth-of-type(3) ~ a {
+        left: 29%;
     }
 
-    .switch-toggle.switch-10 input:checked:nth-of-type(4) ~ a {
-        left: 30%;
-        opacity: 1.0;
+    .switch-toggle.switch-8 input:checked:nth-of-type(4) ~ a {
+        left: 41.5%;
     }
 
-    .switch-toggle.switch-10 input:checked:nth-of-type(5) ~ a {
-        left: 40%;
-        opacity: 1.0;
+    .switch-toggle.switch-8 input:checked:nth-of-type(5) ~ a {
+        left: 53.5%;
     }
 
-    .switch-toggle.switch-10 input:checked:nth-of-type(6) ~ a {
-        left: 50%;
-        opacity: 1.0;
+    .switch-toggle.switch-8 input:checked:nth-of-type(6) ~ a {
+        left: 66%;
     }
 
-    .switch-toggle.switch-10 input:checked:nth-of-type(7) ~ a {
-        left: 60%;
-        opacity: 1.0;
+    .switch-toggle.switch-8 input:checked:nth-of-type(7) ~ a {
+        left: 79%;
     }
 
-    .switch-toggle.switch-10 input:checked:nth-of-type(8) ~ a {
-        left: 70%;
-        opacity: 1.0;
-    }
-
-    .switch-toggle.switch-10 input:checked:nth-of-type(9) ~ a {
-        left: 80%;
-        opacity: 1.0;
-    }
-
-    .switch-toggle.switch-10 input:checked:last-of-type ~ a {
-        left: 90%;
-        opacity: 1.0;
+    .switch-toggle.switch-8 input:checked:last-of-type ~ a {
+        left: 91%;
     }
 }
 
@@ -140,8 +122,7 @@
 }
 
 .switch-hearthstone a {
-    background: url("../img/mana.png") no-repeat center;
-    opacity: 0.4;
+    background: url("../img/mana.png") no-repeat center center;
 }
 
 /*
