@@ -36,7 +36,7 @@ public class SearchApiServiceImpl implements SearchApiService {
     private final DatastoreService datastoreService = ServiceFactory.get().getDatastoreService();
 
     @Override
-    public List<Card> search(String queryString, String lang) throws SearchException {
+    public List<Card> search(String queryString, String lang, String cost) throws SearchException {
 
         final List<Card> cards = Lists.newArrayList();
 
@@ -51,6 +51,14 @@ public class SearchApiServiceImpl implements SearchApiService {
             queryString += " lang=en";
         }else {
             queryString += " lang=" + lang;
+        }
+
+        if(!Strings.isNullOrEmpty(cost)) {
+            if(Integer.valueOf(cost)>= 10) {
+                queryString += " cost>=" + cost;
+            } else {
+                queryString += " cost=" + cost;
+            }
         }
 
 

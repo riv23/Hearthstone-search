@@ -25,8 +25,8 @@ public class RESTService {
 
     @GET
     @Path("/search")
-    public List<Card> doQuery(@QueryParam("q") String query, @QueryParam("lang") String lang) {
-        return searchApiService.search(query, lang);
+    public List<Card> doQuery(@QueryParam("q") String query, @QueryParam("lang") String lang, @QueryParam("cost") String cost) {
+        return searchApiService.search(query, lang, cost);
     }
 
     @GET

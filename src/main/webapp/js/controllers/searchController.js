@@ -23,7 +23,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
 
     $scope.filterMana= function(value) {
 
-        SearchSrvc.fetch($scope.query, $scope.lang)
+        SearchSrvc.fetch($scope.query, $scope.lang, value)
             .success(function (data) {
                 $scope.cards = _.filter(data, function(card){
                     if(value != 10) {
@@ -40,7 +40,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
     };
 
     $scope.submit = function () {
-        SearchSrvc.fetch($scope.query, $scope.lang)
+        SearchSrvc.fetch($scope.query, $scope.lang, "")
             .success(function (data) {
                 $scope.cards = data;
             })
@@ -50,7 +50,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
     };
 
     $scope.$watch(function () { return $scope.query; }, function () {
-        SearchSrvc.fetch($scope.query, $scope.lang)
+        SearchSrvc.fetch($scope.query, $scope.lang, "")
             .success(function (data) {
                 $scope.cards = data;
             })
