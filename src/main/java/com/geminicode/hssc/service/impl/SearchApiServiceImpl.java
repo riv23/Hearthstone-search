@@ -249,7 +249,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                                     .setText(TranslateUtil.translateRarity(
                                             card.getRarity(), locale)))
                             .addField(Field.newBuilder().setName(HSSCStrings.COST_FIELD)
-                                    .setText(card.getCost()))
+                                    .setNumber(Integer.valueOf(card.getCost())))
                             .addField(Field.newBuilder().setName(HSSCStrings.ATTACK_FIELD)
                                     .setText(card.getAttack()))
                             .addField(Field.newBuilder().setName(HSSCStrings.HEALTH_FIELD)

@@ -45,7 +45,7 @@ public class SearchUtil {
                 card.setRarity(field.getText());
             }
             if (HSSCStrings.COST_FIELD.equals(field.getName())) {
-                card.setCost(field.getText());
+                card.setCost(field.getNumber().toString());
             }
             if (HSSCStrings.ATTACK_FIELD.equals(field.getName())) {
                 card.setAttack(field.getText());

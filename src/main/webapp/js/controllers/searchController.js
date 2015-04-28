@@ -10,7 +10,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
 
     $scope.query = $location.search().q;
     $scope.lang = initLanguage();
-    $scope.cost = 0;
+    $scope.cost = "";
 
     $scope.tapedQuery = function (typed) {
         NamesSrvc.fetch(typed, $scope.lang)
