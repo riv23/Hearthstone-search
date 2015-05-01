@@ -34,7 +34,11 @@
             <div class="form-group">
                 <autocomplete ng-model="query" data="suggestions" on-type="tapedQuery" attr-placeholder="{{'PLACEHOLDER' | translate}}"></autocomplete>
                 <br />
-                <div class="switch-toggle switch-8 switch-hearthstone col-md-8 col-md-offset-2">
+                <div class="switch-toggle switch-9 switch-hearthstone col-md-9 col-md-offset-2">
+
+                    <input id="manaAll" name="mana" type="radio">
+                    <label for="manaAll" ng-click="filterMana('')">all</label>
+
                     <input id="mana0" name="mana" type="radio">
                     <label for="mana0" ng-click="filterMana(0)">0</label>
 

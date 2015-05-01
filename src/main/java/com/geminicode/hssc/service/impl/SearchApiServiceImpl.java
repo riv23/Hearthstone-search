@@ -40,10 +40,6 @@ public class SearchApiServiceImpl implements SearchApiService {
 
         final List<Card> cards = Lists.newArrayList();
 
-        if(Strings.isNullOrEmpty(queryString) && Strings.isNullOrEmpty(cost)) {
-            return cards;
-        }
-
         //Issue #4 replace coma by empty char to prevent syntax erros
         queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò]", " ");
 
@@ -249,7 +245,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                                     .setText(TranslateUtil.translateRarity(
                                             card.getRarity(), locale)))
                             .addField(Field.newBuilder().setName(HSSCStrings.COST_FIELD)
-                                    .setNumber(Integer.valueOf(card.getCost())))
+                                    .setNumber(getCost(card)))
                             .addField(Field.newBuilder().setName(HSSCStrings.ATTACK_FIELD)
                                     .setText(card.getAttack()))
                             .addField(Field.newBuilder().setName(HSSCStrings.HEALTH_FIELD)
@@ -268,6 +264,13 @@ public class SearchApiServiceImpl implements SearchApiService {
             index.put(doc);
 
         }
+    }
+
+    private Integer getCost(Card card) {
+        if(Strings.isNullOrEmpty(card.getCost())) {
+            return 0;
+        }
+        return Integer.valueOf(card.getCost());
     }
 
     private String buildMechanicsValues(String[] mechanics, Locale locale) {

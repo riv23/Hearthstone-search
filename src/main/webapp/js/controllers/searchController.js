@@ -26,13 +26,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, NamesSrvc, Sear
         $scope.cost = value;
         SearchSrvc.fetch($scope.query, $scope.lang, $scope.cost)
             .success(function (data) {
-                $scope.cards = _.filter(data, function(card){
-                    if(value != 10) {
-                        return card.cost == value;
-                    } else {
-                        return card.cost >= 10;
-                    }
-                });
+                $scope.cards = data;
             })
             .error(function (error) {
                 console.log("Error while accessing to API " + error);

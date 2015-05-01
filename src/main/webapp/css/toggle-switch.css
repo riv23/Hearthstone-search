@@ -57,47 +57,51 @@
     .switch-toggle a {
         position: absolute;
         top: 0;
-        left: 4%;
+        left: 0;
         padding: 0;
         z-index: 1;
         width: 5%;
         height: 100%;
     }
 
-    .switch-toggle.switch-8 label, .switch-toggle.switch-10 a {
-        width: 16.5%;
+    .switch-toggle.switch-9 label, .switch-toggle.switch-9 a {
+        width: 11.5%;
     }
 
-    .switch-toggle.switch-8 input:checked:nth-of-type(1) ~ a {
-        left: 4%;
+    .switch-toggle.switch-9 input:checked:nth-of-type(1) ~ a {
+        left: 0;
     }
 
-    .switch-toggle.switch-8 input:checked:nth-of-type(2) ~ a {
-        left: 16.5%;
+    .switch-toggle.switch-9 input:checked:nth-of-type(2) ~ a {
+        left: 11.1%;
     }
 
-    .switch-toggle.switch-8 input:checked:nth-of-type(3) ~ a {
-        left: 29%;
+    .switch-toggle.switch-9 input:checked:nth-of-type(3) ~ a {
+        left: 22%;
     }
 
-    .switch-toggle.switch-8 input:checked:nth-of-type(4) ~ a {
-        left: 41.5%;
+    .switch-toggle.switch-9 input:checked:nth-of-type(4) ~ a {
+        left: 33%;
     }
 
-    .switch-toggle.switch-8 input:checked:nth-of-type(5) ~ a {
-        left: 53.5%;
+    .switch-toggle.switch-9 input:checked:nth-of-type(5) ~ a {
+        left: 44%;
     }
 
-    .switch-toggle.switch-8 input:checked:nth-of-type(6) ~ a {
-        left: 66%;
+    .switch-toggle.switch-9 input:checked:nth-of-type(6) ~ a {
+        left: 55.2%;
     }
 
-    .switch-toggle.switch-8 input:checked:nth-of-type(7) ~ a {
-        left: 79%;
+    .switch-toggle.switch-9 input:checked:nth-of-type(7) ~ a {
+        left: 66.5%;
     }
 
-    .switch-toggle.switch-8 input:checked:last-of-type ~ a {
-        left: 91%;
+    .switch-toggle.switch-9 input:checked:nth-of-type(8) ~ a {
+        left: 77.8%;
+    }
+
+    .switch-toggle.switch-9 input:checked:last-of-type ~ a {
+        left: 88.5%;
     }
 }
 
