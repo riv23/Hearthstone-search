@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * This class represents a card type. It's used by the JSON reader : CardReader.java
+ */
 public class CardType {
 
 	@SerializedName("Basic")

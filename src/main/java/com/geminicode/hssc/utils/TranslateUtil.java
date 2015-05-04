@@ -4,6 +4,9 @@ import com.google.common.base.Strings;
 
 import java.util.Locale;
 
+/**
+ * This class util allows translate some strings.
+ */
 public class TranslateUtil {
 
     public static String translateRarity(String value, Locale locale) {

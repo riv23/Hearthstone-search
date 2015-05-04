@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Locale;
 
+/**
+ * This class read the JSON API.
+ */
 public class CardReader {
 
     public static final String URL_API_FR = "http://hearthstonejson.com/json/AllSets.frFR.json";

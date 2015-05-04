@@ -131,24 +131,11 @@ body {
     line-height: 20px;
 }
 
-.card .profession {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
 .card .footer {
     border-top: 1px solid #EEEEEE;
     margin: 30px 0 0;
     padding: 10px 0 0;
     text-align: center;
-}
-
-.card .footer .social-links {
-    font-size: 18px;
-}
-
-.card .footer .social-links a {
-    margin: 0 7px;
 }
 
 .card .header {
@@ -164,49 +151,7 @@ body {
     text-align: center;
 }
 
-/*      Just for presentation        */
-
-.title {
-    text-align: center;
-    font-weight: 300;
-    font-size: 44px;
-    margin-bottom: 90px;
-    line-height: 90%;
-}
-
-.title small {
-    font-size: 17px;
-    text-transform: uppercase;
-    margin: 0;
-}
-
-.space-50 {
-    height: 50px;
-    display: block;
-}
-
-.space-200 {
-    height: 200px;
-    display: block;
-}
-
-.white-board {
-    background-color: #FFFFFF;
-    min-height: 200px;
-    padding: 60px 60px 20px;
-}
-
-
-pre.prettyprint {
-    background-color: #ffffff;
-    margin-top: 20px;
-    padding: 20px;
-    text-align: left;
-}
-
-
 /*       Fix bug for IE      */
-
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     .front, .back {
         -ms-backface-visibility: visible;

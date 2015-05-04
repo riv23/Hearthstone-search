@@ -40,8 +40,8 @@ public class SearchApiServiceImpl implements SearchApiService {
 
         final List<Card> cards = Lists.newArrayList();
 
-        //Issue #4 replace coma by empty char to prevent syntax erros
-        queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò]", " ");
+        //This code replace all specials chars by blank char
+        queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò=]", " ");
 
         if(Strings.isNullOrEmpty(lang) || !"fr".equals(lang)) {
             queryString += " lang=en";
@@ -49,6 +49,7 @@ public class SearchApiServiceImpl implements SearchApiService {
             queryString += " lang=" + lang;
         }
 
+        //All cards are retrieved with empty "cost" value
         if(!Strings.isNullOrEmpty(cost)) {
             if(Integer.valueOf(cost)>= 7) {
                 queryString += " cost>=" + cost;
@@ -273,6 +274,9 @@ public class SearchApiServiceImpl implements SearchApiService {
         return Integer.valueOf(card.getCost());
     }
 
+    /**
+     * This code build all String[] mechanic values to String
+     */
     private String buildMechanicsValues(String[] mechanics, Locale locale) {
         final StringBuilder stringBuilder = new StringBuilder();
 

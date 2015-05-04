@@ -1,5 +1,8 @@
 package com.geminicode.hssc.model;
 
+/**
+ * This class represents a card saved in the index and retrieved by the API.
+ */
 public class Card {
     private String id = "";
 

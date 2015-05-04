@@ -7,6 +7,9 @@ import com.sun.jersey.spi.container.ContainerResponseFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+/**
+ * This class it's used to by pass the Cors Exceptions. It allows use API outside application domain.
+ */
 public class ResponseCorsFilter implements ContainerResponseFilter {
 	@Override
 	public ContainerResponse filter(ContainerRequest req, ContainerResponse contResp) {

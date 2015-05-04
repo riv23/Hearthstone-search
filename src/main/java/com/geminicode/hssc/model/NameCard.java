@@ -5,6 +5,9 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+/**
+ * This class represents name cards saved in the Datastore used by the auto-completion
+ */
 @Cache
 @Entity
 public class NameCard {

@@ -32,10 +32,10 @@ public class DatastoreServiceImpl implements DatastoreService {
     }
 
     @Override
-    public void putCards(List<Card> basics, final Locale locale) {
+    public void putCards(List<Card> cards, final Locale locale) {
         final List<NameCard> nameCards = Lists.newArrayList();
 
-        nameCards.addAll(Collections2.transform(basics, new Function<Card, NameCard>() {
+        nameCards.addAll(Collections2.transform(cards, new Function<Card, NameCard>() {
             @Override
             public NameCard apply(Card card) {
                 final NameCard nameCard = new NameCard();

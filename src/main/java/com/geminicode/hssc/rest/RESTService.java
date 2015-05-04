@@ -10,6 +10,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+/**
+ * This class class expose the API
+ */
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class RESTService {

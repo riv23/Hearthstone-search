@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
+/**
+ * This servlet save new cards to the Index and the DataStore.
+ * It's launched every days at 0 o'clock (Paris Time) refers to cron.xml file
+ */
 public class CheckCardsCron extends HttpServlet {
 
     private final SearchApiService searchApiService = ServiceFactory.get().getSearchApiService();

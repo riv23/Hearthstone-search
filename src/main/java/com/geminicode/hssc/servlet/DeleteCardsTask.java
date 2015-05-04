@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This servlet delete all cards from Datastore and Index. It's called each time CheckCardCron is called.
+ */
 public class DeleteCardsTask extends HttpServlet {
     private final SearchApiService searchApiService = ServiceFactory.get().getSearchApiService();
 
