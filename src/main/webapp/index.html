@@ -36,60 +36,44 @@
     </div>
     <div class="jumbotron centerfy">
         <img class="img-responsive" src="img/Hearthstone_Logo.png"/>
-
         <form ng-submit="submit()">
             <div class="form-group">
                 <autocomplete ng-model="query" data="suggestions" on-type="tapedQuery" attr-placeholder="{{'PLACEHOLDER' | translate}}"></autocomplete>
                 <br />
                 <div class="switch-toggle switch-9 switch-hearthstone col-md-9 col-md-offset-2">
-
                     <input id="manaAll" name="mana" type="radio">
                     <label for="manaAll" ng-click="filterMana('')">all</label>
-
                     <input id="mana0" name="mana" type="radio">
                     <label for="mana0" ng-click="filterMana(0)">0</label>
-
                     <input id="mana1" name="mana" type="radio">
                     <label for="mana1" ng-click="filterMana(1)">1</label>
-
                     <input id="mana2" name="mana" type="radio">
                     <label for="mana2" ng-click="filterMana(2)">2</label>
-
                     <input id="mana3" name="mana" type="radio">
                     <label for="mana3" ng-click="filterMana(3)">3</label>
-
                     <input id="mana4" name="mana" type="radio">
                     <label for="mana4" ng-click="filterMana(4)">4</label>
-
                     <input id="mana5" name="mana" type="radio">
                     <label for="mana5" ng-click="filterMana(5)">5</label>
-
                     <input id="mana6" name="mana" type="radio">
                     <label for="mana6" ng-click="filterMana(6)">6</label>
-
                     <input id="mana7" name="mana" type="radio">
                     <label for="mana7" ng-click="filterMana(7)">7+</label>
-
                     <a></a>
                 </div>
             </div>
         </form>
         <br />
-        <p>{{results.length}} card(s)</p>
+        <p>{{results.length}} {{'CARDS' | translate}}</p>
     </div>
-
     <div class="row">
-
         <div class="col-md-4" ng-repeat="card in cards | orderBy:'cost*1' | filter:playable=true as results">
             <card></card>
         </div>
-
     </div>
-
     <footer class="footer centerfy">
         <p>&copy; GeminiCode 2015 - <i translate="LEGAL"></i> - <a href="https://github.com/GeminiCode/Hearthstone-Search-Engine" target="_blank">{{'GITHUB' | translate}}</a></a> </p>
     </footer>
-
 </div>
 
 <script src="js/analytics.js"></script>
