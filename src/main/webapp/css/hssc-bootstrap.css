@@ -4035,7 +4035,6 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
     text-decoration: none;
-    background-color: #242424;
 }
 
 .nav > li.disabled > a {
@@ -7189,4 +7188,12 @@ td.visible-print {
 
 .centerfy img {
     margin: 0 auto;
+}
+
+.unusedLanguage {
+    opacity: 0.5;
+}
+
+.usedLanguage {
+    opacity: 1;
 }

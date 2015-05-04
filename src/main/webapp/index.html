@@ -26,7 +26,14 @@
 <body>
 
 <div class="container" ng-controller="SearchCtrl">
-
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li><a ng-click="changeLanguage('fr')" href="#"><img ng-class="frenchClass" src="img/french.png"/></a></li>
+                <li><a ng-click="changeLanguage('en')" href="#"><img ng-class="englishClass" src="img/english.png"/></a></li>
+            </ul>
+        </nav>
+    </div>
     <div class="jumbotron centerfy">
         <img class="img-responsive" src="img/Hearthstone_Logo.png"/>
 
