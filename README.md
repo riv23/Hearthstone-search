@@ -27,6 +27,9 @@ Pull request are welcome :)
 
 ## Change log
 
+### v1.2.1
+* Mana filter improvement
+
 ### v1.2.0
 * Added optional fiter on mana value.
 
