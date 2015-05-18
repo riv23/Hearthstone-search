@@ -3,7 +3,7 @@
     <application>hearthstone-search-cards</application>
     <version>${appengine.app.version}</version>
     <threadsafe>true</threadsafe>
-    <instance-class>F1</instance-class>
+    <instance-class>F2</instance-class>
     <automatic-scaling>
         <min-idle-instances>1</min-idle-instances>
     </automatic-scaling>
