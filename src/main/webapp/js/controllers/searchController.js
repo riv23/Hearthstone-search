@@ -1,4 +1,7 @@
-app.controller('SearchCtrl', function ($scope, $http, $location, $translate, NamesSrvc, SearchSrvc) {
+app.controller('SearchCtrl', function ($scope, $http, $location, $translate, NamesSrvc, SearchSrvc, ngProgress) {
+    ngProgress.color('#ffd100');
+    ngProgress.height('5px');
+    ngProgress.start();
 
     var initLanguage = function () {
         if (_.isEmpty($location.search().lang)) {
@@ -43,6 +46,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Nam
         SearchSrvc.fetch($scope.query, $scope.lang, $scope.cost)
             .success(function (data) {
                 $scope.cards = data;
+                ngProgress.complete();
             })
             .error(function (error) {
                 console.log("Error while accessing to API " + error);
@@ -54,6 +58,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Nam
         SearchSrvc.fetch($scope.query, $scope.lang, $scope.cost)
             .success(function (data) {
                 $scope.cards = data;
+                ngProgress.complete();
             })
             .error(function (error) {
                 console.log("Error while accessing to API " + error);
@@ -64,6 +69,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Nam
         SearchSrvc.fetch($scope.query, $scope.lang, $scope.cost)
             .success(function (data) {
                 $scope.cards = data;
+                ngProgress.complete();
             })
             .error(function (error) {
                 console.log("Error while accessing to API " + error);
