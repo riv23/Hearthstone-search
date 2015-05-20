@@ -68,7 +68,7 @@
         <p>{{results.length}} {{'CARDS' | translate}}</p>
     </div>
     <div class="row">
-        <div class="col-md-4" ng-repeat="card in cards | orderBy:'cost*1' | filter:playable=true as results">
+        <div class="col-md-4" ng-repeat="card in cards | filteredCost:costFilter as results">
             <card></card>
         </div>
     </div>
@@ -89,6 +89,7 @@
 <script src="js/services/searchService.js"></script>
 <script src="js/controllers/searchController.js"></script>
 <script src="js/filters/htmlFilter.js"></script>
+<script src="js/filters/costFilter.js"></script>
 <script src="js/services/accentService.js"></script>
 <script src="js/directives/errorImageDirective.js"></script>
 <script src="js/directives/cardDirective.js"></script>

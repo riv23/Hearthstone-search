@@ -60,8 +60,14 @@ public class SearchApiServiceImpl implements SearchApiService {
 
         LOGGER.info("Query="+queryString);
 
-        final QueryOptions options = QueryOptions.newBuilder().setLimit(1000).build();
+        final SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
+                SortExpression.newBuilder()
+                .setExpression("cost")
+                .setDirection(SortExpression.SortDirection.ASCENDING))
+                .build();
+        final QueryOptions options = QueryOptions.newBuilder().setLimit(1000).setSortOptions(sortOptions).build();
         final Query query = SearchUtil.buildQuery(queryString, options);
+
 
         final Results<ScoredDocument> results = index.search(query);
 

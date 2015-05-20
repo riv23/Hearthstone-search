@@ -28,7 +28,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Nam
 
     $scope.query = $location.search().q;
     $scope.lang = initLanguage();
-    $scope.cost = "";
+    $scope.costFilter = "";
     initFlag($scope.lang);
 
     $scope.tapedQuery = function (typed) {
@@ -42,20 +42,11 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Nam
     };
 
     $scope.filterMana= function(value) {
-        $scope.cost = value;
-        SearchSrvc.fetch($scope.query, $scope.lang, $scope.cost)
-            .success(function (data) {
-                $scope.cards = data;
-                ngProgress.complete();
-            })
-            .error(function (error) {
-                console.log("Error while accessing to API " + error);
-            });
-
+        $scope.costFilter = value;
     };
 
     $scope.submit = function () {
-        SearchSrvc.fetch($scope.query, $scope.lang, $scope.cost)
+        SearchSrvc.fetch($scope.query, $scope.lang)
             .success(function (data) {
                 $scope.cards = data;
                 ngProgress.complete();
@@ -66,7 +57,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Nam
     };
 
     $scope.$watch(function () { return $scope.query; }, function () {
-        SearchSrvc.fetch($scope.query, $scope.lang, $scope.cost)
+        SearchSrvc.fetch($scope.query, $scope.lang)
             .success(function (data) {
                 $scope.cards = data;
                 ngProgress.complete();
