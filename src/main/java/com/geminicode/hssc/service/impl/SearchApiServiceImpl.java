@@ -141,29 +141,28 @@ public class SearchApiServiceImpl implements SearchApiService {
 
     private void persisteCards(CardType cardType, TypesEnum type, Locale locale) {
 
+        final List<Card> wantedCards = Lists.newArrayList();
+
         switch (type) {
             case BASIC:
                 final List<Card> basics = cardType.getBasic();
                 final List<Card> wantedBasics = removeUnWantedCards(basics);
                 addSpecifiedFields(wantedBasics, type, locale);
-                putFullCardsIntoSearch(wantedBasics, locale);
-                datastoreService.putCards(wantedBasics, locale);
+                wantedCards.addAll(wantedBasics);
                 LOGGER.info("There are " + wantedBasics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
                 break;
             case CLASSIC:
                 final List<Card> classics = cardType.getClassic();
                 final List<Card> wantedClassics = removeUnWantedCards(classics);
                 addSpecifiedFields(wantedClassics, type, locale);
-                putFullCardsIntoSearch(wantedClassics, locale);
-                datastoreService.putCards(wantedClassics, locale);
+                wantedCards.addAll(wantedClassics);
                 LOGGER.info("There are " + wantedClassics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
                 break;
             case CURSE_OF_NAXXRAMAS:
                 final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
                 final List<Card> wantedCurseOfNaxxramass = removeUnWantedCards(curseOfNaxxramass);
                 addSpecifiedFields(wantedCurseOfNaxxramass, type, locale);
-                putFullCardsIntoSearch(wantedCurseOfNaxxramass, locale);
-                datastoreService.putCards(wantedCurseOfNaxxramass, locale);
+                wantedCards.addAll(wantedCurseOfNaxxramass);
                 LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
                         + " cards.");
                 break;
@@ -171,8 +170,7 @@ public class SearchApiServiceImpl implements SearchApiService {
                 final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
                 final List<Card> wantedGobelinsVsGnomes = removeUnWantedCards(gobelinsVsGnomes);
                 addSpecifiedFields(wantedGobelinsVsGnomes, type, locale);
-                putFullCardsIntoSearch(wantedGobelinsVsGnomes, locale);
-                datastoreService.putCards(wantedGobelinsVsGnomes, locale);
+                wantedCards.addAll(wantedGobelinsVsGnomes);
                 LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
                         + " cards.");
                 break;
@@ -180,21 +178,21 @@ public class SearchApiServiceImpl implements SearchApiService {
                 final List<Card> promotions = cardType.getPromotions();
                 final List<Card> wantedPromotions = removeUnWantedCards(promotions);
                 addSpecifiedFields(wantedPromotions, type, locale);
-                putFullCardsIntoSearch(wantedPromotions, locale);
-                datastoreService.putCards(wantedPromotions, locale);
+                wantedCards.addAll(wantedPromotions);
                 LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
                 break;
             case BLACKROCK_MOUNTAIN:
                 final List<Card> blackrockMountain = cardType.getBlackrockMountain();
                 final List<Card> wantedBlackrockMountain = removeUnWantedCards(blackrockMountain);
                 addSpecifiedFields(wantedBlackrockMountain, type, locale);
-                putFullCardsIntoSearch(wantedBlackrockMountain, locale);
-                datastoreService.putCards(wantedBlackrockMountain, locale);
+                wantedCards.addAll(wantedBlackrockMountain);
                 LOGGER.info("There are " + wantedBlackrockMountain.size() + " " + TypesEnum.BLACKROCK_MOUNTAIN.getName() + " cards.");
                 break;
             default:
                 break;
         }
+        putFullCardsIntoSearch(wantedCards, locale);
+        datastoreService.putCards(wantedCards, locale);
     }
 
     private List<Card> removeUnWantedCards(List<Card> cards) {
