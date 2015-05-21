@@ -53,24 +53,20 @@ public class SearchApiServiceImpl implements SearchApiService {
     @Override
     public Card searchById(String cardId) throws SearchException {
         final Document document = INDEX.get(cardId);
-        final Card card = SearchUtil.getCardFromField(document.getFields());
-        card.setId(document.getId());
-
-        return card;
+        return SearchUtil.getCardFromField(document.getFields());
     }
 
     @Override
     public void deleteAllCards() throws RuntimeException {
         final Queue queue = QueueFactory.getDefaultQueue();
         try {
-
             while (true) {
                 final List<String> docIds = Lists.newArrayList();
                 final GetRequest request = GetRequest.newBuilder().setReturningIdsOnly(true).build();
 
                 final GetResponse<Document> response = INDEX.getRange(request);
                 if (response.getResults().isEmpty()) {
-                    LOGGER.info("No more indexed cards");
+                    LOGGER.info("No more indexed cards.");
                     break;
                 }
                 for (Document doc : response) {
@@ -107,7 +103,5 @@ public class SearchApiServiceImpl implements SearchApiService {
     private void putFullCardsIntoSearch(List<Card> cards, Locale locale) {
         INDEX.put(SearchUtil.buildDocumentsForIndex(cards, locale));
     }
-
-
 
 }
