@@ -17,7 +17,8 @@ public interface DatastoreService {
     List<NameCard> searchNameCards(String query, String lang);
 
     /**
-     * This service saves all name cards for auto-completion
+     * This service saves all name cards for auto-completion.
+     * Id cards are transform : ID+"_"+trigram language. ex : test_en
      * @param cards Card list
      * @param locale Language (mandatory)
      */
