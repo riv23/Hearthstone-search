@@ -199,7 +199,7 @@ public class SearchApiServiceImpl implements SearchApiService {
         wantedCards.addAll(Collections2.filter(cards, new Predicate<Card>() {
             @Override
             public boolean apply(Card input) {
-                return !Strings.isNullOrEmpty(input.getCollectible());
+                return !Strings.isNullOrEmpty(input.getCollectible()) && "true".equals(input.getCollectible());
             }
         }));
 
