@@ -1,6 +1,5 @@
 app.filter('filteredCost', function() {
     return function(input, value) {
-
         if(value === "") {
             return input;
         }
