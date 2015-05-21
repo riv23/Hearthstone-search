@@ -4,6 +4,7 @@ import com.geminicode.hssc.model.Card;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Query;
 import com.google.appengine.api.search.QueryOptions;
+import com.google.common.base.Strings;
 
 public class SearchUtil {
     public static Query buildQuery(String queryString, QueryOptions options) {
@@ -72,5 +73,24 @@ public class SearchUtil {
         }
 
         return card;
+    }
+
+    public static String buildQueryString(String queryString, String lang, String cost) {
+        queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò=]", " ");
+
+        if(Strings.isNullOrEmpty(lang) || !"fr".equals(lang)) {
+            queryString += " lang=en";
+        }else {
+            queryString += " lang=" + lang;
+        }
+
+        if(!Strings.isNullOrEmpty(cost)) {
+            if(Integer.valueOf(cost)>= 7) {
+                queryString += " cost>=" + cost;
+            } else {
+                queryString += " cost=" + cost;
+            }
+        }
+        return queryString;
     }
 }

@@ -40,25 +40,7 @@ public class SearchApiServiceImpl implements SearchApiService {
 
         final List<Card> cards = Lists.newArrayList();
 
-        //This code replace all specials chars by blank char
-        queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò=]", " ");
-
-        if(Strings.isNullOrEmpty(lang) || !"fr".equals(lang)) {
-            queryString += " lang=en";
-        }else {
-            queryString += " lang=" + lang;
-        }
-
-        //All cards are retrieved with empty "cost" value
-        if(!Strings.isNullOrEmpty(cost)) {
-            if(Integer.valueOf(cost)>= 7) {
-                queryString += " cost>=" + cost;
-            } else {
-                queryString += " cost=" + cost;
-            }
-        }
-
-        LOGGER.info("Query="+queryString);
+        queryString = SearchUtil.buildQueryString(queryString, lang, cost);
 
         final SortOptions sortOptions = SortOptions.newBuilder()
                 .addSortExpression(

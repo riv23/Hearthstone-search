@@ -7,9 +7,9 @@ app.filter('filteredCost', function() {
 
         return _.filter(input, function(card){
             if(parseInt(card.cost, 10) < 7) {
-                return parseInt(card.cost, 10) == value && card.collectible === "true";
+                return parseInt(card.cost, 10) == value;
             }
-            return parseInt(card.cost, 10) >= 7 && card.collectible === "true";
+            return parseInt(card.cost, 10) >= 7;
         });
 
     }

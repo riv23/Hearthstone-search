@@ -19,13 +19,14 @@ import java.util.Locale;
 public class DatastoreServiceImpl implements DatastoreService {
 
     public static final String EN = "en";
+    public static final String FR = "fr";
 
     @Override
     public List<NameCard> searchNameCards(String query, String lang) {
         if (Strings.isNullOrEmpty(query)) {
             return Lists.newArrayList();
         }
-        if (Strings.isNullOrEmpty(lang) || !lang.contains("fr")) {
+        if (Strings.isNullOrEmpty(lang) || !lang.contains(FR)) {
             lang = EN;
         }
         return OfyService.ofy().load().type(NameCard.class).order("compute").filter("language", lang).filter("compute >=", query.toLowerCase()).filter("compute <", query.toLowerCase() + "\uFFFD").limit(5).list();
