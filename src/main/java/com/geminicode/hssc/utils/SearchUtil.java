@@ -76,7 +76,7 @@ public class SearchUtil {
     }
 
     public static String buildQueryString(String queryString, String lang, String cost) {
-        queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò=]", " ");
+        queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò=']", " ");
 
         if(Strings.isNullOrEmpty(lang) || !"fr".equals(lang)) {
             queryString += " lang=en";
