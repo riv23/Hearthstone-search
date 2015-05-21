@@ -30,9 +30,9 @@ public interface SearchApiService {
 
     /**
      * This service delete all card from index
-     * @throws IOException throws if delete failed
+     * @throws RuntimeException throws if delete failed
      */
-    void deleteAllCards() throws IOException;
+    void deleteAllCards() throws RuntimeException;
 
     /**
      * This service check new cards from the referred JSON API and put them to the index

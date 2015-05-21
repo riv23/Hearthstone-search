@@ -10,9 +10,9 @@ public enum TypesEnum {
 	PROMOTION("Promotion"),
 	BLACKROCK_MOUNTAIN("Blackrock Mountain");
 
-	private String type;
+	private final String type;
 
-	private TypesEnum(String type) {
+	TypesEnum(String type) {
 		this.type = type;
 	}
 

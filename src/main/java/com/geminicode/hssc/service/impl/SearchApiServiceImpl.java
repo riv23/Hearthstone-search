@@ -25,13 +25,13 @@ public class SearchApiServiceImpl implements SearchApiService {
 
     private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
 
-    public static final String BASE_URL_IMAGE_FR = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/";
-    public static final String BASE_URL_IMAGE_EN = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/";
+    private static final String BASE_URL_IMAGE_FR = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/";
+    private static final String BASE_URL_IMAGE_EN = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/";
 
-    public static final String PNG = ".png";
-    public static final String CARDS = "cards";
+    private static final String PNG = ".png";
+    private static final String CARDS = "cards";
 
-    private static final Index index = getIndex(CARDS);
+    private static final Index index = getIndex();
 
     private final DatastoreService datastoreService = ServiceFactory.get().getDatastoreService();
 
@@ -78,7 +78,7 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     @Override
-    public void deleteAllCards() throws IOException {
+    public void deleteAllCards() throws RuntimeException {
         final Queue queue = QueueFactory.getDefaultQueue();
         try {
 
@@ -288,8 +288,8 @@ public class SearchApiServiceImpl implements SearchApiService {
         return stringBuilder.toString();
     }
 
-    private static Index getIndex(String indexName) {
-        final IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
+    private static Index getIndex() {
+        final IndexSpec indexSpec = IndexSpec.newBuilder().setName(CARDS).build();
         return SearchServiceFactory.getSearchService().getIndex(indexSpec);
     }
 

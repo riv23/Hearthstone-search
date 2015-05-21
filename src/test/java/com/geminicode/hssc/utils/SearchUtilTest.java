@@ -18,8 +18,7 @@ public class SearchUtilTest {
         final Query query = SearchUtil.buildQuery(queryString, any(QueryOptions.class));
 
         //THEN
-        final String oracle = queryString;
         assertThat(query.getQueryString()).isNotNull();
-        assertThat(query.getQueryString()).isEqualTo(oracle);
+        assertThat(query.getQueryString()).isEqualTo(queryString);
     }
 }

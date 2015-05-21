@@ -18,8 +18,8 @@ import java.util.Locale;
 
 public class DatastoreServiceImpl implements DatastoreService {
 
-    public static final String EN = "en";
-    public static final String FR = "fr";
+    private static final String EN = "en";
+    private static final String FR = "fr";
 
     @Override
     public List<NameCard> searchNameCards(String query, String lang) {
