@@ -26,6 +26,7 @@ public class SearchApiServiceImpl implements SearchApiService {
 
     private static final Index INDEX = SearchUtil.getIndex();
     private static final int MAX_PER_PAGE = 1000;
+    private static final int MAX_DOC_PER_INDEX = 200;
 
     private final DatastoreService datastoreService = ServiceFactory.get().getDatastoreService();
 
@@ -101,12 +102,10 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     private void putFullCardsIntoSearch(List<Card> cards, Locale locale) {
-
-        final List<List<Card>> partition = Lists.partition(cards, 200);
+        final List<List<Card>> partition = Lists.partition(cards, MAX_DOC_PER_INDEX);
         for (List<Card> cardList : partition) {
             INDEX.put(SearchUtil.buildDocumentsForIndex(cardList, locale));
         }
-
     }
 
 }
