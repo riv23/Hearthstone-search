@@ -101,7 +101,12 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     private void putFullCardsIntoSearch(List<Card> cards, Locale locale) {
-        INDEX.put(SearchUtil.buildDocumentsForIndex(cards, locale));
+
+        final List<List<Card>> partition = Lists.partition(cards, 200);
+        for (List<Card> cardList : partition) {
+            INDEX.put(SearchUtil.buildDocumentsForIndex(cardList, locale));
+        }
+
     }
 
 }
