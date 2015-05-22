@@ -25,7 +25,13 @@ app.config(function ($translateProvider) {
     });
 
     var defaultLanguage = function () {
-        switch (navigator.language.split("-")[0]) {
+        var language = "en";
+        if (window.navigator.userAgent.indexOf("MSIE") > 0) {
+            language = clientInformation.userLanguage.split("-")[0];
+        }else {
+            language = navigator.language.split("-")[0];
+        }
+        switch (language) {
             case "fr" :
                 return "fr";
             case "en" :
