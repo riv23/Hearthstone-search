@@ -6,10 +6,10 @@ app.filter('filteredCost', function() {
 
         return _.filter(input, function(card){
             var costValue = parseInt(card.cost, 10);
-            if(costValue < 7) {
+            if(value < 7) {
                 return costValue === value;
-            } else if (costValue >= 7) {
-                return true;
+            } else if (value >= 7) {
+                return costValue >= 7;
             } else {
                 return false;
             }
