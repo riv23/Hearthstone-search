@@ -5,10 +5,14 @@ app.filter('filteredCost', function() {
         }
 
         return _.filter(input, function(card){
-            if(parseInt(card.cost, 10) < 7) {
-                return parseInt(card.cost, 10) == value;
+            var costValue = parseInt(card.cost, 10);
+            if(costValue < 7) {
+                return costValue === value;
+            } else if (costValue >= 7) {
+                return true;
+            } else {
+                return false;
             }
-            return parseInt(card.cost, 10) >= 7;
         });
 
     }
