@@ -1,5 +1,5 @@
 app.service("SearchSrvc", function ($http, $location, AccentSrvc) {
-    var API_URI = '/api/search';
+    var API_URI = 'http://hearthstone-search-cards.appspot.com/api/search';
 
     return {
         fetch: function (query, lang) {
