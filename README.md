@@ -27,8 +27,16 @@ Pull request are welcome :)
 
 ## Change log
 
+### v1.2.2
+* Added a lot of refactoring.
+* Fix bugs.
+* Mana filters are on front side now.
+* Heroes are not indexed now.
+* Fix search with ' char.
+* Optimize indexing, the number of requests is optimized now.
+
 ### v1.2.1
-* Mana filter improvement
+* Mana filter improvement.
 
 ### v1.2.0
 * Added optional fiter on mana value.
