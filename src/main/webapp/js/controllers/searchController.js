@@ -1,5 +1,8 @@
 app.controller('SearchCtrl', function ($scope, $http, $location, $translate, NamesSrvc, SearchSrvc, FlagSrvc, ngProgress) {
 
+    ngProgress.color('#ffd100');
+    ngProgress.height('5px');
+
     var initFlag = function (language) {
         if(language == "fr") {
             $scope.frenchClass = "usedLanguage";
@@ -16,6 +19,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Nam
     };
 
     var search = function() {
+        ngProgress.start();
         SearchSrvc.fetch($scope.query, $scope.lang)
             .success(function (data) {
                 $scope.cards = data;
@@ -23,12 +27,9 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Nam
             })
             .error(function (error) {
                 console.log("Error while accessing to API " + error);
+                ngProgress.complete();
             });
     };
-
-    ngProgress.color('#ffd100');
-    ngProgress.height('5px');
-    ngProgress.start();
 
     $scope.query = $location.search().q;
     $scope.lang = FlagSrvc.initLanguage();
