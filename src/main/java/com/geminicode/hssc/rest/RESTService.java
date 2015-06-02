@@ -1,14 +1,18 @@
 package com.geminicode.hssc.rest;
 
 import com.geminicode.hssc.model.Card;
+import com.geminicode.hssc.model.Message;
 import com.geminicode.hssc.model.NameCard;
 import com.geminicode.hssc.service.DatastoreService;
+import com.geminicode.hssc.service.MailService;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.utils.ServiceFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class class expose the API
@@ -19,6 +23,7 @@ public class RESTService {
 
     private final SearchApiService searchApiService = ServiceFactory.get().getSearchApiService();
     private final DatastoreService datastoreService = ServiceFactory.get().getDatastoreService();
+    private final MailService mailService = ServiceFactory.get().getMailService();
 
 	@GET
 	@Path("/names")
@@ -36,5 +41,12 @@ public class RESTService {
     @Path("/card/{id}")
     public Card getCard(@PathParam("id") String cardId) {
         return searchApiService.searchById(cardId);
+    }
+
+    @POST
+    @Path("/message")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void sendMessage(Message message) {
+        mailService.send(message.getName(), message.getEmail(), message.getMessage());
     }
 }

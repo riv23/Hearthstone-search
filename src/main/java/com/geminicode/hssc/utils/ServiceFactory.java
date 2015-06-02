@@ -1,8 +1,10 @@
 package com.geminicode.hssc.utils;
 
 import com.geminicode.hssc.service.DatastoreService;
+import com.geminicode.hssc.service.MailService;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.service.impl.DatastoreServiceImpl;
+import com.geminicode.hssc.service.impl.MailServiceImpl;
 import com.geminicode.hssc.service.impl.SearchApiServiceImpl;
 
 public class ServiceFactory {
@@ -10,6 +12,7 @@ public class ServiceFactory {
 
     private SearchApiService searchApiService;
     private DatastoreService datastoreService;
+    private MailService mailService;
 
     private ServiceFactory() {
 
@@ -38,6 +41,13 @@ public class ServiceFactory {
             datastoreService = new DatastoreServiceImpl();
         }
         return datastoreService;
+    }
+
+    public MailService getMailService() {
+        if(mailService == null) {
+            mailService = new MailServiceImpl();
+        }
+        return mailService;
     }
 
 }

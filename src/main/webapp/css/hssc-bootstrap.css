@@ -1877,19 +1877,19 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .form-control:-moz-placeholder {
-    color: #ffd100;
+    color: #242424;
 }
 
 .form-control::-moz-placeholder {
-    color: #ffd100;
+    color: #242424;
 }
 
 .form-control:-ms-input-placeholder {
-    color: #ffd100;
+    color: #242424;
 }
 
 .form-control::-webkit-input-placeholder {
-    color: #ffd100;
+    color: #242424;
 }
 
 .form-control {
@@ -5929,7 +5929,7 @@ body.modal-open,
 
 .modal-content {
     position: relative;
-    background-color: #ffffff;
+    background-color: #242424;
     border: 1px solid #999999;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 6px;
@@ -7196,4 +7196,11 @@ td.visible-print {
 
 .usedLanguage {
     opacity: 1;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+    margin-top: 9px;
 }

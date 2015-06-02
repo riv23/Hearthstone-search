@@ -27,11 +27,12 @@
 <body>
 
 <div class="container" ng-controller="SearchCtrl">
-    <div class="header clearfix">
+    <div class="header clearfix" ng-controller="ModalDemoCtrl">
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li><a ng-click="changeLanguage('fr')" href="#"><img ng-class="frenchClass" src="img/french.png"/></a></li>
                 <li><a ng-click="changeLanguage('en')" href="#"><img ng-class="englishClass" src="img/english.png"/></a></li>
+                <li><button class="btn btn-success vcenter" ng-click="open()">Feedback</button></li>
             </ul>
         </nav>
     </div>
@@ -80,6 +81,7 @@
 <script src="js/analytics.js"></script>
 <script src="js/lib/angular.min.js"></script>
 <script src="js/lib/angular-translate.min.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
 <script src="js/lib/autocomplete.js"></script>
 <script src="js/lib/underscore-min.js"></script>
 <script src="js/lib/ngProgress.js"></script>
@@ -91,6 +93,7 @@
 <script src="js/services/flagService.js"></script>
 <script src="js/services/accentService.js"></script>
 <script src="js/controllers/searchController.js"></script>
+<script src="js/controllers/modalControlles.js"></script>
 <script src="js/filters/htmlFilter.js"></script>
 <script src="js/filters/costFilter.js"></script>
 <script src="js/directives/errorImageDirective.js"></script>

@@ -1,1 +1,1 @@
-var app = angular.module('hssc', ['autocomplete', 'pascalprecht.translate', 'ngProgress']);
+var app = angular.module('hssc', ['autocomplete', 'pascalprecht.translate', 'ngProgress', 'ui.bootstrap']);
