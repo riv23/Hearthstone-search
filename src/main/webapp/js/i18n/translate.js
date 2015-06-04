@@ -9,7 +9,16 @@ app.config(function ($translateProvider) {
         EXPANSION : "Expansion",
         PLACEHOLDER : "Ex : Leeroy Jenkins, Blackrock legendary, ...",
         GITHUB : "GitHub page, pull requests are welcome :)",
-        CARDS : "Card(s)"
+        CARDS : "Card(s)",
+        FEEDBACK : "Feedback",
+        NAME : "Name",
+        YOUR_NAME : "Your name",
+        EMAIL_ADDRESS : "Email address",
+        YOUR_EMAIL_ADDRESS : "Your email address",
+        MESSAGE : "Message",
+        SEND : "Send",
+        CANCEL : "Cancel",
+        FEEDBACK_TITLE : "Any comments, any ideas ? You are welcome."
     });
     $translateProvider.translations('fr', {
         CLASS: 'Classe',
@@ -21,7 +30,16 @@ app.config(function ($translateProvider) {
         EXPANSION : "Extension",
         PLACEHOLDER : "Ex : Leeroy Jenkins, Blackrock légendaire, ...",
         GITHUB : "Page GitHub, vos pull requests sont les bienvenues :)",
-        CARDS : "Carte(s)"
+        CARDS : "Carte(s)",
+        FEEDBACK : "Avis",
+        NAME : "Nom",
+        YOUR_NAME : "Votre nom",
+        EMAIL_ADDRESS : "Adresse mail",
+        YOUR_EMAIL_ADDRESS : "Votre adresse mail",
+        MESSAGE : "Message",
+        SEND : "Envoyer",
+        CANCEL : "Annuler",
+        FEEDBACK_TITLE : "Des remarques, des idées ? Vous êtes le/la bienvenue."
     });
 
     var defaultLanguage = function () {

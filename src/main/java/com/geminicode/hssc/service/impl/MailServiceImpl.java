@@ -1,6 +1,7 @@
 package com.geminicode.hssc.service.impl;
 
 import com.geminicode.hssc.service.MailService;
+import com.google.common.base.Strings;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -23,6 +24,12 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void send(String name, String email, String message) {
+
+        if (Strings.isNullOrEmpty(name) || Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(message)) {
+            LOGGER.log(Level.SEVERE, "One param is null or empty.");
+            return;
+        }
+
         LOGGER.log(Level.INFO, name + " " + email + " " + message);
         final Properties props = new Properties();
         final Session session = Session.getDefaultInstance(props, null);

@@ -32,7 +32,6 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, $lo
     var sendMessage = function () {
         $http.post('/api/message', {name:$scope.name, email:$scope.email, message:$scope.message}).
             success(function(data, status, headers, config) {
-                $log.info("message sent");
                 $modalInstance.close();
             }).
             error(function(data, status, headers, config) {
