@@ -21,6 +21,7 @@ public class MailServiceImpl implements MailService {
     public static final String MAIL = "angelomiguellima@gmail.com";
     public static final String NAME = "Angélo LIMA";
     public static final String OBJECT = "Feedback from HearthStone SearchCard";
+    public static final String MAIL_FROM = "hearthstone-search-cards@appspot.gserviceaccount.com";
 
     @Override
     public void send(String name, String email, String message) {
@@ -36,15 +37,15 @@ public class MailServiceImpl implements MailService {
 
         try {
             final Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(email, name));
+            msg.setFrom(new InternetAddress(MAIL_FROM, name));
             msg.addRecipient(Message.RecipientType.TO,
                     new InternetAddress(MAIL, NAME));
             msg.setSubject(OBJECT);
-            msg.setText(message);
+            msg.setText(message +"\n"+ "Message come from" + email);
             Transport.send(msg);
 
         } catch (MessagingException | UnsupportedEncodingException e) {
-            LOGGER.log(Level.SEVERE, "Message can't be sent, from : " + email + ", message : " + message);
+            LOGGER.log(Level.SEVERE, "Message can't be sent, from : " + email + ", message : " + message, e);
         }
     }
 }
