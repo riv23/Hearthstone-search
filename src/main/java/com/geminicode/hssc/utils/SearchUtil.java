@@ -93,21 +93,25 @@ public class SearchUtil {
     }
 
     public static String buildQueryString(String queryString, String lang, String cost) {
-        queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò=']", " ");
-
-        if(Strings.isNullOrEmpty(lang) || !"fr".equals(lang)) {
+        if (!Strings.isNullOrEmpty(queryString)) {
+            queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò=']", " ");
+        } else {
+            queryString = "";
+        }
+        if (Strings.isNullOrEmpty(lang) || !"fr".equals(lang)) {
             queryString += " lang=en";
-        }else {
+        } else {
             queryString += " lang=" + lang;
         }
 
-        if(!Strings.isNullOrEmpty(cost)) {
-            if(Integer.valueOf(cost)>= 7) {
+        if (!Strings.isNullOrEmpty(cost)) {
+            if (Integer.valueOf(cost) >= 7) {
                 queryString += " cost>=" + cost;
             } else {
                 queryString += " cost=" + cost;
             }
         }
+
         return queryString;
     }
 
