@@ -21,4 +21,60 @@ public class SearchUtilTest {
         assertThat(query.getQueryString()).isNotNull();
         assertThat(query.getQueryString()).isEqualTo(queryString);
     }
+
+    @Test
+    public void should_build_return_default_query() {
+        //GIVEN
+        final String queryString = null;
+
+        //WHEN
+        final String query = SearchUtil.buildQueryString(queryString, "", "");
+
+        //THEN
+        assertThat(query).isNotNull();
+        assertThat(query).isEqualTo(" lang=en");
+    }
+
+    @Test
+    public void should_build_query_with_param_lang() {
+        //GIVEN
+        final String queryString = null;
+        final String fr = "fr";
+
+        //WHEN
+        final String query = SearchUtil.buildQueryString(queryString, fr, "");
+
+        //THEN
+        assertThat(query).isNotNull();
+        assertThat(query).isEqualTo(" lang=fr");
+    }
+
+    @Test
+    public void should_build_query_with_lang_and_query_param() {
+        //GIVEN
+        final String queryString = "Leeroy Jenkins";
+        final String fr = "fr";
+
+        //WHEN
+        final String query = SearchUtil.buildQueryString(queryString, fr, "");
+
+        //THEN
+        assertThat(query).isNotNull();
+        assertThat(query).isEqualTo("Leeroy Jenkins lang=fr");
+    }
+
+    @Test
+    public void should_build_query_with_all_param() {
+        //GIVEN
+        final String queryString = "Leeroy Jenkins";
+        final String fr = "fr";
+        final String cost = "7";
+
+        //WHEN
+        final String query = SearchUtil.buildQueryString(queryString, fr, cost);
+
+        //THEN
+        assertThat(query).isNotNull();
+        assertThat(query).isEqualTo("Leeroy Jenkins lang=fr cost>=7");
+    }
 }
