@@ -9,7 +9,6 @@ public enum TypesEnum {
 	GOBLINS_VS_GNOMES("Goblins vs Gnomes"),
 	PROMOTION("Promotion"),
 	BLACKROCK_MOUNTAIN("Blackrock Mountain");
-
 	private final String type;
 
 	TypesEnum(String type) {

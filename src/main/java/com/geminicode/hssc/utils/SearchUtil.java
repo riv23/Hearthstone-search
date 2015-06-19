@@ -177,14 +177,12 @@ public class SearchUtil {
                 wantedCards.addAll(wantedBlackrockMountain);
                 LOGGER.info("There are " + wantedBlackrockMountain.size() + " " + TypesEnum.BLACKROCK_MOUNTAIN.getName() + " cards.");
                 break;
-            default:
-                break;
         }
 
         return wantedCards;
     }
 
-    private static List<Card> removeUnWantedCards(List<Card> cards) {
+    protected static List<Card> removeUnWantedCards(List<Card> cards) {
 
         final List<Card> wantedCards = Lists.newArrayList();
 
