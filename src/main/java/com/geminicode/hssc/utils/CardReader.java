@@ -17,8 +17,8 @@ public class CardReader {
 
     private static final String URL_API_FR = "http://hearthstonejson.com/json/AllSets.frFR.json";
     private static final String URL_API_EN = "http://hearthstonejson.com/json/AllSets.enUS.json";
-    private static final String URL_LOCAL_API_FR = "http://localhost:8080/AllSets.frFR.json";
-    private static final String URL_LOCAL_API_EN = "http://localhost:8080/AllSets.enUS.json";
+    private static final String URL_LOCAL_API_FR = "/AllSets.frFR.json";
+    private static final String URL_LOCAL_API_EN = "/AllSets.enUS.json";
 
     public static  CardType read(Locale locale) throws IOException {
         URL url = new URL(URL_API_EN);

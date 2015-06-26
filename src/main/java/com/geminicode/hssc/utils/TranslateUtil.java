@@ -1,5 +1,6 @@
 package com.geminicode.hssc.utils;
 
+import com.geminicode.hssc.service.InternalizationService;
 import com.google.common.base.Strings;
 
 import java.util.Locale;
@@ -9,105 +10,77 @@ import java.util.Locale;
  */
 public class TranslateUtil {
 
+    private final static InternalizationService internalizationService = ServiceFactory.get().getInternalizationService();
+
     public static String translateRarity(String value, Locale locale) {
-        if(Locale.FRENCH.equals(locale)) {
-            switch (value) {
-                case HSSCStrings.EPIC_EN:
-                    return HSSCStrings.EPIC_FR;
-                case HSSCStrings.LEGENDARY_EN:
-                    return HSSCStrings.LEGENDARY_FR;
-                case HSSCStrings.COMMON_EN:
-                    return HSSCStrings.COMMON_FR;
-                case HSSCStrings.FREE_EN:
-                    return HSSCStrings.FREE_FR;
+        if (Locale.FRENCH.equals(locale)) {
+            if (value.equals(internalizationService.getString(value, locale))) {
+                return internalizationService.getString(value, locale);
             }
         }
 
-            return value;
+        return value;
     }
 
     public static String translatePlayerClass(String value, Locale locale) {
-        if(Locale.FRENCH.equals(locale)) {
-            switch (value) {
-                case HSSCStrings.WARRIOR_EN:
-                    return HSSCStrings.WARRIOR_FR;
-                case HSSCStrings.ROGUE_EN:
-                    return HSSCStrings.ROGUE_FR;
-                case HSSCStrings.HUNTER_EN:
-                    return HSSCStrings.HUNTER_FR;
-                case HSSCStrings.DRUID_EN:
-                    return HSSCStrings.DRUID_FR;
-                case HSSCStrings.SHAMAN_EN:
-                    return HSSCStrings.SHAMAN_FR;
-                case HSSCStrings.WARLOCK_EN:
-                    return HSSCStrings.WARLOCK_FR;
-                case HSSCStrings.PRIEST_EN:
-                    return HSSCStrings.PRIEST_FR;
-                case "" :
-                    return HSSCStrings.ALL_FR;
-            }
+
+        if (Strings.isNullOrEmpty(value)) {
+            return internalizationService.getString("All", locale);
         }
 
-        if(Strings.isNullOrEmpty(value)) {
-            return HSSCStrings.ALL_EN;
+        if (Locale.FRENCH.equals(locale)) {
+            if (value.equals(internalizationService.getString(value, locale))) {
+                return internalizationService.getString(value, locale);
+            }
         }
 
         return value;
     }
 
     public static String translateType(String value, Locale locale) {
-        if(Locale.FRENCH.equals(locale)) {
-            switch (value) {
-                case HSSCStrings.MINION_EN:
-                    return HSSCStrings.MINION_FR;
-                case HSSCStrings.SPELL_EN:
-                    return HSSCStrings.SPELL_FR;
-
+        if (Locale.FRENCH.equals(locale)) {
+            if (value.equals(internalizationService.getString(value, locale))) {
+                return internalizationService.getString(value, locale);
             }
         }
 
         return value;
     }
 
-    public static  String translateMechanic(String mechanic, Locale locale) {
-        if (Locale.FRENCH.equals(locale)) {
-            switch (mechanic) {
-                case HSSCStrings.BATTLECRY_EN:
-                    return HSSCStrings.BATTLECRY_FR;
-                case HSSCStrings.FREEZE_EN:
-                    return HSSCStrings.FREEZE_FR;
-                case HSSCStrings.DEATHRATTLE_EN:
-                    return HSSCStrings.DEATHRATTLE_FR;
-                case HSSCStrings.STEALTH_EN:
-                    return HSSCStrings.STEALTH_FR;
-                case HSSCStrings.WINDFURY_EN:
-                    return HSSCStrings.WINDFURY_FR;
-                case HSSCStrings.TAUNT_EN:
-                    return HSSCStrings.TAUNT_FR;
-                case HSSCStrings.ENRAGE_EN:
-                    return HSSCStrings.ENRAGE_FR;
-                case HSSCStrings.DIVINESHIELD_EN:
-                    return HSSCStrings.DIVINESHIELD_FR;
-                default:
-                    return mechanic;
-            }
+    public static String translateMechanic(String value, Locale locale) {
+
+        if (Strings.isNullOrEmpty(value)) {
+            return "";
         }
-        return mechanic;
+
+        if (Locale.FRENCH.equals(locale)) {
+            if ("Divine Shield".equals(value)) {
+                internalizationService.getString("DivineShield", locale);
+            } else if (value.equals(internalizationService.getString(value, locale))) {
+                return internalizationService.getString(value, locale);
+            }
+
+        }
+        return value;
     }
 
-    public static String translateRace(String race, Locale locale) {
+    public static String translateRace(String value, Locale locale) {
+
+        if (Strings.isNullOrEmpty(value)) {
+            return "";
+        }
+
         if (Locale.FRENCH.equals(locale)) {
-            switch (race) {
-                case HSSCStrings.MECH_EN:
-                    return HSSCStrings.MECH_FR;
-                default:
-                    return race;
+            if (Locale.FRENCH.equals(locale)) {
+                if (value.equals(internalizationService.getString(value, locale))) {
+                    return internalizationService.getString(value, locale);
+                }
             }
         }
-        return race;
+        return value;
     }
 
-    public static  String buildLanguageField(Locale locale) {
+    public static String buildLanguageField(Locale locale) {
         String language = "";
         if (Locale.FRENCH.equals(locale)) {
             language = "fr";

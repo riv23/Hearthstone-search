@@ -3,6 +3,7 @@ package com.geminicode.hssc.utils;
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
+import com.geminicode.hssc.service.InternalizationService;
 import com.google.appengine.api.search.*;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
@@ -21,8 +22,10 @@ public class SearchUtil {
     private static final String BASE_URL_IMAGE_EN = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/";
 
     private static final String CARDS = "cards";
-
     private static final String PNG = ".png";
+
+    private final static InternalizationService internalizationService = ServiceFactory.get().getInternalizationService();
+
 
     public static Query buildQuery(String queryString, QueryOptions options) {
         return Query.newBuilder()
@@ -30,60 +33,60 @@ public class SearchUtil {
                 .build(queryString);
     }
 
-    public static  Card getCardFromField(Iterable<Field> fields) {
+    public static Card getCardFromField(Iterable<Field> fields) {
 
         final Card card = new Card();
 
         for (Field field : fields) {
-            if (HSSCStrings.NAME_FIELD.equals(field.getName())) {
+            if (FieldString.NAME_FIELD.equals(field.getName())) {
                 card.setName(field.getText());
             }
-            if (HSSCStrings.IMAGE_FIELD.equals(field.getName())) {
+            if (FieldString.IMAGE_FIELD.equals(field.getName())) {
                 card.setImage(field.getAtom());
             }
-            if (HSSCStrings.TYPE_FIELD.equals(field.getName())) {
+            if (FieldString.TYPE_FIELD.equals(field.getName())) {
                 card.setType(field.getText());
             }
-            if (HSSCStrings.TEXT_FIELD.equals(field.getName())) {
+            if (FieldString.TEXT_FIELD.equals(field.getName())) {
                 card.setText(field.getAtom());
             }
-            if (HSSCStrings.FLAVOR_FIELD.equals(field.getName())) {
+            if (FieldString.FLAVOR_FIELD.equals(field.getName())) {
                 card.setFlavor(field.getAtom());
             }
-            if (HSSCStrings.ARTIST_FIELD.equals(field.getName())) {
+            if (FieldString.ARTIST_FIELD.equals(field.getName())) {
                 card.setArtist(field.getAtom());
             }
-            if (HSSCStrings.PLAYER_CLASS_FIELD.equals(field.getName())) {
+            if (FieldString.PLAYER_CLASS_FIELD.equals(field.getName())) {
                 card.setPlayerClass(field.getText());
             }
-            if (HSSCStrings.FACTION_FIELD.equals(field.getName())) {
+            if (FieldString.FACTION_FIELD.equals(field.getName())) {
                 card.setFaction(field.getText());
             }
-            if (HSSCStrings.RARITY_FIELD.equals(field.getName())) {
+            if (FieldString.RARITY_FIELD.equals(field.getName())) {
                 card.setRarity(field.getText());
             }
-            if (HSSCStrings.COST_FIELD.equals(field.getName())) {
+            if (FieldString.COST_FIELD.equals(field.getName())) {
                 card.setCost(field.getNumber().toString());
             }
-            if (HSSCStrings.ATTACK_FIELD.equals(field.getName())) {
+            if (FieldString.ATTACK_FIELD.equals(field.getName())) {
                 card.setAttack(field.getText());
             }
-            if (HSSCStrings.HEALTH_FIELD.equals(field.getName())) {
+            if (FieldString.HEALTH_FIELD.equals(field.getName())) {
                 card.setHealth(field.getText());
             }
-            if (HSSCStrings.COLLECTIBLE_FIELD.equals(field.getName())) {
+            if (FieldString.COLLECTIBLE_FIELD.equals(field.getName())) {
                 card.setCollectible(field.getText());
             }
-            if (HSSCStrings.RACE_FIELD.equals(field.getName())) {
+            if (FieldString.RACE_FIELD.equals(field.getName())) {
                 card.setRace(field.getText());
             }
-            if (HSSCStrings.EXPANSION_FIELD.equals(field.getName())) {
+            if (FieldString.EXPANSION_FIELD.equals(field.getName())) {
                 card.setExpansionPack(field.getText());
             }
-            if (HSSCStrings.MECHANICS_FIELD.equals(field.getName())) {
+            if (FieldString.MECHANICS_FIELD.equals(field.getName())) {
                 card.setMechanics(field.getText().split("\\|"));
             }
-            if(HSSCStrings.LANG_FIELD.equals(field.getName())) {
+            if (FieldString.LANG_FIELD.equals(field.getName())) {
                 card.setLanguage(field.getAtom());
             }
 
@@ -119,11 +122,11 @@ public class SearchUtil {
         return SortOptions.newBuilder()
                 .addSortExpression(
                         SortExpression.newBuilder()
-                                .setExpression(HSSCStrings.COST_FIELD)
+                                .setExpression(FieldString.COST_FIELD)
                                 .setDirection(SortExpression.SortDirection.ASCENDING))
                 .addSortExpression(
                         SortExpression.newBuilder()
-                                .setExpression(HSSCStrings.NAME_FIELD)
+                                .setExpression(FieldString.NAME_FIELD)
                                 .setDirection(SortExpression.SortDirection.ASCENDING))
                 .build();
     }
@@ -203,7 +206,7 @@ public class SearchUtil {
         if (Locale.FRENCH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_FR;
         }
-        if(Locale.ENGLISH.equals(locale)) {
+        if (Locale.ENGLISH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_EN;
         }
         for (Card card : cards) {
@@ -220,45 +223,43 @@ public class SearchUtil {
                     Document.newBuilder()
                             .setLocale(locale)
                             .setId(docId)
-                            .addField(Field.newBuilder().setName(HSSCStrings.NAME_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.NAME_FIELD)
                                     .setText(card.getName()))
-                            .addField(Field.newBuilder().setName(HSSCStrings.TEXT_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.TEXT_FIELD)
                                     .setAtom(card.getText()))
-                            .addField(Field.newBuilder().setName(HSSCStrings.FLAVOR_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.FLAVOR_FIELD)
                                     .setAtom(card.getFlavor()))
-                            .addField(Field.newBuilder().setName(HSSCStrings.ARTIST_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.ARTIST_FIELD)
                                     .setAtom(card.getArtist()))
                             .addField(Field.newBuilder()
-                                    .setName(HSSCStrings.TYPE_FIELD)
-                                    .setText(TranslateUtil.translateType(
-                                            card.getType(), locale)))
-                            .addField(Field.newBuilder().setName(HSSCStrings.IMAGE_FIELD)
+                                    .setName(FieldString.TYPE_FIELD)
+                                    .setText(TranslateUtil.translateType(card.getType(), locale)))
+                            .addField(Field.newBuilder().setName(FieldString.IMAGE_FIELD)
                                     .setAtom(card.getImage()))
                             .addField(Field.newBuilder()
-                                    .setName(HSSCStrings.PLAYER_CLASS_FIELD)
+                                    .setName(FieldString.PLAYER_CLASS_FIELD)
                                     .setText(TranslateUtil.translatePlayerClass(
                                             card.getPlayerClass(), locale)))
-                            .addField(Field.newBuilder().setName(HSSCStrings.FACTION_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.FACTION_FIELD)
                                     .setText(card.getFaction()))
                             .addField(Field.newBuilder()
-                                    .setName(HSSCStrings.RARITY_FIELD)
-                                    .setText(TranslateUtil.translateRarity(
-                                            card.getRarity(), locale)))
-                            .addField(Field.newBuilder().setName(HSSCStrings.COST_FIELD)
+                                    .setName(FieldString.RARITY_FIELD)
+                                    .setText(TranslateUtil.translateRarity(card.getRarity(), locale)))
+                            .addField(Field.newBuilder().setName(FieldString.COST_FIELD)
                                     .setNumber(getCost(card)))
-                            .addField(Field.newBuilder().setName(HSSCStrings.ATTACK_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.ATTACK_FIELD)
                                     .setText(card.getAttack()))
-                            .addField(Field.newBuilder().setName(HSSCStrings.HEALTH_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.HEALTH_FIELD)
                                     .setText(card.getHealth()))
-                            .addField(Field.newBuilder().setName(HSSCStrings.COLLECTIBLE_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.COLLECTIBLE_FIELD)
                                     .setText(card.getCollectible()))
-                            .addField(Field.newBuilder().setName(HSSCStrings.RACE_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.RACE_FIELD)
                                     .setText(TranslateUtil.translateRace(card.getRace(), locale)))
-                            .addField(Field.newBuilder().setName(HSSCStrings.EXPANSION_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.EXPANSION_FIELD)
                                     .setText(card.getExpansionPack()))
-                            .addField(Field.newBuilder().setName(HSSCStrings.MECHANICS_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.MECHANICS_FIELD)
                                     .setText(buildMechanicsValues(card.getMechanics(), locale)))
-                            .addField(Field.newBuilder().setName(HSSCStrings.LANG_FIELD)
+                            .addField(Field.newBuilder().setName(FieldString.LANG_FIELD)
                                     .setAtom(TranslateUtil.buildLanguageField(locale))).build();
 
             documents.add(doc);
@@ -268,9 +269,8 @@ public class SearchUtil {
     }
 
 
-
     private static Integer getCost(Card card) {
-        if(Strings.isNullOrEmpty(card.getCost())) {
+        if (Strings.isNullOrEmpty(card.getCost())) {
             return 0;
         }
         return Integer.valueOf(card.getCost());

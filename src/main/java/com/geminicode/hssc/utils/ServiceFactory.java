@@ -1,9 +1,11 @@
 package com.geminicode.hssc.utils;
 
 import com.geminicode.hssc.service.DatastoreService;
+import com.geminicode.hssc.service.InternalizationService;
 import com.geminicode.hssc.service.MailService;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.service.impl.DatastoreServiceImpl;
+import com.geminicode.hssc.service.impl.InternalizationServiceImpl;
 import com.geminicode.hssc.service.impl.MailServiceImpl;
 import com.geminicode.hssc.service.impl.SearchApiServiceImpl;
 
@@ -13,10 +15,7 @@ public class ServiceFactory {
     private SearchApiService searchApiService;
     private DatastoreService datastoreService;
     private MailService mailService;
-
-    private ServiceFactory() {
-
-    }
+    private InternalizationService internalizationService;
 
     public static ServiceFactory get() {
         if (instance == null) {
@@ -48,6 +47,13 @@ public class ServiceFactory {
             mailService = new MailServiceImpl();
         }
         return mailService;
+    }
+
+    public InternalizationService getInternalizationService() {
+        if(internalizationService == null) {
+            internalizationService = new InternalizationServiceImpl();
+        }
+        return internalizationService;
     }
 
 }

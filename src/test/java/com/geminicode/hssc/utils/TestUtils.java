@@ -10,23 +10,23 @@ public class TestUtils {
     public static Iterable<Field> buildFieldsOdJenkins() {
         final List<Field> fields = Lists.newArrayList();
 
-        fields.add(buildTextField(HSSCStrings.NAME_FIELD, "Leeroy Jenkins"));
-        fields.add(buildAtomField(HSSCStrings.IMAGE_FIELD, "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/EX1_116.png"));
-        fields.add(buildTextField(HSSCStrings.TYPE_FIELD, "Minion"));
-        fields.add(buildAtomField(HSSCStrings.TEXT_FIELD, "Powerful card"));
-        fields.add(buildAtomField(HSSCStrings.FLAVOR_FIELD, "Flavor"));
-        fields.add(buildAtomField(HSSCStrings.ARTIST_FIELD, "GeminiCOde"));
-        fields.add(buildTextField(HSSCStrings.PLAYER_CLASS_FIELD, "All"));
-        fields.add(buildTextField(HSSCStrings.FACTION_FIELD, "All"));
-        fields.add(buildTextField(HSSCStrings.RARITY_FIELD, "Legendary"));
-        fields.add(buildNumberField(HSSCStrings.COST_FIELD, 7d));
-        fields.add(buildTextField(HSSCStrings.ATTACK_FIELD, "6"));
-        fields.add(buildTextField(HSSCStrings.HEALTH_FIELD, "2"));
-        fields.add(buildTextField(HSSCStrings.COLLECTIBLE_FIELD, "true"));
-        fields.add(buildTextField(HSSCStrings.RACE_FIELD, "Human"));
-        fields.add(buildTextField(HSSCStrings.EXPANSION_FIELD, "Basic"));
-        fields.add(buildTextField(HSSCStrings.MECHANICS_FIELD, "Charge|Taunt"));
-        fields.add(buildAtomField(HSSCStrings.LANG_FIELD, "en"));
+        fields.add(buildTextField(FieldString.NAME_FIELD, "Leeroy Jenkins"));
+        fields.add(buildAtomField(FieldString.IMAGE_FIELD, "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/EX1_116.png"));
+        fields.add(buildTextField(FieldString.TYPE_FIELD, "Minion"));
+        fields.add(buildAtomField(FieldString.TEXT_FIELD, "Powerful card"));
+        fields.add(buildAtomField(FieldString.FLAVOR_FIELD, "Flavor"));
+        fields.add(buildAtomField(FieldString.ARTIST_FIELD, "GeminiCOde"));
+        fields.add(buildTextField(FieldString.PLAYER_CLASS_FIELD, "All"));
+        fields.add(buildTextField(FieldString.FACTION_FIELD, "All"));
+        fields.add(buildTextField(FieldString.RARITY_FIELD, "Legendary"));
+        fields.add(buildNumberField(FieldString.COST_FIELD, 7d));
+        fields.add(buildTextField(FieldString.ATTACK_FIELD, "6"));
+        fields.add(buildTextField(FieldString.HEALTH_FIELD, "2"));
+        fields.add(buildTextField(FieldString.COLLECTIBLE_FIELD, "true"));
+        fields.add(buildTextField(FieldString.RACE_FIELD, "Human"));
+        fields.add(buildTextField(FieldString.EXPANSION_FIELD, "Basic"));
+        fields.add(buildTextField(FieldString.MECHANICS_FIELD, "Charge|Taunt"));
+        fields.add(buildAtomField(FieldString.LANG_FIELD, "en"));
 
         return fields;
     }

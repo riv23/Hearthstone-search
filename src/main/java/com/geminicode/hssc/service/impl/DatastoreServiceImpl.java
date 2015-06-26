@@ -4,8 +4,9 @@ package com.geminicode.hssc.service.impl;
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.NameCard;
 import com.geminicode.hssc.service.DatastoreService;
+import com.geminicode.hssc.service.InternalizationService;
 import com.geminicode.hssc.service.OfyService;
-import com.geminicode.hssc.utils.HSSCStrings;
+import com.geminicode.hssc.utils.ServiceFactory;
 import com.geminicode.hssc.utils.TranslateUtil;
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
@@ -20,6 +21,8 @@ public class DatastoreServiceImpl implements DatastoreService {
 
     private static final String EN = "en";
     private static final String FR = "fr";
+
+    private final InternalizationService internalizationService = ServiceFactory.get().getInternalizationService();
 
     @Override
     public List<NameCard> searchNameCards(String query, String lang) {
@@ -62,57 +65,7 @@ public class DatastoreServiceImpl implements DatastoreService {
     public void putOtherString(final Locale locale) {
 
         final List<String> otherStyrings = Lists.newArrayList();
-
-        if (Locale.FRENCH.equals(locale)) {
-            otherStyrings.add(HSSCStrings.EPIC_FR);
-            otherStyrings.add(HSSCStrings.LEGENDARY_FR);
-            otherStyrings.add(HSSCStrings.COMMON_FR);
-            otherStyrings.add(HSSCStrings.FREE_FR);
-            otherStyrings.add(HSSCStrings.WARRIOR_FR);
-            otherStyrings.add(HSSCStrings.ROGUE_FR);
-            otherStyrings.add(HSSCStrings.HUNTER_FR);
-            otherStyrings.add(HSSCStrings.DRUID_FR);
-            otherStyrings.add(HSSCStrings.WARLOCK_FR);
-            otherStyrings.add(HSSCStrings.PRIEST_FR);
-            otherStyrings.add(HSSCStrings.MINION_FR);
-            otherStyrings.add(HSSCStrings.SPELL_FR);
-            otherStyrings.add(HSSCStrings.SHAMAN_FR);
-            otherStyrings.add(HSSCStrings.BATTLECRY_FR);
-            otherStyrings.add(HSSCStrings.FREEZE_FR);
-            otherStyrings.add(HSSCStrings.DEATHRATTLE_FR);
-            otherStyrings.add(HSSCStrings.STEALTH_FR);
-            otherStyrings.add(HSSCStrings.WINDFURY_FR);
-            otherStyrings.add(HSSCStrings.TAUNT_FR);
-            otherStyrings.add(HSSCStrings.ENRAGE_FR);
-            otherStyrings.add(HSSCStrings.DIVINESHIELD_FR);
-            otherStyrings.add(HSSCStrings.MECH_FR);
-        }
-
-        if (Locale.ENGLISH.equals(locale)) {
-            otherStyrings.add(HSSCStrings.EPIC_EN);
-            otherStyrings.add(HSSCStrings.LEGENDARY_EN);
-            otherStyrings.add(HSSCStrings.COMMON_EN);
-            otherStyrings.add(HSSCStrings.FREE_EN);
-            otherStyrings.add(HSSCStrings.WARRIOR_EN);
-            otherStyrings.add(HSSCStrings.ROGUE_EN);
-            otherStyrings.add(HSSCStrings.HUNTER_EN);
-            otherStyrings.add(HSSCStrings.DRUID_EN);
-            otherStyrings.add(HSSCStrings.SHAMAN_EN);
-            otherStyrings.add(HSSCStrings.WARLOCK_EN);
-            otherStyrings.add(HSSCStrings.MINION_EN);
-            otherStyrings.add(HSSCStrings.SPELL_EN);
-            otherStyrings.add(HSSCStrings.PRIEST_EN);
-            otherStyrings.add(HSSCStrings.BATTLECRY_EN);
-            otherStyrings.add(HSSCStrings.FREEZE_EN);
-            otherStyrings.add(HSSCStrings.DEATHRATTLE_EN);
-            otherStyrings.add(HSSCStrings.STEALTH_EN);
-            otherStyrings.add(HSSCStrings.WINDFURY_EN);
-            otherStyrings.add(HSSCStrings.TAUNT_EN);
-            otherStyrings.add(HSSCStrings.ENRAGE_EN);
-            otherStyrings.add(HSSCStrings.DIVINESHIELD_EN);
-            otherStyrings.add(HSSCStrings.MECH_EN);
-
-        }
+        otherStyrings.addAll(internalizationService.getKeys(locale));
 
         final List<NameCard> nameCards = Lists.newArrayList();
 
