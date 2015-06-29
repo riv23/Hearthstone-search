@@ -27,6 +27,14 @@ Pull request are welcome :)
 
 ## Change log
 
+### v1.3.1
+* Removed idle instance (so expansive xD).
+* Added form contact.
+* Added some coverage tests.
+* Added Java Bundle Resource instead of huge Java class.
+* Change cron schedule (every days -> every months).
+* Fix a lot of bugs.
+
 ### v1.2.2
 * Added a lot of refactoring.
 * Fix bugs.
