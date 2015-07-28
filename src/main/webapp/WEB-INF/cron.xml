@@ -2,8 +2,8 @@
 <cronentries>
     <cron>
         <url>/check</url>
-        <description>Repopulate indexes every days</description>
-        <schedule>1 of month 00:00</schedule>
+        <description>Repopulate indexes every weeks</description>
+        <schedule>every monday 00:00</schedule>
         <timezone>"Europe/Paris"</timezone>
     </cron>
 </cronentries>
