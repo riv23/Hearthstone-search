@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
+import static com.geminicode.hssc.model.TypesEnum.*;
+
 public class SearchUtil {
 
     private static final Logger LOGGER = Logger.getLogger(SearchUtil.class.getName());
@@ -141,21 +143,21 @@ public class SearchUtil {
                 final List<Card> wantedBasics = removeUnWantedCards(basics);
                 addSpecifiedFields(wantedBasics, type, locale);
                 wantedCards.addAll(wantedBasics);
-                LOGGER.info("There are " + wantedBasics.size() + " " + TypesEnum.BASIC.getName() + " cards.");
+                LOGGER.info("There are " + wantedBasics.size() + " " + BASIC.getName() + " cards.");
                 break;
             case CLASSIC:
                 final List<Card> classics = cardType.getClassic();
                 final List<Card> wantedClassics = removeUnWantedCards(classics);
                 addSpecifiedFields(wantedClassics, type, locale);
                 wantedCards.addAll(wantedClassics);
-                LOGGER.info("There are " + wantedClassics.size() + " " + TypesEnum.CLASSIC.getName() + " cards.");
+                LOGGER.info("There are " + wantedClassics.size() + " " + CLASSIC.getName() + " cards.");
                 break;
             case CURSE_OF_NAXXRAMAS:
                 final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
                 final List<Card> wantedCurseOfNaxxramass = removeUnWantedCards(curseOfNaxxramass);
                 addSpecifiedFields(wantedCurseOfNaxxramass, type, locale);
                 wantedCards.addAll(wantedCurseOfNaxxramass);
-                LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + TypesEnum.CURSE_OF_NAXXRAMAS.getName()
+                LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + CURSE_OF_NAXXRAMAS.getName()
                         + " cards.");
                 break;
             case GOBLINS_VS_GNOMES:
@@ -163,7 +165,7 @@ public class SearchUtil {
                 final List<Card> wantedGobelinsVsGnomes = removeUnWantedCards(gobelinsVsGnomes);
                 addSpecifiedFields(wantedGobelinsVsGnomes, type, locale);
                 wantedCards.addAll(wantedGobelinsVsGnomes);
-                LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + TypesEnum.GOBLINS_VS_GNOMES.getName()
+                LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + GOBLINS_VS_GNOMES.getName()
                         + " cards.");
                 break;
             case PROMOTION:
@@ -171,14 +173,21 @@ public class SearchUtil {
                 final List<Card> wantedPromotions = removeUnWantedCards(promotions);
                 addSpecifiedFields(wantedPromotions, type, locale);
                 wantedCards.addAll(wantedPromotions);
-                LOGGER.info("There are " + wantedPromotions.size() + " " + TypesEnum.PROMOTION.getName() + " cards.");
+                LOGGER.info("There are " + wantedPromotions.size() + " " + PROMOTION.getName() + " cards.");
                 break;
             case BLACKROCK_MOUNTAIN:
                 final List<Card> blackrockMountain = cardType.getBlackrockMountain();
                 final List<Card> wantedBlackrockMountain = removeUnWantedCards(blackrockMountain);
                 addSpecifiedFields(wantedBlackrockMountain, type, locale);
                 wantedCards.addAll(wantedBlackrockMountain);
-                LOGGER.info("There are " + wantedBlackrockMountain.size() + " " + TypesEnum.BLACKROCK_MOUNTAIN.getName() + " cards.");
+                LOGGER.info("There are " + wantedBlackrockMountain.size() + " " + BLACKROCK_MOUNTAIN.getName() + " cards.");
+                break;
+            case GRAND_TOURNAMENT:
+                final List<Card> grandTournament = cardType.getGrandTournament();
+                final List<Card> wantedgrandTournament = removeUnWantedCards(grandTournament);
+                addSpecifiedFields(wantedgrandTournament, type, locale);
+                wantedCards.addAll(wantedgrandTournament);
+                LOGGER.info("There are " + wantedgrandTournament.size() + " " + GRAND_TOURNAMENT.getName() + " cards.");
                 break;
         }
 

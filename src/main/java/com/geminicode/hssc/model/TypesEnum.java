@@ -8,7 +8,8 @@ public enum TypesEnum {
 	CURSE_OF_NAXXRAMAS("Curse of Naxxramas"),
 	GOBLINS_VS_GNOMES("Goblins vs Gnomes"),
 	PROMOTION("Promotion"),
-	BLACKROCK_MOUNTAIN("Blackrock Mountain");
+	BLACKROCK_MOUNTAIN("Blackrock Mountain"),
+	GRAND_TOURNAMENT("The Grand Tournament");
 
 	private final String type;
 

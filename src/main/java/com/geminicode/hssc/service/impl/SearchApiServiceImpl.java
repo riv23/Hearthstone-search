@@ -93,6 +93,7 @@ public class SearchApiServiceImpl implements SearchApiService {
         wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.GOBLINS_VS_GNOMES, locale));
         wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.PROMOTION, locale));
         wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.BLACKROCK_MOUNTAIN, locale));
+        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.GRAND_TOURNAMENT, locale));
 
         putFullCardsIntoSearch(wantedCards, locale);
         datastoreService.putCards(wantedCards, locale);

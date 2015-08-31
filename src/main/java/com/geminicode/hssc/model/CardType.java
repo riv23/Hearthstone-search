@@ -21,6 +21,8 @@ public class CardType {
 	private List<Card> promotions;
 	@SerializedName("Blackrock Mountain")
 	private List<Card> blackrockMountain;
+	@SerializedName("The Grand Tournament")
+	private List<Card> grandTournament;
 
 	public List<Card> getBasic() {
 		return Basic;
@@ -68,5 +70,13 @@ public class CardType {
 
 	public void setBlackrockMountain(List<Card> blackrockMountain) {
 		this.blackrockMountain = blackrockMountain;
+	}
+
+	public List<Card> getGrandTournament() {
+		return grandTournament;
+	}
+
+	public void setGrandTournament(List<Card> grandTournament) {
+		this.grandTournament = grandTournament;
 	}
 }
