@@ -27,6 +27,9 @@ Pull request are welcome :)
 
 ## Change log
 
+### v1.4.0
+* Added The Grand Tournament cards
+
 ### v1.3.1
 * Removed idle instance (so expansive xD).
 * Added form contact.
