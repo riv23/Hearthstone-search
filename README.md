@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/GeminiCode/Hearthstone-search-api.svg?branch=master)](https://travis-ci.org/GeminiCode/Hearthstone-search-api)
 
 ## Hearthstone search api
-Hearthstone Search is a search engine that allows to retrieve the cards from HearthStone easily and instantly, [Demo !](http://hearthstone-search-cards.appspot.com/)
+Hearthstone Search is a search engine that allows to retrieve the cards from HearthStone easily and instantly, [Demo !](http://hearthstone-search.com/)
 
 Please note : 
 * Cards are automatically retrieved through the API [hearthstonejson](http://hearthstonejson.com).
@@ -12,7 +12,7 @@ Please note :
 * The API is very simple to use !
 * The url pattern is: `/api/search?q=`, `q` is a valid Google Search Api request.
 * `lang` param allows to select the language. The Default Language is English (Only French and English are supported for the moment).
-* The API can be used [here](http://hearthstone-search-cards.appspot.com).
+* The API can be used [here](http://hearthstone-search.com).
 
 
 ## Run local
