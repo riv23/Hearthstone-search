@@ -18,7 +18,8 @@ app.config(function ($translateProvider) {
         MESSAGE : "Message",
         SEND : "Send",
         CANCEL : "Cancel",
-        FEEDBACK_TITLE : "Any comments, any ideas ? You are welcome."
+        FEEDBACK_TITLE : "Any comments, any ideas ? You are welcome.",
+        HOWTO : "Use keywords. Ex: Leeroy Jenkins, Mage, Hunter Legendary, Grand Tournament Legenday, Mage Spell ..."
     });
     $translateProvider.translations('fr', {
         CLASS: 'Classe',
@@ -39,7 +40,8 @@ app.config(function ($translateProvider) {
         MESSAGE : "Message",
         SEND : "Envoyer",
         CANCEL : "Annuler",
-        FEEDBACK_TITLE : "Des remarques, des idées ? Vous êtes le/la bienvenue."
+        FEEDBACK_TITLE : "Des remarques, des idées ? Vous êtes le/la bienvenue.",
+        HOWTO : "Utilisez des mots clés. Ex: Leeroy Jenkins, Mage, Hunter Legendary, Grand Tournament Legenday, Mage Spell ..."
     });
 
     var defaultLanguage = function () {

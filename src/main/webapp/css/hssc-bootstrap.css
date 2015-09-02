@@ -7204,3 +7204,30 @@ td.visible-print {
     float: none;
     margin-top: 9px;
 }
+
+/* Info bulle */
+a.information {
+    position: relative;
+    text-decoration: none;
+}
+a.information span {
+    display: none;
+}
+a.information:hover {
+    background: none;
+    z-index: 500;
+    cursor: help;
+}
+a.information:hover span {
+    display: inline;
+    position: absolute;
+    white-space: normal;
+    color : #000;
+    font-size: 0.8em;
+    top: 30px;
+    left: 20px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    width : 300px;
+}
