@@ -27,12 +27,11 @@
 <body>
 
 <div class="container" ng-controller="SearchCtrl">
-    <div class="header clearfix" ng-controller="ModalDemoCtrl">
+    <div class="header clearfix">
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li><a ng-click="changeLanguage('fr')" href="#"><img ng-class="frenchClass" src="img/french.png"/></a></li>
                 <li><a ng-click="changeLanguage('en')" href="#"><img ng-class="englishClass" src="img/english.png"/></a></li>
-                <li><button class="btn btn-success vcenter" ng-click="open()">Contact</button></li>
             </ul>
         </nav>
     </div>
@@ -41,7 +40,7 @@
         <form ng-submit="submit()">
             <div class="form-group">
                 <autocomplete ng-model="query" data="suggestions" on-type="tapedQuery" attr-placeholder="{{'PLACEHOLDER' | translate}}"></autocomplete>
-                <a href="#" class="information">How to use ?<span><p>{{'HOWTO' | translate}}</p></span></a>
+                <a href="#" class="information">{{'HOWTOUSE' | translate}}<span><p>{{'HOWTO' | translate}}</p></span></a>
                 <br />
                 <div class="switch-toggle switch-9 switch-hearthstone col-md-9 col-md-offset-2">
                     <input id="manaAll" name="mana" type="radio">
@@ -74,8 +73,8 @@
             <card></card>
         </div>
     </div>
-    <footer class="footer centerfy">
-        <p>&copy; GeminiCode 2015 - <i translate="LEGAL"></i> - <a href="https://github.com/GeminiCode/Hearthstone-Search-Engine" target="_blank">{{'GITHUB' | translate}}</a></a> </p>
+    <footer class="footer centerfy" ng-controller="ModalDemoCtrl">
+        <p>&copy; GeminiCode 2015 - <i translate="LEGAL"></i> - <a href="https://github.com/GeminiCode/Hearthstone-Search-Engine" target="_blank">{{'GITHUB' | translate}}</a> - <a href="#" ng-click="open()">contact</a> </p>
     </footer>
 </div>
 
