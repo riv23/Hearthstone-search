@@ -3,7 +3,7 @@
 </div>
 <div class="modal-body">
     <div class="control-group">
-        <form>
+        <form ng-submit="ok()">
             <div class="form-group">
                 <label for="name">{{'NAME' | translate}}</label>
                 <input ng-model="name" type="text" class="form-control" id="name" placeholder="{{'YOUR_NAME' | translate}}" required ng-minlength="3" ng-pattern="/[^a-d]/">
@@ -17,7 +17,7 @@
                 <textarea ng-model="message" class="form-control" rows="5" id="message" required ng-minlength="3"></textarea>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" ng-click="ok()" ng-disabled="registerForm.$invalid">{{'SEND' | translate}}</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="registerForm.$invalid">{{'SEND' | translate}}</button>
                 <button class="btn btn-warning" ng-click="cancel()">{{'CANCEL' | translate}}</button>
             </div>
         </form>
