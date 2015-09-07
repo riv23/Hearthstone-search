@@ -20,7 +20,8 @@ app.config(function ($translateProvider) {
         CANCEL : "Cancel",
         FEEDBACK_TITLE : "Any comments, any ideas ? You are welcome.",
         HOWTO : "Use keywords. Ex: Leeroy Jenkins, Mage, Hunter Legendary, Grand Tournament Legenday, Mage Spell ...",
-        HOWTOUSE : "How to use?"
+        HOWTOUSE : "How to use?",
+        ARTIST : "Artist"
     });
     $translateProvider.translations('fr', {
         CLASS: 'Classe',
@@ -43,7 +44,8 @@ app.config(function ($translateProvider) {
         CANCEL : "Annuler",
         FEEDBACK_TITLE : "Des remarques, des idées ? Vous êtes le/la bienvenue.",
         HOWTO : "Utilisez des mots clés. Ex: Leeroy Jenkins, Mage, Hunter Legendary, Grand Tournament Legenday, Mage Spell ...",
-        HOWTOUSE : "Comment utiliser ?"
+        HOWTOUSE : "Comment utiliser ?",
+        ARTIST : "Artiste"
     });
 
     var defaultLanguage = function () {
