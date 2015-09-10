@@ -26,6 +26,13 @@ To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/app
 Pull request are welcome :)
 
 ## Change log
+* Added Artist names
+* Moved contact button
+* Updated form contact
+* Fixed issue with Overload value and Spell damage
+
+### v1.4.1
+* Added The Grand Tournament cards
 
 ### v1.4.0
 * Added The Grand Tournament cards
