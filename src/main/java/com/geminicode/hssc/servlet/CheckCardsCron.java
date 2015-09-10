@@ -26,6 +26,6 @@ public class CheckCardsCron extends HttpServlet {
         searchApiService.deleteAllCards();
         datastoreService.removeAllCards();
         searchApiService.checkNewCards(Locale.FRANCE);
-        searchApiService.checkNewCards(Locale.ENGLISH);
+        searchApiService.checkNewCards(Locale.US);
     }
 }

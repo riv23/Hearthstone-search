@@ -11,7 +11,7 @@ public interface DatastoreService {
     /**
      * This service allows auto-completion by name card.
      * @param query Taped name
-     * @param lang Language (Default English)
+     * @param lang Language (Default US)
      * @return List of related cards
      */
     List<NameCard> searchNameCards(String query, String lang);

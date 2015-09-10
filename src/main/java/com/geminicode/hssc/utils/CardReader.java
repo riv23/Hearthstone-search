@@ -26,14 +26,14 @@ public class CardReader {
             if(Locale.FRANCE.equals(locale)) {
                 url = new URL(URL_LOCAL_API_FR);
             }
-            if(Locale.ENGLISH.equals(locale)) {
+            if(Locale.US.equals(locale)) {
                 url = new URL(URL_LOCAL_API_EN);
             }
         }else {
             if(Locale.FRANCE.equals(locale)) {
                 url = new URL(URL_API_FR);
             }
-            if(Locale.ENGLISH.equals(locale)) {
+            if(Locale.US.equals(locale)) {
                 url = new URL(URL_API_EN);
             }
         }

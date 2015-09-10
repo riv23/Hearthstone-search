@@ -3,7 +3,6 @@ package com.geminicode.hssc.utils;
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
-import com.geminicode.hssc.service.InternalizationService;
 import com.google.appengine.api.search.*;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
@@ -213,7 +212,7 @@ public class SearchUtil {
         if (Locale.FRENCH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_FR;
         }
-        if (Locale.ENGLISH.equals(locale)) {
+        if (Locale.US.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_EN;
         }
         for (Card card : cards) {
@@ -240,7 +239,7 @@ public class SearchUtil {
                                     .setAtom(card.getArtist()))
                             .addField(Field.newBuilder()
                                     .setName(FieldString.TYPE_FIELD)
-                                    .setText(TranslateUtil.translateType(card.getType(), locale)))
+                                    .setText(TranslateUtil.translate(card.getType(), locale)))
                             .addField(Field.newBuilder().setName(FieldString.IMAGE_FIELD)
                                     .setAtom(card.getImage()))
                             .addField(Field.newBuilder()
@@ -251,7 +250,7 @@ public class SearchUtil {
                                     .setText(card.getFaction()))
                             .addField(Field.newBuilder()
                                     .setName(FieldString.RARITY_FIELD)
-                                    .setText(TranslateUtil.translateRarity(card.getRarity(), locale)))
+                                    .setText(TranslateUtil.translate(card.getRarity(), locale)))
                             .addField(Field.newBuilder().setName(FieldString.COST_FIELD)
                                     .setNumber(getCost(card)))
                             .addField(Field.newBuilder().setName(FieldString.ATTACK_FIELD)
@@ -261,7 +260,7 @@ public class SearchUtil {
                             .addField(Field.newBuilder().setName(FieldString.COLLECTIBLE_FIELD)
                                     .setText(card.getCollectible()))
                             .addField(Field.newBuilder().setName(FieldString.RACE_FIELD)
-                                    .setText(TranslateUtil.translateRace(card.getRace(), locale)))
+                                    .setText(TranslateUtil.translate(card.getRace(), locale)))
                             .addField(Field.newBuilder().setName(FieldString.EXPANSION_FIELD)
                                     .setText(card.getExpansionPack()))
                             .addField(Field.newBuilder().setName(FieldString.MECHANICS_FIELD)
@@ -295,7 +294,7 @@ public class SearchUtil {
 
         for (int i = 0; i < mechanics.length; i++) {
             final String mechanic = mechanics[i];
-            stringBuilder.append(TranslateUtil.translateMechanic(mechanic, locale));
+            stringBuilder.append(TranslateUtil.translate(mechanic, locale));
             if (i != mechanics.length - 1) {
                 stringBuilder.append("|");
             }

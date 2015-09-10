@@ -5,72 +5,34 @@ import com.google.common.base.Strings;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 /**
  * This class util allows translate some strings.
  */
 public class TranslateUtil {
 
-    private static final Logger LOGGER = Logger.getLogger(TranslateUtil.class.getName());
-
     private final static InternalizationService internalizationService = ServiceFactory.get().getInternalizationService();
 
-    public static String translateRarity(String value, Locale locale) throws UnsupportedEncodingException {
-        if (Strings.isNullOrEmpty(value)) {
-            return "";
-        }
-
-        return internalizationService.getString(value, locale);
+    public static String buildLanguageField(Locale locale) {
+        return locale.getLanguage();
     }
 
     public static String translatePlayerClass(String value, Locale locale) throws UnsupportedEncodingException {
-
         if (Strings.isNullOrEmpty(value)) {
             return internalizationService.getString("All", locale);
         }
-
         return internalizationService.getString(value, locale);
     }
 
-    public static String translateType(String value, Locale locale) throws UnsupportedEncodingException {
-        if (Strings.isNullOrEmpty(value)) {
-            return "";
-        }
-        return internalizationService.getString(value, locale);
-    }
-
-    public static String translateMechanic(String value, Locale locale) throws UnsupportedEncodingException {
-
+    public static String translate(String value, Locale locale) throws UnsupportedEncodingException {
         if (Strings.isNullOrEmpty(value)) {
             return "";
         }
 
-        if (value.contains("Divine Shield")) {
+        if (value.contains("Divine Shield")) { //Needed for values with spaces
             return internalizationService.getString("DivineShield", locale);
         }
 
         return internalizationService.getString(value, locale);
-
-    }
-
-    public static String translateRace(String value, Locale locale) throws UnsupportedEncodingException {
-
-        if (Strings.isNullOrEmpty(value)) {
-            return "";
-        }
-
-        return internalizationService.getString(value, locale);
-    }
-
-    public static String buildLanguageField(Locale locale) {
-        String language = "";
-        if (Locale.FRANCE.equals(locale)) {
-            language = "fr";
-        }
-        if (Locale.ENGLISH.equals(locale)) {
-            language = "en";
-        }
-        return language;
     }
 }
