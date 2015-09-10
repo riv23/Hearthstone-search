@@ -43,7 +43,7 @@ app.config(function ($translateProvider) {
         SEND : "Envoyer",
         CANCEL : "Annuler",
         FEEDBACK_TITLE : "Des remarques, des idées ? Vous êtes le/la bienvenue.",
-        HOWTO : "Utilisez des mots clés. Ex: Leeroy Jenkins, Mage, Hunter Legendary, Grand Tournament Legenday, Mage Spell ...",
+        HOWTO : "Utilisez des mots clés. Ex: Leeroy Jenkins, Mage, Hunter légendaire, Grand Tournament Legenday, Mage sort ...",
         HOWTOUSE : "Comment utiliser ?",
         ARTIST : "Artiste"
     });
