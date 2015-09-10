@@ -4,22 +4,23 @@ import com.geminicode.hssc.service.InternalizationService;
 import com.google.common.base.Strings;
 
 import java.util.Locale;
+import java.util.logging.Logger;
 
 /**
  * This class util allows translate some strings.
  */
 public class TranslateUtil {
 
+    private static final Logger LOGGER = Logger.getLogger(TranslateUtil.class.getName());
+
     private final static InternalizationService internalizationService = ServiceFactory.get().getInternalizationService();
 
     public static String translateRarity(String value, Locale locale) {
-        if (Locale.FRENCH.equals(locale)) {
-            if (value.equals(internalizationService.getString(value, locale))) {
-                return internalizationService.getString(value, locale);
-            }
+        if (Strings.isNullOrEmpty(value)) {
+            return "";
         }
 
-        return value;
+        return internalizationService.getString(value, locale);
     }
 
     public static String translatePlayerClass(String value, Locale locale) {
@@ -28,40 +29,30 @@ public class TranslateUtil {
             return internalizationService.getString("All", locale);
         }
 
-        if (Locale.FRENCH.equals(locale)) {
-            if (value.equals(internalizationService.getString(value, locale))) {
-                return internalizationService.getString(value, locale);
-            }
-        }
-
-        return value;
+        return internalizationService.getString(value, locale);
     }
 
     public static String translateType(String value, Locale locale) {
-        if (Locale.FRENCH.equals(locale)) {
-            if (value.equals(internalizationService.getString(value, locale))) {
-                return internalizationService.getString(value, locale);
-            }
+        if (Strings.isNullOrEmpty(value)) {
+            return "";
         }
-
-        return value;
+        return internalizationService.getString(value, locale);
     }
 
     public static String translateMechanic(String value, Locale locale) {
+
+        LOGGER.info("Translation to " + locale + "Value : |"+value+"|");
 
         if (Strings.isNullOrEmpty(value)) {
             return "";
         }
 
-        if (Locale.FRENCH.equals(locale)) {
-            if ("Divine Shield".equals(value)) {
-                internalizationService.getString("DivineShield", locale);
-            } else if (value.equals(internalizationService.getString(value, locale))) {
-                return internalizationService.getString(value, locale);
-            }
-
+        if (value.contains("Divine Shield")) {
+            return internalizationService.getString("DivineShield", locale);
         }
-        return value;
+
+        return internalizationService.getString(value, locale);
+
     }
 
     public static String translateRace(String value, Locale locale) {
@@ -70,14 +61,7 @@ public class TranslateUtil {
             return "";
         }
 
-        if (Locale.FRENCH.equals(locale)) {
-            if (Locale.FRENCH.equals(locale)) {
-                if (value.equals(internalizationService.getString(value, locale))) {
-                    return internalizationService.getString(value, locale);
-                }
-            }
-        }
-        return value;
+        return internalizationService.getString(value, locale);
     }
 
     public static String buildLanguageField(Locale locale) {

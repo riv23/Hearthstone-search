@@ -11,7 +11,7 @@ public class InternalizationServiceImpl implements InternalizationService {
     @Override
     public String getString(String key, Locale locale) {
 
-        if (locale.equals(Locale.FRENCH) || locale.equals(Locale.ENGLISH)) {
+        if (!locale.equals(Locale.FRENCH)) {
             locale = Locale.ENGLISH;
         }
 
@@ -23,7 +23,7 @@ public class InternalizationServiceImpl implements InternalizationService {
     @Override
     public Set<String> getKeys(Locale locale) {
 
-        if (locale.equals(Locale.FRENCH) || locale.equals(Locale.ENGLISH)) {
+        if (!locale.equals(Locale.FRENCH)) {
             locale = Locale.ENGLISH;
         }
 
