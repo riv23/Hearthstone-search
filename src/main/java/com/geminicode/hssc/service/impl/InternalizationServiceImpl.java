@@ -2,6 +2,7 @@ package com.geminicode.hssc.service.impl;
 
 import com.geminicode.hssc.service.InternalizationService;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -12,15 +13,15 @@ public class InternalizationServiceImpl implements InternalizationService {
     private static final Logger LOGGER = Logger.getLogger(InternalizationServiceImpl.class.getName());
 
     @Override
-    public String getString(String key, Locale locale) {
+    public String getString(String key, Locale locale) throws UnsupportedEncodingException {
 
         if (!locale.equals(Locale.FRANCE)) {
             locale = Locale.ENGLISH;
         }
 
         final ResourceBundle bundle = ResourceBundle.getBundle("app", locale);
-
-        return bundle.getString(key);
+        final String string = bundle.getString(key);
+        return  new String(string.getBytes("ISO-8859-1"), "UTF-8");
     }
 
     @Override

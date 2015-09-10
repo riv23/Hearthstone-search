@@ -10,6 +10,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -209,7 +210,7 @@ public class SearchUtil {
 
     private static void addSpecifiedFields(List<Card> cards, TypesEnum type, Locale locale) {
         String baseUrl = BASE_URL_IMAGE_FR;
-        if (Locale.FRANCE.equals(locale)) {
+        if (Locale.FRENCH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_FR;
         }
         if (Locale.ENGLISH.equals(locale)) {
@@ -221,7 +222,7 @@ public class SearchUtil {
         }
     }
 
-    public static List<Document> buildDocumentsForIndex(List<Card> cards, Locale locale) {
+    public static List<Document> buildDocumentsForIndex(List<Card> cards, Locale locale) throws UnsupportedEncodingException {
         final List<Document> documents = Lists.newArrayList();
         for (Card card : cards) {
             final String docId = card.getId() + "_" + TranslateUtil.buildLanguageField(locale);
@@ -285,7 +286,7 @@ public class SearchUtil {
     /**
      * This code build all String[] mechanic values to String
      */
-    private static String buildMechanicsValues(String[] mechanics, Locale locale) {
+    private static String buildMechanicsValues(String[] mechanics, Locale locale) throws UnsupportedEncodingException {
         final StringBuilder stringBuilder = new StringBuilder();
 
         if (mechanics == null || mechanics.length == 0) {

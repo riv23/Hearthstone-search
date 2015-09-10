@@ -14,6 +14,7 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.common.collect.Lists;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -102,7 +103,7 @@ public class SearchApiServiceImpl implements SearchApiService {
         LOGGER.info("Loading cards " + locale + " : END");
     }
 
-    private void putFullCardsIntoSearch(List<Card> cards, Locale locale) {
+    private void putFullCardsIntoSearch(List<Card> cards, Locale locale) throws UnsupportedEncodingException {
         final List<List<Card>> partition = Lists.partition(cards, MAX_DOC_PER_INDEX);
         for (List<Card> cardList : partition) {
             INDEX.put(SearchUtil.buildDocumentsForIndex(cardList, locale));

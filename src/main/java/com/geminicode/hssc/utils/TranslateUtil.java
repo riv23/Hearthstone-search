@@ -3,6 +3,7 @@ package com.geminicode.hssc.utils;
 import com.geminicode.hssc.service.InternalizationService;
 import com.google.common.base.Strings;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.logging.Logger;
 
@@ -15,7 +16,7 @@ public class TranslateUtil {
 
     private final static InternalizationService internalizationService = ServiceFactory.get().getInternalizationService();
 
-    public static String translateRarity(String value, Locale locale) {
+    public static String translateRarity(String value, Locale locale) throws UnsupportedEncodingException {
         if (Strings.isNullOrEmpty(value)) {
             return "";
         }
@@ -23,7 +24,7 @@ public class TranslateUtil {
         return internalizationService.getString(value, locale);
     }
 
-    public static String translatePlayerClass(String value, Locale locale) {
+    public static String translatePlayerClass(String value, Locale locale) throws UnsupportedEncodingException {
 
         if (Strings.isNullOrEmpty(value)) {
             return internalizationService.getString("All", locale);
@@ -32,14 +33,14 @@ public class TranslateUtil {
         return internalizationService.getString(value, locale);
     }
 
-    public static String translateType(String value, Locale locale) {
+    public static String translateType(String value, Locale locale) throws UnsupportedEncodingException {
         if (Strings.isNullOrEmpty(value)) {
             return "";
         }
         return internalizationService.getString(value, locale);
     }
 
-    public static String translateMechanic(String value, Locale locale) {
+    public static String translateMechanic(String value, Locale locale) throws UnsupportedEncodingException {
 
         if (Strings.isNullOrEmpty(value)) {
             return "";
@@ -53,7 +54,7 @@ public class TranslateUtil {
 
     }
 
-    public static String translateRace(String value, Locale locale) {
+    public static String translateRace(String value, Locale locale) throws UnsupportedEncodingException {
 
         if (Strings.isNullOrEmpty(value)) {
             return "";
