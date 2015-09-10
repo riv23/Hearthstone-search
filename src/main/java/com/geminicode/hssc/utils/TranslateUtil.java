@@ -41,8 +41,6 @@ public class TranslateUtil {
 
     public static String translateMechanic(String value, Locale locale) {
 
-        LOGGER.info("Translation to " + locale + "Value : |"+value+"|");
-
         if (Strings.isNullOrEmpty(value)) {
             return "";
         }
@@ -66,7 +64,7 @@ public class TranslateUtil {
 
     public static String buildLanguageField(Locale locale) {
         String language = "";
-        if (Locale.FRENCH.equals(locale)) {
+        if (Locale.FRANCE.equals(locale)) {
             language = "fr";
         }
         if (Locale.ENGLISH.equals(locale)) {

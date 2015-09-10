@@ -139,7 +139,7 @@ public class SearchUtilTest {
         cardType.setBasic(Lists.<Card>newArrayList());
 
         //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.BASIC, Locale.FRENCH);
+        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.BASIC, Locale.FRANCE);
 
         //THEN
         assertThat(cards).isNotNull().isEmpty();
@@ -154,7 +154,7 @@ public class SearchUtilTest {
         cardType.setClassic(Lists.<Card>newArrayList());
 
         //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.CLASSIC, Locale.FRENCH);
+        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.CLASSIC, Locale.FRANCE);
 
         //THEN
         assertThat(cards).isNotNull().isEmpty();
@@ -169,7 +169,7 @@ public class SearchUtilTest {
         cardType.setGobelinsVsGnomes(Lists.<Card>newArrayList());
 
         //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.GOBLINS_VS_GNOMES, Locale.FRENCH);
+        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.GOBLINS_VS_GNOMES, Locale.FRANCE);
 
         //THEN
         assertThat(cards).isNotNull().isEmpty();
@@ -184,7 +184,7 @@ public class SearchUtilTest {
         cardType.setCurseOfNaxxramas(Lists.<Card>newArrayList());
 
         //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS, Locale.FRENCH);
+        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS, Locale.FRANCE);
 
         //THEN
         assertThat(cards).isNotNull().isEmpty();
@@ -199,7 +199,7 @@ public class SearchUtilTest {
         cardType.setPromotions(Lists.<Card>newArrayList());
 
         //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.PROMOTION, Locale.FRENCH);
+        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.PROMOTION, Locale.FRANCE);
 
         //THEN
         assertThat(cards).isNotNull().isEmpty();
@@ -214,7 +214,7 @@ public class SearchUtilTest {
         cardType.setBlackrockMountain(Lists.<Card>newArrayList());
 
         //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.BLACKROCK_MOUNTAIN, Locale.FRENCH);
+        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.BLACKROCK_MOUNTAIN, Locale.FRANCE);
 
         //THEN
         assertThat(cards).isNotNull().isEmpty();

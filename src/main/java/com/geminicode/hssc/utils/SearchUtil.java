@@ -26,9 +26,6 @@ public class SearchUtil {
     private static final String CARDS = "cards";
     private static final String PNG = ".png";
 
-    private final static InternalizationService internalizationService = ServiceFactory.get().getInternalizationService();
-
-
     public static Query buildQuery(String queryString, QueryOptions options) {
         return Query.newBuilder()
                 .setOptions(options)
@@ -212,7 +209,7 @@ public class SearchUtil {
 
     private static void addSpecifiedFields(List<Card> cards, TypesEnum type, Locale locale) {
         String baseUrl = BASE_URL_IMAGE_FR;
-        if (Locale.FRENCH.equals(locale)) {
+        if (Locale.FRANCE.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_FR;
         }
         if (Locale.ENGLISH.equals(locale)) {

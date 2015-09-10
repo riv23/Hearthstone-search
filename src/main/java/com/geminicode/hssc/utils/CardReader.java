@@ -23,14 +23,14 @@ public class CardReader {
     public static  CardType read(Locale locale) throws IOException {
         URL url = new URL(URL_API_EN);
         if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Development) {
-            if(Locale.FRENCH.equals(locale)) {
+            if(Locale.FRANCE.equals(locale)) {
                 url = new URL(URL_LOCAL_API_FR);
             }
             if(Locale.ENGLISH.equals(locale)) {
                 url = new URL(URL_LOCAL_API_EN);
             }
         }else {
-            if(Locale.FRENCH.equals(locale)) {
+            if(Locale.FRANCE.equals(locale)) {
                 url = new URL(URL_API_FR);
             }
             if(Locale.ENGLISH.equals(locale)) {
