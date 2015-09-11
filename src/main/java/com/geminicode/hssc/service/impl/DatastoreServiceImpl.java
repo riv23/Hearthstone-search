@@ -79,8 +79,8 @@ public class DatastoreServiceImpl implements DatastoreService {
             public NameCard apply(String string) {
                 final NameCard nameCard = new NameCard();
                 nameCard.setId(string + "_" + TranslateUtil.buildLanguageField(locale));
-                nameCard.setName(string);
                 try {
+                    nameCard.setName(TranslateUtil.translate(string, locale));
                     nameCard.setCompute(getComputeName(TranslateUtil.translate(string, locale)));
                 } catch (UnsupportedEncodingException e) {
                     LOGGER.log(Level.SEVERE, "Error when translate " + string + " to " + locale.getLanguage());
