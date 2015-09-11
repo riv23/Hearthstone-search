@@ -68,11 +68,10 @@ public class SearchApiServiceImpl implements SearchApiService {
 
                 final GetResponse<Document> response = INDEX.getRange(request);
                 if (response.getResults().isEmpty()) {
-                    LOGGER.info("No more indexed cards.");
+                    LOGGER.info("All cards are been deleted from index");
                     break;
                 }
                 for (Document doc : response) {
-                    LOGGER.info("Doc with id : " + doc.getId() + " will be deleted.");
                     docIds.add(doc.getId());
                 }
                 INDEX.delete(docIds);
