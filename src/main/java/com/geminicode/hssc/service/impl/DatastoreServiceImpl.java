@@ -13,14 +13,19 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
+import java.io.UnsupportedEncodingException;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatastoreServiceImpl implements DatastoreService {
 
     private static final String EN = "en";
     private static final String FR = "fr";
+
+    private static final Logger LOGGER = Logger.getLogger(SearchApiServiceImpl.class.getName());
 
     private final InternalizationService internalizationService = ServiceFactory.get().getInternalizationService();
 
@@ -75,7 +80,11 @@ public class DatastoreServiceImpl implements DatastoreService {
                 final NameCard nameCard = new NameCard();
                 nameCard.setId(string + "_" + TranslateUtil.buildLanguageField(locale));
                 nameCard.setName(string);
-                nameCard.setCompute(getComputeName(string));
+                try {
+                    nameCard.setCompute(getComputeName(TranslateUtil.translate(string, locale)));
+                } catch (UnsupportedEncodingException e) {
+                    LOGGER.log(Level.SEVERE, "Error when translate " + string + " to " + locale.getLanguage());
+                }
                 nameCard.setLanguage(TranslateUtil.buildLanguageField(locale));
                 return nameCard;
             }
