@@ -12,6 +12,7 @@ Please note :
 * The API is very simple to use !
 * The url pattern is: `/api/search?q=`, `q` is a valid Google Search Api request.
 * `lang` param allows to select the language. The Default Language is English (Only French and English are supported for the moment).
+* Auto completion api use the following url : `/api/names?q=le`, this example show all cards (or attributes) starting with : "len" (ex : Leeroy Jenkins, Legendary, Leper Gnome).
 * The API can be used [here](http://hearthstone-search.com).
 
 
