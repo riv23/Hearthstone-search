@@ -20,7 +20,6 @@
 
     .switch-toggle a {
         display: block;
-        -webkit-transition: all 0.5s ease-out;
         -moz-transition: all 0.5s ease-out;
         transition: all 0.5s ease-out;
     }
@@ -157,7 +156,6 @@
 
 .switch-hearthstone label {
     color: #fff;
-    -webkit-transition: color 0.5s ease-out;
     -moz-transition: color 0.5s ease-out;
     transition: color 0.5s ease-out;
 }
