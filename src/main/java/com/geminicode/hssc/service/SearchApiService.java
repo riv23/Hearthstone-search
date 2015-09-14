@@ -26,7 +26,7 @@ public interface SearchApiService {
      * @return Matched card
      * @throws SearchException throws if the search failed
      */
-    Card searchById(String cardId) throws SearchException;
+    Card searchById(String cardId, String lang) throws SearchException;
 
     /**
      * This service delete all card from index

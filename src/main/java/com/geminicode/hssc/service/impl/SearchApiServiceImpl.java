@@ -11,6 +11,7 @@ import com.geminicode.hssc.utils.ServiceFactory;
 import com.google.appengine.api.search.*;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 import java.io.IOException;
@@ -53,8 +54,11 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     @Override
-    public Card searchById(String cardId) throws SearchException {
-        final Document document = INDEX.get(cardId);
+    public Card searchById(String cardId, String lang) throws SearchException {
+        if(Strings.isNullOrEmpty(lang) || !"fr".equals(lang)) {
+            lang = "en";
+        }
+        final Document document = INDEX.get(cardId + "_" + lang);
         return SearchUtil.getCardFromField(document.getFields());
     }
 

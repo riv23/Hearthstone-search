@@ -39,8 +39,8 @@ public class RESTService {
 
     @GET
     @Path("/card/{id}")
-    public Card getCard(@PathParam("id") String cardId) {
-        return searchApiService.searchById(cardId);
+    public Card getCard(@PathParam("id") String cardId, @QueryParam("lang") String lang) {
+        return searchApiService.searchById(cardId, lang);
     }
 
     @POST

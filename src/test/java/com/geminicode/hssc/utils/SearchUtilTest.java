@@ -4,23 +4,16 @@ import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
 import com.google.appengine.api.search.Field;
-import com.google.appengine.api.search.Query;
-import com.google.appengine.api.search.QueryOptions;
-import com.google.appengine.api.search.SortOptions;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 import java.util.Locale;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SearchUtilTest {
@@ -134,7 +127,6 @@ public class SearchUtilTest {
     @Test
     public void should_buildToPersistCards_basics() {
         //GIVEN
-
         final CardType cardType = new CardType();
         cardType.setBasic(Lists.<Card>newArrayList());
 
