@@ -11,8 +11,6 @@ import com.geminicode.hssc.utils.ServiceFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class class expose the API

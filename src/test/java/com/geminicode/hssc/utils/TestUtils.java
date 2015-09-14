@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TestUtils {
 
-    public static Iterable<Field> buildFieldsOdJenkins() {
+    public static Iterable<Field> buildFieldsJenkins() {
         final List<Field> fields = Lists.newArrayList();
 
         fields.add(buildTextField(FieldString.NAME_FIELD, "Leeroy Jenkins"));

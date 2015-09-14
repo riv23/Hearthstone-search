@@ -95,7 +95,7 @@ public class SearchUtilTest {
     @Test
     public void should_build_card_from_fields() {
         //GIVEN
-        final Iterable<Field> fields = TestUtils.buildFieldsOdJenkins();
+        final Iterable<Field> fields = TestUtils.buildFieldsJenkins();
 
         //WHEN
         final Card card = SearchUtil.getCardFromField(fields);
@@ -125,94 +125,21 @@ public class SearchUtilTest {
     }
 
     @Test
-    public void should_buildToPersistCards_basics() {
+    public void should_persist() {
         //GIVEN
         final CardType cardType = new CardType();
-        cardType.setBasic(Lists.<Card>newArrayList());
+        List<Card> cards = Lists.newArrayList();
+        cards.add(SearchUtil.getCardFromField(TestUtils.buildFieldsJenkins()));
+        cardType.setBasic(cards);
 
         //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.BASIC, Locale.FRANCE);
+        final List<Card> cardsPersisted = SearchUtil.buildToPersistCards(cardType, TypesEnum.BASIC, Locale.FRANCE);
 
         //THEN
-        assertThat(cards).isNotNull().isEmpty();
+        assertThat(cardsPersisted).isNotNull().isNotEmpty();
+        assertThat(cardsPersisted).hasSize(1);
 
     }
-
-    @Test
-    public void should_buildToPersistCards_classics() {
-        //GIVEN
-
-        final CardType cardType = new CardType();
-        cardType.setClassic(Lists.<Card>newArrayList());
-
-        //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.CLASSIC, Locale.FRANCE);
-
-        //THEN
-        assertThat(cards).isNotNull().isEmpty();
-
-    }
-
-    @Test
-    public void should_buildToPersistCards_GvG() {
-        //GIVEN
-
-        final CardType cardType = new CardType();
-        cardType.setGobelinsVsGnomes(Lists.<Card>newArrayList());
-
-        //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.GOBLINS_VS_GNOMES, Locale.FRANCE);
-
-        //THEN
-        assertThat(cards).isNotNull().isEmpty();
-
-    }
-
-    @Test
-    public void should_buildToPersistCards_Naxx() {
-        //GIVEN
-
-        final CardType cardType = new CardType();
-        cardType.setCurseOfNaxxramas(Lists.<Card>newArrayList());
-
-        //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS, Locale.FRANCE);
-
-        //THEN
-        assertThat(cards).isNotNull().isEmpty();
-
-    }
-
-    @Test
-    public void should_buildToPersistCards_Promotion() {
-        //GIVEN
-
-        final CardType cardType = new CardType();
-        cardType.setPromotions(Lists.<Card>newArrayList());
-
-        //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.PROMOTION, Locale.FRANCE);
-
-        //THEN
-        assertThat(cards).isNotNull().isEmpty();
-
-    }
-
-    @Test
-    public void should_buildToPersistCards_Blackrock() {
-        //GIVEN
-
-        final CardType cardType = new CardType();
-        cardType.setBlackrockMountain(Lists.<Card>newArrayList());
-
-        //WHEN
-        final List<Card> cards = SearchUtil.buildToPersistCards(cardType, TypesEnum.BLACKROCK_MOUNTAIN, Locale.FRANCE);
-
-        //THEN
-        assertThat(cards).isNotNull().isEmpty();
-
-    }
-
 
 }
 

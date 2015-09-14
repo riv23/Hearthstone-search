@@ -6,7 +6,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.logging.Logger;
 
 public class InternalizationServiceImpl implements InternalizationService {
 
