@@ -35,6 +35,9 @@ public class SearchApiServiceImpl implements SearchApiService {
     @Override
     public List<Card> search(String queryString, String lang, String cost) throws SearchException {
         final List<Card> cards = Lists.newArrayList();
+        if (Strings.isNullOrEmpty(queryString)) {
+            return cards;
+        }
 
         queryString = SearchUtil.buildQueryString(queryString, lang, cost);
 
