@@ -18,9 +18,23 @@ Please note :
 
 ## Run local
 
-To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/appengine-maven-plugin/) that is already included in this demo. Just run the command.
+### Prerequisites :
+
+To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/appengine-maven-plugin/) that is already included in this project. Just run the command.
 
     mvn appengine:devserver
+
+### Your own instance :
+
+Create your own instance appengene with Hearthstone-search :
+1) Create your awn project [here](https://appengine.google.com/). 
+2) Change src/main/webapp/WEB-INF/appengine-web.xml (replace `hearthstone-search-cards` with your own ID).
+3) Change pom.xml (remove or comment line 148 to 158).
+3) Execute the following command : `mvn clean install appengine:update.
+
+### How cards are checked ? 
+
+The following url /check launch cards indexing. Each call remove all cards from the index and refresh the index with the news cards from [hearthstonejson](http://hearthstonejson.com).
     
 ## Want to collaborate ? 
 
