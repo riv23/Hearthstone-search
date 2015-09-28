@@ -27,10 +27,10 @@ To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/app
 ### Your own instance :
 
 Create your own instance appengene with Hearthstone-search :
-1) Create your awn project [here](https://appengine.google.com/). 
-2) Change src/main/webapp/WEB-INF/appengine-web.xml (replace `hearthstone-search-cards` with your own ID).
-3) Change pom.xml (remove or comment line 148 to 158).
-3) Execute the following command : `mvn clean install appengine:update.
+* Create your awn project [here](https://appengine.google.com/). 
+* Change `src/main/webapp/WEB-INF/appengine-web.xml` (replace `hearthstone-search-cards` with your own ID).
+* Change `pom.xml` (remove or comment line 148 to 158).
+* Execute the following command : `mvn clean install appengine:update`.
 
 ### How cards are checked ? 
 
