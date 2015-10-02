@@ -8,7 +8,7 @@ import com.googlecode.objectify.annotation.Index;
 /**
  * This class represents name cards saved in the Datastore used by the auto-completion
  */
-@Cache(expirationSeconds = 3600 * 24) //all the day
+@Cache
 @Entity
 public class NameCard {
 
