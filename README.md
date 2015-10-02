@@ -42,44 +42,5 @@ Pull request are welcome :)
 
 ## Change log
 
-### v1.4.1
-* Added Artist names
-* Moved contact button
-* Updated form contact
-* Fixed issue with Overload value and Spell damage
+[Release note page](https://github.com/GeminiCode/Hearthstone-search/releases)
 
-### v1.4.0
-* Added The Grand Tournament cards
-
-### v1.3.1
-* Removed idle instance (so expansive xD).
-* Added form contact.
-* Added some coverage tests.
-* Added Java Bundle Resource instead of huge Java class.
-* Change cron schedule (every days -> every months).
-* Fix a lot of bugs.
-
-### v1.2.2
-* Added a lot of refactoring.
-* Fix bugs.
-* Mana filters are on front side now.
-* Heroes are not indexed now.
-* Fix search with ' char.
-* Optimize indexing, the number of requests is optimized now.
-
-### v1.2.1
-* Mana filter improvement.
-
-### v1.2.0
-* Added optional fiter on mana value.
-
-### v1.1.0
-* URL can be shared now. `/q=stormwind&lang=en` diplays automatically "stormwind" cards in English. 
-* Added link to the GitHub page.
-* Added expansion pack value to each card.
-* Added Blackrock mountain cards.
-* Fix diplay order.
-* Added i18n support (French and English).
-
-### v1.0.0
-* Inital release.
