@@ -40,4 +40,11 @@ public interface SearchApiService {
      * @throws IOException throws if check failed
      */
     void checkNewCards(Locale locale) throws IOException;
+
+    /**
+     * This service check if version checked is the last version.
+     * @return yes if it is, no if it is not
+     * @throws SearchException
+     */
+    Boolean isLastedVersion()  throws SearchException;
 }

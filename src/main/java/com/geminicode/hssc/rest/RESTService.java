@@ -3,11 +3,13 @@ package com.geminicode.hssc.rest;
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.Message;
 import com.geminicode.hssc.model.NameCard;
+import com.geminicode.hssc.model.Version;
 import com.geminicode.hssc.service.DatastoreService;
 import com.geminicode.hssc.service.MailService;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.utils.ServiceFactory;
 
+import javax.print.attribute.standard.MediaPrintableArea;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -46,5 +48,12 @@ public class RESTService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void sendMessage(Message message) {
         mailService.send(message.getName(), message.getEmail(), message.getMessage());
+    }
+
+    @GET
+    @Path("/version")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Version getVersion() {
+        return datastoreService.getVersion();
     }
 }

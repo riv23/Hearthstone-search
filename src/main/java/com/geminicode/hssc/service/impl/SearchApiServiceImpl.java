@@ -3,6 +3,7 @@ package com.geminicode.hssc.service.impl;
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.CardType;
 import com.geminicode.hssc.model.TypesEnum;
+import com.geminicode.hssc.model.Version;
 import com.geminicode.hssc.service.DatastoreService;
 import com.geminicode.hssc.service.SearchApiService;
 import com.geminicode.hssc.utils.CardReader;
@@ -13,9 +14,14 @@ import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -107,6 +113,37 @@ public class SearchApiServiceImpl implements SearchApiService {
         datastoreService.putOtherString(locale);
 
         LOGGER.info("Loading cards " + locale + " : END");
+    }
+
+    @Override
+    public Boolean isLastedVersion() throws SearchException {
+        URL url = null;
+        try {
+            url = new URL("https://hearthstonejson.com/json/patchVersion.json");
+        } catch (MalformedURLException e) {
+            throw new SearchException("Mal formed url : " + url.toString());
+        }
+
+        final BufferedReader bufferedReader;
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+        } catch (IOException e) {
+            return false;
+        }
+        final Gson gson = new Gson();
+        final Version versionFromAPI = gson.fromJson(bufferedReader, Version.class);
+        final Version versionFromDB = datastoreService.getVersion();
+
+        final int result = versionFromAPI.getVersion().compareTo(versionFromDB.getVersion());
+
+        if(result > 0) {
+            versionFromAPI.setId("1");
+            datastoreService.updateVersion(versionFromAPI);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     private void putFullCardsIntoSearch(List<Card> cards, Locale locale) throws UnsupportedEncodingException {

@@ -3,6 +3,7 @@ package com.geminicode.hssc.service.impl;
 
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.NameCard;
+import com.geminicode.hssc.model.Version;
 import com.geminicode.hssc.service.DatastoreService;
 import com.geminicode.hssc.service.InternalizationService;
 import com.geminicode.hssc.service.OfyService;
@@ -90,6 +91,23 @@ public class DatastoreServiceImpl implements DatastoreService {
             }
         }));
         OfyService.ofy().save().entities(nameCards).now();
+    }
+
+    @Override
+    public void updateVersion(Version version) {
+        OfyService.ofy().save().entity(version).now();
+    }
+
+    @Override
+    public Version getVersion() {
+        final List<Version> versions = OfyService.ofy().load().type(Version.class).limit(1).list();
+        if(!versions.isEmpty()) {
+            return versions.get(0);
+        }
+
+        final Version version = new Version();
+        version.setVersion("0");
+        return version;
     }
 
     private String getComputeName(String name) {

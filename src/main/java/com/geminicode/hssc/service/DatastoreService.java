@@ -3,6 +3,7 @@ package com.geminicode.hssc.service;
 
 import com.geminicode.hssc.model.Card;
 import com.geminicode.hssc.model.NameCard;
+import com.geminicode.hssc.model.Version;
 
 import java.util.List;
 import java.util.Locale;
@@ -34,4 +35,16 @@ public interface DatastoreService {
      * @param locale Language (mandatory)
      */
     void putOtherString(Locale locale);
+
+    /**
+     * This service update version of hearthstone.
+     * @param version last version number
+     */
+    void updateVersion(Version version);
+
+    /**
+     * This service retrieve the lastest version number
+     * @return lastest version number
+     */
+    Version getVersion();
 }
