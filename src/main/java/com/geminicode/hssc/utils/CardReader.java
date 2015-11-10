@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.Locale;
 
@@ -17,8 +18,8 @@ public class CardReader {
 
     private static final String URL_API_FR = "http://hearthstonejson.com/json/AllSets.frFR.json";
     private static final String URL_API_EN = "http://hearthstonejson.com/json/AllSets.enUS.json";
-    private static final String URL_LOCAL_API_FR = "/AllSets.frFR.json";
-    private static final String URL_LOCAL_API_EN = "/AllSets.enUS.json";
+    private static final String URL_LOCAL_API_FR = "http://hearthstone-search.com//AllSets.frFR.json";
+    private static final String URL_LOCAL_API_EN = "http://hearthstone-search.com//AllSets.enUS.json";
 
     public static  CardType read(Locale locale) throws IOException {
         URL url = new URL(URL_API_EN);
@@ -38,9 +39,19 @@ public class CardReader {
             }
         }
 
-        final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+        BufferedReader bufferedReader;
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+        }catch (SocketTimeoutException e) {
+            if(Locale.FRANCE.equals(locale)) {
+                url = new URL(URL_LOCAL_API_FR);
+            }
+            if(Locale.US.equals(locale)) {
+                url = new URL(URL_LOCAL_API_EN);
+            }
+            bufferedReader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+        }
         final Gson gson = new Gson();
-
         return gson.fromJson(bufferedReader, CardType.class);
     }
 }
