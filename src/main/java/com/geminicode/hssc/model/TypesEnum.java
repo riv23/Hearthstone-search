@@ -9,7 +9,8 @@ public enum TypesEnum {
 	GOBLINS_VS_GNOMES("Goblins vs Gnomes"),
 	PROMOTION("Promotion"),
 	BLACKROCK_MOUNTAIN("Blackrock Mountain"),
-	GRAND_TOURNAMENT("The Grand Tournament");
+	GRAND_TOURNAMENT("The Grand Tournament"),
+	LEAGUE_OF_EXPLORERS("League of Explorers");
 
 	private final String type;
 

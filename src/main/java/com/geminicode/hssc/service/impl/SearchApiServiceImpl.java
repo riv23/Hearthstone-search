@@ -107,6 +107,7 @@ public class SearchApiServiceImpl implements SearchApiService {
         wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.PROMOTION, locale));
         wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.BLACKROCK_MOUNTAIN, locale));
         wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.GRAND_TOURNAMENT, locale));
+        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.LEAGUE_OF_EXPLORERS, locale));
 
         putFullCardsIntoSearch(wantedCards, locale);
         datastoreService.putCards(wantedCards, locale);
@@ -119,7 +120,7 @@ public class SearchApiServiceImpl implements SearchApiService {
     public Boolean isLastedVersion() throws SearchException {
         URL url = null;
         try {
-            url = new URL("https://hearthstonejson.com/json/patchVersion.json");
+            url = new URL("http://hearthstonejson.com/json/patchVersion.json");
         } catch (MalformedURLException e) {
             throw new SearchException("Mal formed url : " + url.toString());
         }
@@ -128,7 +129,8 @@ public class SearchApiServiceImpl implements SearchApiService {
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
         } catch (IOException e) {
-            return false;
+            LOGGER.warning(e.getLocalizedMessage());
+            return true;
         }
         final Gson gson = new Gson();
         final Version versionFromAPI = gson.fromJson(bufferedReader, Version.class);

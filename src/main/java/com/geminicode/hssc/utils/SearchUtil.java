@@ -186,6 +186,13 @@ public class SearchUtil {
                 wantedCards.addAll(wantedgrandTournament);
                 LOGGER.info("There are " + wantedgrandTournament.size() + " " + GRAND_TOURNAMENT.getName() + " cards.");
                 break;
+            case LEAGUE_OF_EXPLORERS:
+                final List<Card> leagueOfExplorers = cardType.getLeagueOfExplorers();
+                final List<Card> wantedLeagueOfExplorers = removeUnWantedCards(leagueOfExplorers);
+                addSpecifiedFields(wantedLeagueOfExplorers, type, locale);
+                wantedCards.addAll(wantedLeagueOfExplorers);
+                LOGGER.info("There are " + wantedLeagueOfExplorers.size() + " " + LEAGUE_OF_EXPLORERS.getName() + " cards.");
+                break;
         }
 
         return wantedCards;

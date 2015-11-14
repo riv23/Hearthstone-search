@@ -23,6 +23,8 @@ public class CardType {
 	private List<Card> blackrockMountain;
 	@SerializedName("The Grand Tournament")
 	private List<Card> grandTournament;
+	@SerializedName("League of Explorers")
+	private List<Card> leagueOfExplorers;
 
 	public List<Card> getBasic() {
 		return Basic;
@@ -78,5 +80,13 @@ public class CardType {
 
 	public void setGrandTournament(List<Card> grandTournament) {
 		this.grandTournament = grandTournament;
+	}
+
+	public List<Card> getLeagueOfExplorers() {
+		return leagueOfExplorers;
+	}
+
+	public void setLeagueOfExplorers(List<Card> leagueOfExplorers) {
+		this.leagueOfExplorers = leagueOfExplorers;
 	}
 }

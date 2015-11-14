@@ -19,8 +19,8 @@ public class CardReader {
 
     private static final String URL_API_FR = "http://hearthstonejson.com/json/AllSets.frFR.json";
     private static final String URL_API_EN = "http://hearthstonejson.com/json/AllSets.enUS.json";
-    private static final String URL_LOCAL_API_FR = "http://hearthstone-search.com//AllSets.frFR.json";
-    private static final String URL_LOCAL_API_EN = "http://hearthstone-search.com//AllSets.enUS.json";
+    private static final String URL_LOCAL_API_FR = "http://hearthstone-search.com/AllSets.frFR.json";
+    private static final String URL_LOCAL_API_EN = "http://hearthstone-search.com/AllSets.enUS.json";
 
     private final static Logger LOGGER = Logger.getLogger(CardReader.class.getName());
 
