@@ -127,10 +127,10 @@ public class SearchApiServiceImpl implements SearchApiService {
 
         final BufferedReader bufferedReader;
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+            bufferedReader =  CardReader.getBufferReader(url);
         } catch (IOException e) {
             LOGGER.warning(e.getLocalizedMessage());
-            return true;
+            return false;
         }
         final Gson gson = new Gson();
         final Version versionFromAPI = gson.fromJson(bufferedReader, Version.class);
