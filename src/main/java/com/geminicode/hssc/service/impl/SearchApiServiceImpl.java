@@ -1,8 +1,6 @@
 package com.geminicode.hssc.service.impl;
 
 import com.geminicode.hssc.model.Card;
-import com.geminicode.hssc.model.CardType;
-import com.geminicode.hssc.model.TypesEnum;
 import com.geminicode.hssc.model.Version;
 import com.geminicode.hssc.service.DatastoreService;
 import com.geminicode.hssc.service.SearchApiService;
@@ -18,12 +16,12 @@ import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
@@ -98,17 +96,10 @@ public class SearchApiServiceImpl implements SearchApiService {
     @Override
     public void checkNewCards(Locale locale) throws IOException {
         LOGGER.info("Loading cards for " + locale + " : START");
-        final CardType cardType = CardReader.read(locale);
+        final Map<String, List<Card>> mapCards = CardReader.read(locale);
         final List<Card> wantedCards = Lists.newArrayList();
-        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.BASIC, locale));
-        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.CLASSIC, locale));
-        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.CURSE_OF_NAXXRAMAS, locale));
-        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.GOBLINS_VS_GNOMES, locale));
-        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.PROMOTION, locale));
-        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.BLACKROCK_MOUNTAIN, locale));
-        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.GRAND_TOURNAMENT, locale));
-        wantedCards.addAll(SearchUtil.buildToPersistCards(cardType, TypesEnum.LEAGUE_OF_EXPLORERS, locale));
 
+        wantedCards.addAll(SearchUtil.buildToPersistCards(mapCards, locale));
         putFullCardsIntoSearch(wantedCards, locale);
         datastoreService.putCards(wantedCards, locale);
         datastoreService.putOtherString(locale);

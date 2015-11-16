@@ -1,17 +1,11 @@
 package com.geminicode.hssc.utils;
 
 import com.geminicode.hssc.model.Card;
-import com.geminicode.hssc.model.CardType;
-import com.geminicode.hssc.model.TypesEnum;
 import com.google.appengine.api.search.Field;
-import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.util.List;
-import java.util.Locale;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -123,23 +117,5 @@ public class SearchUtilTest {
         assertThat(card.getExpansionPack()).isNotNull().isNotEmpty().isEqualTo("Basic");
 
     }
-
-    @Test
-    public void should_persist() {
-        //GIVEN
-        final CardType cardType = new CardType();
-        List<Card> cards = Lists.newArrayList();
-        cards.add(SearchUtil.getCardFromField(TestUtils.buildFieldsJenkins()));
-        cardType.setBasic(cards);
-
-        //WHEN
-        final List<Card> cardsPersisted = SearchUtil.buildToPersistCards(cardType, TypesEnum.BASIC, Locale.FRANCE);
-
-        //THEN
-        assertThat(cardsPersisted).isNotNull().isNotEmpty();
-        assertThat(cardsPersisted).hasSize(1);
-
-    }
-
 }
 

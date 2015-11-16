@@ -1,8 +1,6 @@
 package com.geminicode.hssc.utils;
 
 import com.geminicode.hssc.model.Card;
-import com.geminicode.hssc.model.CardType;
-import com.geminicode.hssc.model.TypesEnum;
 import com.google.appengine.api.search.*;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
@@ -12,9 +10,8 @@ import com.google.common.collect.Lists;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Logger;
-
-import static com.geminicode.hssc.model.TypesEnum.*;
 
 public class SearchUtil {
 
@@ -130,73 +127,7 @@ public class SearchUtil {
                 .build();
     }
 
-    public static List<Card> buildToPersistCards(CardType cardType, TypesEnum type, Locale locale) {
 
-        final List<Card> wantedCards = Lists.newArrayList();
-
-        switch (type) {
-            case BASIC:
-                final List<Card> basics = cardType.getBasic();
-                final List<Card> wantedBasics = removeUnWantedCards(basics);
-                addSpecifiedFields(wantedBasics, type, locale);
-                wantedCards.addAll(wantedBasics);
-                LOGGER.info("There are " + wantedBasics.size() + " " + BASIC.getName() + " cards.");
-                break;
-            case CLASSIC:
-                final List<Card> classics = cardType.getClassic();
-                final List<Card> wantedClassics = removeUnWantedCards(classics);
-                addSpecifiedFields(wantedClassics, type, locale);
-                wantedCards.addAll(wantedClassics);
-                LOGGER.info("There are " + wantedClassics.size() + " " + CLASSIC.getName() + " cards.");
-                break;
-            case CURSE_OF_NAXXRAMAS:
-                final List<Card> curseOfNaxxramass = cardType.getCurseOfNaxxramas();
-                final List<Card> wantedCurseOfNaxxramass = removeUnWantedCards(curseOfNaxxramass);
-                addSpecifiedFields(wantedCurseOfNaxxramass, type, locale);
-                wantedCards.addAll(wantedCurseOfNaxxramass);
-                LOGGER.info("There are " + wantedCurseOfNaxxramass.size() + " " + CURSE_OF_NAXXRAMAS.getName()
-                        + " cards.");
-                break;
-            case GOBLINS_VS_GNOMES:
-                final List<Card> gobelinsVsGnomes = cardType.getGobelinsVsGnomes();
-                final List<Card> wantedGobelinsVsGnomes = removeUnWantedCards(gobelinsVsGnomes);
-                addSpecifiedFields(wantedGobelinsVsGnomes, type, locale);
-                wantedCards.addAll(wantedGobelinsVsGnomes);
-                LOGGER.info("There are " + wantedGobelinsVsGnomes.size() + " " + GOBLINS_VS_GNOMES.getName()
-                        + " cards.");
-                break;
-            case PROMOTION:
-                final List<Card> promotions = cardType.getPromotions();
-                final List<Card> wantedPromotions = removeUnWantedCards(promotions);
-                addSpecifiedFields(wantedPromotions, type, locale);
-                wantedCards.addAll(wantedPromotions);
-                LOGGER.info("There are " + wantedPromotions.size() + " " + PROMOTION.getName() + " cards.");
-                break;
-            case BLACKROCK_MOUNTAIN:
-                final List<Card> blackrockMountain = cardType.getBlackrockMountain();
-                final List<Card> wantedBlackrockMountain = removeUnWantedCards(blackrockMountain);
-                addSpecifiedFields(wantedBlackrockMountain, type, locale);
-                wantedCards.addAll(wantedBlackrockMountain);
-                LOGGER.info("There are " + wantedBlackrockMountain.size() + " " + BLACKROCK_MOUNTAIN.getName() + " cards.");
-                break;
-            case GRAND_TOURNAMENT:
-                final List<Card> grandTournament = cardType.getGrandTournament();
-                final List<Card> wantedgrandTournament = removeUnWantedCards(grandTournament);
-                addSpecifiedFields(wantedgrandTournament, type, locale);
-                wantedCards.addAll(wantedgrandTournament);
-                LOGGER.info("There are " + wantedgrandTournament.size() + " " + GRAND_TOURNAMENT.getName() + " cards.");
-                break;
-            case LEAGUE_OF_EXPLORERS:
-                final List<Card> leagueOfExplorers = cardType.getLeagueOfExplorers();
-                final List<Card> wantedLeagueOfExplorers = removeUnWantedCards(leagueOfExplorers);
-                addSpecifiedFields(wantedLeagueOfExplorers, type, locale);
-                wantedCards.addAll(wantedLeagueOfExplorers);
-                LOGGER.info("There are " + wantedLeagueOfExplorers.size() + " " + LEAGUE_OF_EXPLORERS.getName() + " cards.");
-                break;
-        }
-
-        return wantedCards;
-    }
 
     protected static List<Card> removeUnWantedCards(List<Card> cards) {
 
@@ -214,7 +145,7 @@ public class SearchUtil {
         return wantedCards;
     }
 
-    private static void addSpecifiedFields(List<Card> cards, TypesEnum type, Locale locale) {
+    private static void addSpecifiedFields(List<Card> cards, String expansion, Locale locale) {
         String baseUrl = BASE_URL_IMAGE_FR;
         if (Locale.FRENCH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_FR;
@@ -224,7 +155,7 @@ public class SearchUtil {
         }
         for (Card card : cards) {
             card.setImage(baseUrl + card.getId() + PNG);
-            card.setExpansionPack(type.getName());
+            card.setExpansionPack(expansion);
         }
     }
 
@@ -313,5 +244,24 @@ public class SearchUtil {
     public static Index getIndex() {
         final IndexSpec indexSpec = IndexSpec.newBuilder().setName(CARDS).build();
         return SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    }
+
+    public static List<Card> buildToPersistCards(Map<String, List<Card>> mapCards, Locale locale) {
+
+        final List<Card> wantedCards = Lists.newArrayList();
+        mapCards.remove("Credits");
+        mapCards.remove("Debug");
+        mapCards.remove("Hero Skins");
+        mapCards.remove("Missions");
+        mapCards.remove("Reward");
+        mapCards.remove("System");
+        mapCards.remove("Tavern Brawl");
+        for (Map.Entry<String, List<Card>> entry : mapCards.entrySet()){
+            final List<Card> wantedBasics = removeUnWantedCards(entry.getValue());
+            addSpecifiedFields(wantedBasics, entry.getKey(), locale);
+            wantedCards.addAll(wantedBasics);
+        }
+
+        return wantedCards;
     }
 }

@@ -1,9 +1,10 @@
 package com.geminicode.hssc.utils;
 
-import com.geminicode.hssc.model.CardType;
+import com.geminicode.hssc.model.Card;
 import com.google.appengine.api.urlfetch.*;
 import com.google.appengine.api.utils.SystemProperty;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -11,7 +12,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -26,7 +29,7 @@ public class CardReader {
 
     private final static Logger LOGGER = Logger.getLogger(CardReader.class.getName());
 
-    public static  CardType read(Locale locale) throws IOException {
+    public static  Map<String, List<Card>> read(Locale locale) throws IOException {
         URL url = new URL(URL_API_EN);
         if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Development) {
             if(Locale.FRANCE.equals(locale)) {
@@ -62,7 +65,7 @@ public class CardReader {
         }
         final Gson gson = new Gson();
 
-        return gson.fromJson(bufferedReader, CardType.class);
+        return gson.fromJson(bufferedReader, new TypeToken<Map<String, List<Card>>>(){}.getType());
     }
 
     public static BufferedReader getBufferReader(URL url) throws IOException {
