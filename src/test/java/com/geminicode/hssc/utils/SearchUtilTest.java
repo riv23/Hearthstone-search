@@ -21,7 +21,7 @@ public class SearchUtilTest {
         final String queryString = null;
 
         //WHEN
-        final String query = SearchUtil.buildQueryString(queryString, "", "");
+        final String query = SearchUtil.buildQueryString(queryString, "", "", "");
 
         //THEN
         assertThat(query).isNotNull();
@@ -35,7 +35,7 @@ public class SearchUtilTest {
         final String fr = "fr";
 
         //WHEN
-        final String query = SearchUtil.buildQueryString(queryString, fr, "");
+        final String query = SearchUtil.buildQueryString(queryString, fr, "", "");
 
         //THEN
         assertThat(query).isNotNull();
@@ -49,7 +49,7 @@ public class SearchUtilTest {
         final String fr = "fr";
 
         //WHEN
-        final String query = SearchUtil.buildQueryString(queryString, fr, "");
+        final String query = SearchUtil.buildQueryString(queryString, fr, "", "");
 
         //THEN
         assertThat(query).isNotNull();
@@ -64,7 +64,7 @@ public class SearchUtilTest {
         final String cost = "3";
 
         //WHEN
-        final String query = SearchUtil.buildQueryString(queryString, fr, cost);
+        final String query = SearchUtil.buildQueryString(queryString, fr, cost, "");
 
         //THEN
         assertThat(query).isNotNull();
@@ -79,7 +79,7 @@ public class SearchUtilTest {
         final String cost = "7";
 
         //WHEN
-        final String query = SearchUtil.buildQueryString(queryString, fr, cost);
+        final String query = SearchUtil.buildQueryString(queryString, fr, cost, "");
 
         //THEN
         assertThat(query).isNotNull();

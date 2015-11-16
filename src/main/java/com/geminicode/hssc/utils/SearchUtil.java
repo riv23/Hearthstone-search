@@ -94,7 +94,7 @@ public class SearchUtil {
         return card;
     }
 
-    public static String buildQueryString(String queryString, String lang, String cost) {
+    public static String buildQueryString(String queryString, String lang, String cost, String version) {
         if (!Strings.isNullOrEmpty(queryString)) {
             queryString = queryString.replaceAll("[^A-Za-z0-9äöüÄÖÜßéèáàúùóò=']", " ");
         } else {
@@ -112,6 +112,10 @@ public class SearchUtil {
             } else {
                 queryString += " cost=" + cost;
             }
+        }
+
+        if(!Strings.isNullOrEmpty(version)) {
+            queryString += " version=" + version;
         }
 
         return queryString;

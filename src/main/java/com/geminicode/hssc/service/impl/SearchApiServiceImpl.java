@@ -43,7 +43,8 @@ public class SearchApiServiceImpl implements SearchApiService {
             return cards;
         }
 
-        queryString = SearchUtil.buildQueryString(queryString, lang, cost);
+        final Version versionFromDb = datastoreService.getVersion();
+        queryString = SearchUtil.buildQueryString(queryString, lang, cost, versionFromDb.getVersion());
 
         final SortOptions sortOptions = SearchUtil.buildSortOptions();
         final QueryOptions options = QueryOptions.newBuilder().setLimit(MAX_PER_PAGE).setSortOptions(sortOptions).build();
