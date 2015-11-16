@@ -54,9 +54,9 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Nam
         search();
     };
 
-//    $scope.$watch(function () { return $scope.query; }, function () {
-//        search();
-//    });
+    $scope.$on('search', function() {
+        search();
+    });
 
     $scope.changeLanguage = function(language) {
         initFlag(language);

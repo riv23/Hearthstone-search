@@ -92,6 +92,7 @@ app.directive('autocomplete', function() {
                 $scope.completing = false;
                 setTimeout(function(){watching = true;},1000);
                 $scope.setIndex(-1);
+                $scope.$emit('search', true);
             };
 
 
