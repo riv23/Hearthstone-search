@@ -42,7 +42,7 @@ public class DatastoreServiceImpl implements DatastoreService {
     }
 
     @Override
-    public void putCards(List<Card> cards, final Locale locale) {
+    public void putCards(List<Card> cards, final String version, final Locale locale) {
         final List<NameCard> nameCards = Lists.newArrayList();
 
         nameCards.addAll(Collections2.transform(cards, new Function<Card, NameCard>() {
@@ -53,6 +53,7 @@ public class DatastoreServiceImpl implements DatastoreService {
                 nameCard.setName(card.getName());
                 nameCard.setCompute(getComputeName(card.getName()));
                 nameCard.setLanguage(TranslateUtil.buildLanguageField(locale));
+                nameCard.setVersion(version);
                 return nameCard;
             }
         }));
@@ -62,13 +63,20 @@ public class DatastoreServiceImpl implements DatastoreService {
     }
 
     @Override
-    public void removeAllCards() {
+    public void removeAllCards(String version) {
         final List<NameCard> list = OfyService.ofy().load().type(NameCard.class).list();
-        OfyService.ofy().delete().entities(list).now();
+        final List<NameCard> listToRemove = Lists.newArrayList();
+        for (NameCard nameCard : list) {
+            if(!version.equals(nameCard.getVersion())) {
+                listToRemove.add(nameCard);
+            }
+        }
+
+        OfyService.ofy().delete().entities(listToRemove).now();
     }
 
     @Override
-    public void putOtherString(final Locale locale) {
+    public void putOtherString(final Locale locale, final String version) {
 
         final List<String> otherStyrings = Lists.newArrayList();
         otherStyrings.addAll(internalizationService.getKeys(locale));
@@ -87,6 +95,7 @@ public class DatastoreServiceImpl implements DatastoreService {
                     LOGGER.log(Level.SEVERE, "Error when translate " + string + " to " + locale.getLanguage());
                 }
                 nameCard.setLanguage(TranslateUtil.buildLanguageField(locale));
+                nameCard.setVersion(version);
                 return nameCard;
             }
         }));

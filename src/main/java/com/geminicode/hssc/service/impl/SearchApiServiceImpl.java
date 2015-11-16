@@ -70,12 +70,12 @@ public class SearchApiServiceImpl implements SearchApiService {
     }
 
     @Override
-    public void deleteAllCards() throws RuntimeException {
+    public void deleteAllCards(String version) throws RuntimeException {
         final Queue queue = QueueFactory.getDefaultQueue();
         try {
             while (true) {
                 final List<String> docIds = Lists.newArrayList();
-                final GetRequest request = GetRequest.newBuilder().setReturningIdsOnly(true).build();
+                final GetRequest request = GetRequest.newBuilder().build();
 
                 final GetResponse<Document> response = INDEX.getRange(request);
                 if (response.getResults().isEmpty()) {
@@ -83,28 +83,36 @@ public class SearchApiServiceImpl implements SearchApiService {
                     break;
                 }
                 for (Document doc : response) {
-                    docIds.add(doc.getId());
+                    final Card card = SearchUtil.getCardFromField(doc.getFields());
+                    if(!version.equals(card.getVersion())) {
+                        docIds.add(doc.getId());
+                    }
                 }
-                INDEX.delete(docIds);
+                if(!docIds.isEmpty()) {
+                    INDEX.delete(docIds);
+                } else {
+                    LOGGER.info("Nothing to delete from the search");
+                    break;
+                }
             }
         } catch (RuntimeException e) {
             LOGGER.info("A new delete task was launch due to : " + e.getLocalizedMessage());
-            queue.add(withUrl("/delete"));
+            queue.add(withUrl("/delete?version="+version));
         }
     }
 
     @Override
-    public void checkNewCards(Locale locale) throws IOException {
-        LOGGER.info("Loading cards for " + locale + " : START");
+    public void checkNewCards(String version, Locale locale) throws IOException {
+        LOGGER.info("Loading cards for " + locale + " : START, version="+version);
         final Map<String, List<Card>> mapCards = CardReader.read(locale);
         final List<Card> wantedCards = Lists.newArrayList();
 
-        wantedCards.addAll(SearchUtil.buildToPersistCards(mapCards, locale));
-        putFullCardsIntoSearch(wantedCards, locale);
-        datastoreService.putCards(wantedCards, locale);
-        datastoreService.putOtherString(locale);
+        wantedCards.addAll(SearchUtil.buildToPersistCards(mapCards, version, locale));
+        putFullCardsIntoSearch(wantedCards, version, locale);
+        datastoreService.putCards(wantedCards, version, locale);
+        datastoreService.putOtherString(locale, version);
 
-        LOGGER.info("Loading cards " + locale + " : END");
+        LOGGER.info("Loading cards " + locale + " : END, version="+version);
     }
 
     @Override
@@ -139,10 +147,10 @@ public class SearchApiServiceImpl implements SearchApiService {
 
     }
 
-    private void putFullCardsIntoSearch(List<Card> cards, Locale locale) throws UnsupportedEncodingException {
+    private void putFullCardsIntoSearch(List<Card> cards, String version, Locale locale) throws UnsupportedEncodingException {
         final List<List<Card>> partition = Lists.partition(cards, MAX_DOC_PER_INDEX);
         for (List<Card> cardList : partition) {
-            INDEX.put(SearchUtil.buildDocumentsForIndex(cardList, locale));
+            INDEX.put(SearchUtil.buildDocumentsForIndex(cardList, version, locale));
         }
     }
 

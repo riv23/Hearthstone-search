@@ -23,18 +23,18 @@ public interface DatastoreService {
      * @param cards Card list
      * @param locale Language (mandatory)
      */
-    void putCards(List<Card> cards, Locale locale);
+    void putCards(List<Card> cards, String version, Locale locale);
 
     /**
      * This service removes all cards from datastore
      */
-    void removeAllCards();
+    void removeAllCards(String version);
 
     /**
      * This service put special strings to the datastore.
      * @param locale Language (mandatory)
      */
-    void putOtherString(Locale locale);
+    void putOtherString(Locale locale, String version);
 
     /**
      * This service update version of hearthstone.

@@ -24,6 +24,9 @@ public class NameCard {
     @Index
     private String language;
 
+    @Index
+    private String version;
+
     public String getId() {
         return id;
     }
@@ -54,5 +57,13 @@ public class NameCard {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

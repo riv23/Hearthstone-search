@@ -19,4 +19,5 @@ public class FieldString {
     public static final String MECHANICS_FIELD = "mechanics";
     public static final String LANG_FIELD = "lang";
     public static final String EXPANSION_FIELD = "expansionField";
+    public static final String VERSION = "version";
 }

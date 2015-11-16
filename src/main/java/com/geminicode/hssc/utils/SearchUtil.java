@@ -85,6 +85,9 @@ public class SearchUtil {
             if (FieldString.LANG_FIELD.equals(field.getName())) {
                 card.setLanguage(field.getAtom());
             }
+            if(FieldString.VERSION.equals(field.getName())) {
+                card.setVersion(field.getAtom());
+            }
 
         }
 
@@ -145,7 +148,7 @@ public class SearchUtil {
         return wantedCards;
     }
 
-    private static void addSpecifiedFields(List<Card> cards, String expansion, Locale locale) {
+    private static void addSpecifiedFields(List<Card> cards, String expansion, String version, Locale locale) {
         String baseUrl = BASE_URL_IMAGE_FR;
         if (Locale.FRENCH.equals(locale)) {
             baseUrl = BASE_URL_IMAGE_FR;
@@ -156,10 +159,11 @@ public class SearchUtil {
         for (Card card : cards) {
             card.setImage(baseUrl + card.getId() + PNG);
             card.setExpansionPack(expansion);
+            card.setVersion(version);
         }
     }
 
-    public static List<Document> buildDocumentsForIndex(List<Card> cards, Locale locale) throws UnsupportedEncodingException {
+    public static List<Document> buildDocumentsForIndex(List<Card> cards, String version, Locale locale) throws UnsupportedEncodingException {
         final List<Document> documents = Lists.newArrayList();
         for (Card card : cards) {
             final String docId = card.getId() + "_" + TranslateUtil.buildLanguageField(locale);
@@ -204,7 +208,10 @@ public class SearchUtil {
                             .addField(Field.newBuilder().setName(FieldString.MECHANICS_FIELD)
                                     .setText(buildMechanicsValues(card.getMechanics(), locale)))
                             .addField(Field.newBuilder().setName(FieldString.LANG_FIELD)
-                                    .setAtom(TranslateUtil.buildLanguageField(locale))).build();
+                                    .setAtom(TranslateUtil.buildLanguageField(locale)))
+                            .addField(Field.newBuilder().setName(FieldString.VERSION)
+                                    .setAtom(version))
+                            .build();
 
             documents.add(doc);
 
@@ -246,7 +253,7 @@ public class SearchUtil {
         return SearchServiceFactory.getSearchService().getIndex(indexSpec);
     }
 
-    public static List<Card> buildToPersistCards(Map<String, List<Card>> mapCards, Locale locale) {
+    public static List<Card> buildToPersistCards(Map<String, List<Card>> mapCards, String version, Locale locale) {
 
         final List<Card> wantedCards = Lists.newArrayList();
         mapCards.remove("Credits");
@@ -258,7 +265,7 @@ public class SearchUtil {
         mapCards.remove("Tavern Brawl");
         for (Map.Entry<String, List<Card>> entry : mapCards.entrySet()){
             final List<Card> wantedBasics = removeUnWantedCards(entry.getValue());
-            addSpecifiedFields(wantedBasics, entry.getKey(), locale);
+            addSpecifiedFields(wantedBasics, entry.getKey(), version, locale);
             wantedCards.addAll(wantedBasics);
         }
 

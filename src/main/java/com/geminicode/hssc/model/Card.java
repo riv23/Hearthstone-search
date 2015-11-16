@@ -40,6 +40,8 @@ public class Card {
 
     private String expansionPack = "";
 
+    private String version = "";
+
     public String getId() {
         return id;
     }
@@ -182,5 +184,13 @@ public class Card {
 
     public void setExpansionPack(String expansionPack) {
         this.expansionPack = expansionPack;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

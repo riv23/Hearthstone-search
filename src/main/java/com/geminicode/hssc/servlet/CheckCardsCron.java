@@ -28,10 +28,11 @@ public class CheckCardsCron extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         if (searchApiService.isLastedVersion()) {
-            searchApiService.deleteAllCards();
-            datastoreService.removeAllCards();
-            searchApiService.checkNewCards(Locale.FRANCE);
-            searchApiService.checkNewCards(Locale.US);
+            final String lastVersion = datastoreService.getVersion().getVersion();
+            searchApiService.checkNewCards(lastVersion, Locale.FRANCE);
+            searchApiService.checkNewCards(lastVersion, Locale.US);
+            searchApiService.deleteAllCards(lastVersion);
+            datastoreService.removeAllCards(lastVersion);
         } else {
             LOGGER.info("Nothing to update");
         }
