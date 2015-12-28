@@ -40,7 +40,7 @@ public class MailServiceImpl implements MailService {
             msg.setHeader("charset", "UTF-8");
             msg.setFrom(new InternetAddress(MAIL_FROM, name));
             msg.addRecipient(Message.RecipientType.TO,  new InternetAddress(MAIL, NAME));
-            msg.setSubject(OBJECT);
+            msg.setSubject(OBJECT, "UTF-8");
             msg.setText(message +"\n"+ "Message come from : " + email);
             Transport.send(msg);
 
