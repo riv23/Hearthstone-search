@@ -7,7 +7,7 @@ app.config(function ($translateProvider) {
         RARITY : "Rarity",
         LEGAL : "Card names and text are all copyright Blizzard Entertainment. This website is not affiliated with Blizzard Entertainment in any way.",
         EXPANSION : "Expansion",
-        PLACEHOLDER : "Ex : Leeroy Jenkins, Blackrock legendary, ...",
+        PLACEHOLDER : "Ex: Leeroy Jenkins, priest",
         GITHUB : "GitHub",
         CARDS : "Card(s)",
         FEEDBACK : "Feedback",
@@ -19,7 +19,7 @@ app.config(function ($translateProvider) {
         SEND : "Send",
         CANCEL : "Cancel",
         FEEDBACK_TITLE : "Any comments, any ideas ? You are welcome.",
-        HOWTO : "Use keywords. Ex: Leeroy Jenkins, Mage, Hunter Legendary, Grand Tournament Legenday, Mage Spell ...",
+        HOWTO : "Use keywords. Ex: Leeroy Jenkins, Mage",
         HOWTOUSE : "How to use?",
         ARTIST : "Artist"
     });
@@ -31,7 +31,7 @@ app.config(function ($translateProvider) {
         RARITY : "Rareté",
         LEGAL : "Le contenu des cartes est la propriété de Blizzard Entertainment. Ce site n'est pas affilié à Blizzard Enternainment en aucun cas.",
         EXPANSION : "Extension",
-        PLACEHOLDER : "Ex : Leeroy Jenkins, Blackrock legendary, ...",
+        PLACEHOLDER : "Ex: Leeroy Jenkins, priest",
         GITHUB : "GitHub",
         CARDS : "Carte(s)",
         FEEDBACK : "Avis",

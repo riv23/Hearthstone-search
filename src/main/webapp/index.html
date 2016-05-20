@@ -28,23 +28,16 @@
 
 <div class="container" ng-controller="SearchCtrl">
     <div class="header clearfix">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <li><a ng-click="changeLanguage('fr')" href="#"><img ng-class="frenchClass" src="img/french.png"/></a></li>
-                <li><a ng-click="changeLanguage('en')" href="#"><img ng-class="englishClass" src="img/english.png"/></a></li>
-            </ul>
-        </nav>
     </div>
     <div class="jumbotron centerfy">
         <img class="img-responsive" src="img/Hearthstone_Logo.png"/>
-        <form ng-submit="submit()">
+        <form>
             <div class="form-group">
-                <autocomplete ng-model="query" data="suggestions" on-type="tapedQuery" attr-placeholder="{{'PLACEHOLDER' | translate}}"></autocomplete>
-                <a href="#" class="information"><span translate="HOWTOUSE"></span><span><p translate="HOWTO"></p></span></a>
+                <autocomplete ng-model="filter.query" data="suggestions" on-type="tapedQuery" attr-placeholder="{{'PLACEHOLDER' | translate}}"></autocomplete>
                 <br />
                 <div class="switch-toggle switch-9 switch-hearthstone col-md-9 col-md-offset-2">
                     <input id="manaAll" name="mana" type="radio">
-                    <label for="manaAll" ng-click="filterMana('')">*</label>
+                    <label for="manaAll" ng-click="filterMana()">*</label>
                     <input id="mana0" name="mana" type="radio">
                     <label for="mana0" ng-click="filterMana(0)">0</label>
                     <input id="mana1" name="mana" type="radio">
@@ -69,12 +62,12 @@
         <p>{{results.length}} <span translate="CARDS"></span></p>
     </div>
     <div class="row">
-        <div class="col-md-4" ng-repeat="card in cards | filteredCost:costFilter as results">
+        <div class="col-md-4" ng-repeat="card in cards | filteredCards:filter as results">
             <card></card>
         </div>
     </div>
     <footer class="footer centerfy" ng-controller="ModalDemoCtrl">
-        <p>&copy; GeminiCode 2015 - <i translate="LEGAL"></i> - <a href="https://github.com/GeminiCode/Hearthstone-Search-Engine" target="_blank"><span translate="GITHUB"></span></a> - <a href="#" ng-click="open()">contact</a> </p>
+        <p>&copy; GeminiCode 2016 - <i translate="LEGAL"></i> - <a href="https://github.com/GeminiCode/Hearthstone-Search-Engine" target="_blank"><span translate="GITHUB"></span></a> - <a href="#" ng-click="open()">contact</a> </p>
     </footer>
 </div>
 
@@ -88,14 +81,12 @@
 <script src="js/utils/collectionUtils.js"></script>
 <script src="js/app.js"></script>
 <script src="js/i18n/translate.js"></script>
-<script src="js/services/namesService.js"></script>
 <script src="js/services/searchService.js"></script>
-<script src="js/services/flagService.js"></script>
 <script src="js/services/accentService.js"></script>
 <script src="js/controllers/searchController.js"></script>
 <script src="js/controllers/modalControlles.js"></script>
 <script src="js/filters/htmlFilter.js"></script>
-<script src="js/filters/costFilter.js"></script>
+<script src="js/filters/cardsFilter.js"></script>
 <script src="js/directives/errorImageDirective.js"></script>
 <script src="js/directives/cardDirective.js"></script>
 <script src="js/directives/rarityDirective.js"></script>

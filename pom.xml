@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
-    <version>1-5-0</version>
+    <version>2-0-0</version>
 
     <groupId>com.geminicode.hssc</groupId>
     <artifactId>search-cards</artifactId>
@@ -162,12 +162,12 @@
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>${appengine-version}</version>
-                <configuration>
-                    <disableUpdateCheck>true</disableUpdateCheck>
-                    <oauth2>false</oauth2>
-                    <passin>true</passin>
-                    <email>angelomiguellima@gmail.com</email>
-                </configuration>
+                <!--<configuration>-->
+                    <!--<disableUpdateCheck>true</disableUpdateCheck>-->
+                    <!--<oauth2>false</oauth2>-->
+                    <!--<passin>true</passin>-->
+                    <!--<email>angelomiguellima@gmail.com</email>-->
+                <!--</configuration>-->
             </plugin>
         </plugins>
     </build>
