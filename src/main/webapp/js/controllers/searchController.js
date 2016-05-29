@@ -13,7 +13,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, Sea
         SearchSrvc.fetch()
             .success(function (data) {
                 _.each(data, function(item) {
-                    item.image = "http://wow.zamimg.com/images/hearthstone/cards/frfr/original/"+item.id+".png";
+                    item.image = "https://wow.zamimg.com/images/hearthstone/cards/frfr/original/"+item.id+".png";
                     if(!item.playerClass) {
                         item.playerClass = "ALL";
                     }
