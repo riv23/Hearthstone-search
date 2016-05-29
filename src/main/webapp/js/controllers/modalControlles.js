@@ -1,8 +1,8 @@
-app.controller('ModalDemoCtrl', function ($scope, $modal, $log) {
+app.controller('ModalDemoCtrl', function ($scope, $uibModal, $log) {
 
     $scope.open = function () {
 
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'templates/feedModal.html',
             controller: 'ModalInstanceCtrl'
@@ -19,23 +19,25 @@ app.controller('ModalDemoCtrl', function ($scope, $modal, $log) {
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
-app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $http, $log) {
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, $http, $log) {
 
     $scope.ok = function () {
         sendMessage();
     };
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 
     var sendMessage = function () {
-        $http.post('/api/message', {name:$scope.name, email:$scope.email, message:$scope.message}).
-            success(function(data, status, headers, config) {
-                $modalInstance.close();
-            }).
-            error(function(data, status, headers, config) {
-                $log.info('Message dismissed at: ' + new Date());
-            });
+        $http.post('/api/message', {
+            name: $scope.name,
+            email: $scope.email,
+            message: $scope.message
+        }).success(function (data, status, headers, config) {
+            $uibModalInstance.close();
+        }).error(function (data, status, headers, config) {
+            $log.info('Message dismissed at: ' + new Date());
+        });
     }
 });

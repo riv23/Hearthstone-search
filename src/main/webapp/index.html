@@ -33,8 +33,9 @@
         <img class="img-responsive" src="img/Hearthstone_Logo.png"/>
         <form>
             <div class="form-group">
-                <autocomplete ng-model="filter.query" data="suggestions" on-type="tapedQuery" attr-placeholder="{{'PLACEHOLDER' | translate}}"></autocomplete>
-                <br />
+                <autocomplete ng-model="filter.query" data="suggestions" on-type="tapedQuery"
+                              attr-placeholder="{{'PLACEHOLDER' | translate}}"></autocomplete>
+                <br/>
                 <div class="switch-toggle switch-9 switch-hearthstone col-md-9 col-md-offset-2">
                     <input id="manaAll" name="mana" type="radio">
                     <label for="manaAll" ng-click="filterMana()">*</label>
@@ -67,17 +68,21 @@
         </div>
     </div>
     <footer class="footer centerfy" ng-controller="ModalDemoCtrl">
-        <p>&copy; GeminiCode 2016 - <i translate="LEGAL"></i> - <a href="https://github.com/GeminiCode/Hearthstone-Search-Engine" target="_blank"><span translate="GITHUB"></span></a> - <a href="#" ng-click="open()">contact</a> </p>
+        <p>&copy; GeminiCode 2016 - <i translate="LEGAL"></i> - <a
+                href="https://github.com/GeminiCode/Hearthstone-Search-Engine" target="_blank"><span
+                translate="GITHUB"></span></a> - <a href="#" ng-click="open()">contact</a></p>
     </footer>
 </div>
 
 <script src="js/analytics.js"></script>
-<script src="js/lib/angular.min.js"></script>
-<script src="js/lib/angular-translate.min.js"></script>
-<script src="js/lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/underscore/underscore-min.js"></script>
+<script src="bower_components/ngprogress/build/ngprogress.min.js"></script>
+<script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
 <script src="js/lib/autocomplete.js"></script>
-<script src="js/lib/underscore-min.js"></script>
-<script src="js/lib/ngProgress.js"></script>
 <script src="js/utils/collectionUtils.js"></script>
 <script src="js/app.js"></script>
 <script src="js/i18n/translate.js"></script>

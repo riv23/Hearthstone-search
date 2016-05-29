@@ -4,6 +4,9 @@ app.directive('rarity', function () {
         transclude: 'true',
         link: function (scope, element, attrs) {
             var value = attrs.value;
+            if(value === 'FREE') {
+                value = "COMMON";
+            }
             var color = "img/" + value.toLowerCase() + ".png";
             element.replaceWith("<img class='img-responsive centerfy ' src='" + color + "' />");
         }

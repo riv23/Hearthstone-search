@@ -66,4 +66,5 @@ app.config(function ($translateProvider) {
     };
 
     $translateProvider.preferredLanguage(defaultLanguage());
+    $translateProvider.useSanitizeValueStrategy('sanitize');
 });
