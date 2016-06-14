@@ -49,7 +49,7 @@ app.filter('filteredCards', function () {
             }
         });
 
-        return input.filter(function (item) {
+        input = input.filter(function (item) {
             for (var p in item) if (item.hasOwnProperty(p)) {
                 if (typeof item[p] === "string") {
                     if (test(item[p])) return true;
@@ -67,6 +67,8 @@ app.filter('filteredCards', function () {
             }
             return false;
         });
+
+        return input;
 
     }
 });

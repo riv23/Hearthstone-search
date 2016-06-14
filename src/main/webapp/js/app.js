@@ -1,1 +1,1 @@
-var app = angular.module('hssc', ['infinite-scroll', 'autocomplete', 'pascalprecht.translate', 'ngProgress', 'ui.bootstrap', 'ngSanitize']);
+var app = angular.module('hssc', ['infinite-scroll', 'pascalprecht.translate', 'ngProgress', 'ui.bootstrap', 'ngSanitize']);
