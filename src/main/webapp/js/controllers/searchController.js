@@ -35,6 +35,7 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, $fi
 
     $scope.filterMana= function(value) {
         $scope.filter.cost = value;
+        $scope.filteredCards = $filter('filteredCards')($scope.cards, $scope.filter)
     };
 
     search();
