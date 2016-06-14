@@ -54,16 +54,6 @@ app.filter('filteredCards', function () {
                 if (typeof item[p] === "string") {
                     if (test(item[p])) return true;
                 }
-                else if (Array.isArray(item[p])) {
-                    if (item[p].some(test)) return true
-                }
-                else if (item[p] instanceof Object) {
-                    for (var pp in item[p]) if (item[p].hasOwnProperty(pp)) {
-                        if (typeof item[p][pp] === "string") {
-                            if (test(item[p][pp])) return true;
-                        }
-                    }
-                }
             }
             return false;
         });

@@ -31,9 +31,9 @@
     </div>
     <div class="jumbotron centerfy">
         <img class="img-responsive" src="img/Hearthstone_Logo.png"/>
-        <form ng-submit="submit()">
+        <form>
             <div class="form-group" >
-                <input type="text" class="form-control" ng-model="filter.query" placeholder="{{'PLACEHOLDER' | translate}}"/>
+                <input type="text" class="form-control" ng-model="filter.query" ng-change="submit()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }" placeholder="{{'PLACEHOLDER' | translate}}"/>
                 <br/>
                 <div class="switch-toggle switch-9 switch-hearthstone col-md-9 col-md-offset-2">
                     <input id="manaAll" name="mana" type="radio">

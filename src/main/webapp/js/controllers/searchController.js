@@ -1,4 +1,4 @@
-app.controller('SearchCtrl', function ($scope, $http, $location, $translate, $filter, SearchSrvc, ngProgressFactory) {
+app.controller('SearchCtrl', function ($scope, $http, $location, $translate, filteredCardsFilter, SearchSrvc, ngProgressFactory) {
 
     $scope.progressbar = ngProgressFactory.createInstance();
 
@@ -30,12 +30,12 @@ app.controller('SearchCtrl', function ($scope, $http, $location, $translate, $fi
     };
 
     $scope.submit = function() {
-        $scope.filteredCards = $filter('filteredCards')($scope.cards, $scope.filter)
+        $scope.filteredCards = filteredCardsFilter($scope.cards, $scope.filter)
     };
 
     $scope.filterMana = function(value) {
         $scope.filter.cost = value;
-        $scope.filteredCards = $filter('filteredCards')($scope.cards, $scope.filter)
+        $scope.filteredCards = filteredCardsFilter($scope.cards, $scope.filter)
     };
 
     search();
