@@ -25,7 +25,7 @@ app.filter('filteredCards', function () {
     }
 
     return function (input, value) {
-        if (_.isEmpty(value)) {
+        if (_.isEmpty(value.query)) {
             return [];
         }
 
