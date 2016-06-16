@@ -51,8 +51,10 @@ app.filter('filteredCards', function () {
 
         input = input.filter(function (item) {
             for (var p in item) if (item.hasOwnProperty(p)) {
-                if (typeof item[p] === "string") {
-                    if (test(item[p])) return true;
+                if(p === "set" || p === "text" || p === "playerClass" || p === "name" || p === "rarity" || p === "type") {
+                    if (typeof item[p] === "string") {
+                        if (test(item[p])) return true;
+                    }
                 }
             }
             return false;

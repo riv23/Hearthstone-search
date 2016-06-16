@@ -12,6 +12,7 @@
                     <h5 class="text-center"><b translate="CLASS"></b> : {{::card.playerClass}}</h5>
                     <h5 class="text-center"><b translate="CITATION"></b> : <i><span ng-bind-html="::card.flavor | trusted"></span></i></h5>
                     <h5 class="text-center"><b translate="ARTIST"></b> : <i>{{::card.artist}}</i></h5>
+                    <h5 ng-if="::card.set" class="text-center"><b translate="EXPANSION"></b> : <i>{{::card.set}}</i></h5>
                 </div>
             </div>
         </div>
