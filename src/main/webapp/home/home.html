@@ -1,0 +1,40 @@
+<div class="jumbotron centerfy">
+    <div class="logo-hearthstone"></div>
+    <form>
+        <div class="form-group" >
+            <input style="margin-bottom: 10px;" type="text" class="form-control" ng-model="home.filter.query" ng-change="home.submit()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }" placeholder="Leeroy Jenkins, mage ..."/>
+            <div class="switch-toggle switch-9 switch-hearthstone col-md-9 col-md-offset-2">
+                <input id="manaAll" name="mana" type="radio">
+                <label for="manaAll" ng-click="home.filterMana()">*</label>
+                <input id="mana0" name="mana" type="radio">
+                <label for="mana0" ng-click="home.filterMana(0)">0</label>
+                <input id="mana1" name="mana" type="radio">
+                <label for="mana1" ng-click="home.filterMana(1)">1</label>
+                <input id="mana2" name="mana" type="radio">
+                <label for="mana2" ng-click="home.filterMana(2)">2</label>
+                <input id="mana3" name="mana" type="radio">
+                <label for="mana3" ng-click="home.filterMana(3)">3</label>
+                <input id="mana4" name="mana" type="radio">
+                <label for="mana4" ng-click="home.filterMana(4)">4</label>
+                <input id="mana5" name="mana" type="radio">
+                <label for="mana5" ng-click="home.filterMana(5)">5</label>
+                <input id="mana6" name="mana" type="radio">
+                <label for="mana6" ng-click="home.filterMana(6)">6</label>
+                <input id="mana7" name="mana" type="radio">
+                <label for="mana7" ng-click="home.filterMana(7)">7+</label>
+                <a></a>
+            </div>
+        </div>
+    </form>
+    <br />
+    <p>{{home.filteredCards.length}} Cards</span></p>
+</div>
+<div class="row">
+    <div class="col-md-4" ng-repeat="card in home.filteredCards as results track by card.id">
+        <card name="home.name"></card>
+    </div>
+</div>
+<footer class="footer centerfy" >
+    <p>&copy; GeminiCode 2017 - <i>Card names and text are all copyright Blizzard Entertainment. This website is not affiliated with Blizzard Entertainment in any way.</i> - <a
+            href="https://github.com/GeminiCode/Hearthstone-Search-Engine" target="_blank"><span>GitHub</span></a></p>
+</footer>

@@ -1,0 +1,20 @@
+<div class="card-container">
+    <div class="card">
+        <div class="front">
+            <img width="307px" height="465px" class="img-responsive centerfy" ng-src="{{::card.image}}" err-src="http://wow.zamimg.com/images/hearthstone/cardbacks/original/Card_Back_IceCrown.png"/>
+        </div>
+        <div class="back">
+            <div class="header"></div>
+            <div class="content">
+                <div class="main">
+                    <h4 class="text-center"><b class="text-muted">{{::card.name}}</b></h4>
+                    <!-- <rarity value="{{::card.rarity}}"></rarity> -->
+                    <h5 class="text-center"><b>Class</b> : {{::card.playerClass}}</h5>
+                    <h5 class="text-center"><b>Citation</b> : <i><span ng-bind-html="::card.flavor | trusted"></span></i></h5>
+                    <h5 class="text-center"><b>Artist</b> : <i>{{::card.artist}}</i></h5>
+                    <h5 ng-if="::card.set" class="text-center"><b>Expansion</b> : <i>{{::card.set}}</i></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
