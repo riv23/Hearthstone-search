@@ -1,4 +1,5 @@
 export default class HomeController {
+
   constructor(searchService, $filter) {
     this.cards = [];
     this.filteredCards = [];
@@ -33,3 +34,4 @@ export default class HomeController {
   }
 
 }
+HomeController.$inject = ["searchService", "$filter"];

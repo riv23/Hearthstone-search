@@ -12,7 +12,7 @@ class SearchService {
     return this.$http({method : 'GET', url: URL});
   }
 }
-
+SearchService.$inject = ['$http'];
 export default angular.module('services.search', [])
   .service('searchService', SearchService)
   .name;
